@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en" class="no-js">
+<head>
+	<!-- Basic need -->
+	<title>Open Pediatrics</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<link rel="profile" href="#">
+
+	<!-- Mobile specific meta -->
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone-no">
+    
+    <%- include('layouts/head') %>
+
+</head>
+<body>
+    <!--preloading-->
+    <%- include('layouts/loading') %>
+    <!--end of preloading-->
+
+    <!--login form popup-->
+    <%- include('layouts/login-form') %>
+    <!--end of login form popup-->
+
+    <!--signup form popup-->
+    <%- include('layouts/sign-up-form') %>
+    <!--end of signup form popup-->
+
+    <!-- BEGIN | Header -->
+    <%- include('layouts/header') %>
+    <!-- END | Header -->
+    
+    <div class="content">
+        
+    </div>
+    <!--end of latest new v1 section-->
+
+    <!-- footer section-->
+    <%- include('layouts/footer') %>
+    <!-- end of footer section-->
+
+    <%- include('layouts/javascript') %>
+</body>
+</html>

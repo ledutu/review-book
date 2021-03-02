@@ -6,6 +6,10 @@ var logger = require('morgan');
 
 //User
 var homeUser = require('./src/routes/user/home');
+var book = require('./src/routes/user/book');
+var writer = require('./src/routes/user/writer');
+var user = require('./src/routes/user/user');
+var blog = require('./src/routes/user/blog');
 
 var app = express();
 
@@ -21,6 +25,10 @@ app.use(express.static(path.join(__dirname, '/src/public')));
 
 //Route User
 app.use('/', homeUser);
+app.use('/book', book);
+app.use('/writer', writer);
+app.use('/user', user);
+app.use('/blog', blog);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
