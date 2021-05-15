@@ -9,10 +9,10 @@ var mongoose = require('mongoose');
 
 //User
 var homeUser = require('./src/routes/user/home');
-var book = require('./src/routes/user/book');
-var writer = require('./src/routes/user/writer');
-var user = require('./src/routes/user/user');
-var blog = require('./src/routes/user/blog');
+// var book = require('./src/routes/user/book');
+// var writer = require('./src/routes/user/writer');
+// var user = require('./src/routes/user/user');
+// var blog = require('./src/routes/user/blog');
 
 var app = express();
 
@@ -43,10 +43,10 @@ mongoose.connect("mongodb://localhost:27017/book_review", {
 
 //Route User
 app.use('/', homeUser);
-app.use('/book', book);
-app.use('/writer', writer);
-app.use('/user', user);
-app.use('/blog', blog);
+// app.use('/book', book);
+// app.use('/writer', writer);
+// app.use('/user', user);
+// app.use('/blog', blog);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
