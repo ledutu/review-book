@@ -7046,7 +7046,7 @@ p.ceb-single {
   background-color: #00b9ef;
 }
 .slider {
-  background: url('../images/uploads/slider-bg1.jpg') no-repeat;
+  background: url('../images/uploads/background.jpg') no-repeat;
   background-position: center;
   text-align: center;
   background-size: cover;
@@ -8139,7 +8139,7 @@ header#headerv3-light {
   }
 }
 footer {
-  background: url('../images/uploads/ft-bg1.jpg') no-repeat;
+  background: rgba(15, 33, 51) no-repeat;  
   background-position: center;
   background-size: cover;
 }
