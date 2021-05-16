@@ -49,10 +49,10 @@ app.use('/', homeUser);
 // app.use('/blog', blog);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  res.render('user/error');
-  // next(createError(404));
-});
+// app.use(function (req, res, next) {
+//   res.render('user/error');
+//   // next(createError(404));
+// });
 
 // error handler
 app.use(function (err, req, res, next) {
