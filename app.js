@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-// var mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
 
 //User
@@ -30,16 +30,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/src/public')));
 
-// mongoose.connect("mongodb://localhost:27017/book_review", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   useCreateIndex: true,
-// }).then(() => {
-//   console.log('Database connected');
-// }).catch((error) => {
-//   console.log(error);
-//   console.log('Error connecting to database');
-// });
+mongoose.connect("mongodb://localhost:27017/book_review", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+}).then(() => {
+  console.log('Database connected');
+}).catch((error) => {
+  console.log(error);
+  console.log('Error connecting to database');
+});
 
 //Route User
 app.use('/', homeUser);
