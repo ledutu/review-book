@@ -6684,7 +6684,8 @@ p.ceb-single {
   }
 }
 .page-single-2 {
-  background: url('../images/uploads/error-bg.jpg') no-repeat;
+  background: rgba(15, 33, 51) no-repeat;  
+  height: 100%;
   background-position: center;
   text-align: center;
   background-size: cover;
