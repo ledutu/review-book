@@ -1,23 +1,37 @@
 version: "3.9"
 
+#NETWORD
+networks: 
+    review-book-network:
+        driver: bridge
+
 services: 
-    app:
-        build: .
+    db:
+        container_name: mongo-container
+        image: mongo:4.4.6
+        networks: 
+            - review-book-network
         volumes: 
-            - ./:/app
-        environment: 
-            - DB_HOST=db
-            - DB_NAME=book_review
-            - PORT=3000
+            - ./docker/mongo/:/data/db/
         ports: 
-            - "3000:3000"
-        restart: unless-stopped
-        depends_on: 
-            - database
-    
-    database:
-        image: mongo
+            - "27018:27017"
+            
+    app:
+        container_name: app-container
+        image: node-app-image
+        networks: 
+            - review-book-network
         volumes: 
-            - ./docker/data/db:/data/db
-        restart: unless-stopped
+            - .:/usr/src/app
+        ports: 
+            - 3000:3000
+        environment: 
+            - DB_NAME=book_review
+            - DB_PORT=27017
+            - DB_HOST=db
+            - ACCESS_TIMEOUT=3000
+            - PORT=3000
+        depends_on: 
+            - db
+            
         
