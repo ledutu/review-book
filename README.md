@@ -16,6 +16,7 @@ npm install
 npm start
 ```
 * Step 4: Open chrome and enter. Your computer had to be installed mongo before.
+
 **Web**
 ```
 http://localhost:3000/
@@ -62,10 +63,10 @@ http://localhost:3000/
 mongodb://localhost:27018
 ```
 
-### Page detail
+## Page detail
 * Coming soon.
 
-### Process using git to push code
+## Process using git to push code
 * Step 1: After pull code from master to your desktop
 * Step 2: Create a new branch with command:
 ```
@@ -79,7 +80,7 @@ git checkout [your already created branch]
 * Step 5: When you finish 1 task. Then push code in that branch to git
 * Step 6: Create a new pull request to master. Done.
 
-### Process push into git
+## Process push into git
 * Step 1: Add
 ```
 git add . (add all file into local)
@@ -90,5 +91,10 @@ git commit -m "<your message>" (commit into your local with a message)
 ```
 * Step 3: Push your code to server
 ```
-git push (push to server). if first time you push, you must use this command git push --set-upstream origin <your branch>
+git push.
 ```
+_if first time you push, you must use this command_
+```
+git push --set-upstream origin <your branch>
+```
+
