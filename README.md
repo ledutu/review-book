@@ -53,10 +53,10 @@ sudo docker build -t node-app-image .
 sudo docker-compose up
 ```
 * Step 4: Open chrome and enter
+
 **Web**
 ```
 http://localhost:3000/
-
 ```
 **Database**
 ```
