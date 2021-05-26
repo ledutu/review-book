@@ -22,9 +22,11 @@ async function index(request, response) {
 
         // const userResponse = await user.save();
 
-        response.render('user/home');
+        message = 'Your version is old. You have to update new version to access application again'
+
+        response.render('user/home', { message });
     } catch (error) {
-        
+
         return response.send(error);
     }
 
@@ -35,7 +37,7 @@ async function index(request, response) {
     // }).catch((err) => {
     //     console.log(err);
     // });;
-    
+
     // return response.send()
 
 }

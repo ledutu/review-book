@@ -6,6 +6,8 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var i18n = require("i18n");
+const { flash } = require('express-flash-message');
+const session = require('express-session');
 
 //User
 var homeUser = require('./src/routes/user/home');
@@ -36,6 +38,22 @@ i18n.configure({
     cookie: 'lang',
     objectNotation: true
 });
+
+// express-session
+app.use(
+    session({
+        secret: 'secret',
+        resave: false,
+        saveUninitialized: true,
+        cookie: {
+            maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+            // secure: true, // becareful set this option, check here: https://www.npmjs.com/package/express-session#cookiesecure. In local, if you set this to true, you won't receive flash as you are using `http` in local, but http is not secure
+        },
+    })
+);
+
+// apply express-flash-message middleware
+app.use(flash({ sessionKeyName: 'flashMessage' }))
 
 const { DB_HOST, DB_PORT, DB_NAME, ACCESS_TIMEOUT } = process.env;
 
@@ -70,8 +88,8 @@ app.use('/blog', blog);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    res.render('user/error');
-    //   next(createError(404));
+    // res.render('user/error');
+    next(createError(404));
 });
 
 // error handler
@@ -83,7 +101,8 @@ app.use(function (err, req, res, next) {
     // render the error page
     console.log(err);
     // res.status(err.status || 500);
-    res.render('user/error');
+    res.send(err)
+    // res.render('user/error');
 });
 
 module.exports = app;
