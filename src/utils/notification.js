@@ -1,9 +1,9 @@
-function show() {
-    
+function show(request, message) {
+    request.app.locals.message = message;
 }
 
-function dismiss() {
-    
+function dismiss(request) {
+    request.app.locals.message = '';
 }
 
 const Notification = {

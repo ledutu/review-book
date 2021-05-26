@@ -1,5 +1,6 @@
 var express = require('express');
 const { User } = require('../../models/user/user');
+const Notification = require('../../utils/notification');
 
 async function index(request, response) {
     // console.log(User);
@@ -24,7 +25,9 @@ async function index(request, response) {
 
         message = 'Your version is old. You have to update new version to access application again'
 
-        response.render('user/home', { message });
+        Notification.show(request, message);
+        // Notification.dismiss(request);
+        response.render('user/home');
     } catch (error) {
 
         return response.send(error);
