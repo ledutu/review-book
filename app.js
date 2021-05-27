@@ -6,8 +6,10 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var i18n = require("i18n");
-const { flash } = require('express-flash-message');
 const session = require('express-session');
+var faker = require('faker');
+
+console.log(faker.image.image());
 
 //User
 var homeUser = require('./src/routes/user/home');
@@ -15,8 +17,11 @@ var book = require('./src/routes/user/book');
 var writer = require('./src/routes/user/writer');
 var user = require('./src/routes/user/user');
 var blog = require('./src/routes/user/blog');
+var seed = require('./src/database/seed/seed.route');
 
 var app = express();
+
+require('dotenv').config()
 
 // view engine setup
 app.set('views', path.join(__dirname, '/src/views'));
@@ -46,14 +51,10 @@ app.use(
         resave: false,
         saveUninitialized: true,
         cookie: {
-            maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
-            // secure: true, // becareful set this option, check here: https://www.npmjs.com/package/express-session#cookiesecure. In local, if you set this to true, you won't receive flash as you are using `http` in local, but http is not secure
+            maxAge: 1000 * 60 * 60 * 24 * 7,
         },
     })
 );
-
-// apply express-flash-message middleware
-app.use(flash({ sessionKeyName: 'flashMessage' }))
 
 const { DB_HOST, DB_PORT, DB_NAME, ACCESS_TIMEOUT } = process.env;
 
@@ -64,8 +65,7 @@ const db = mongoose.connection;
 const connectWithRetry = function () {
     return mongoose.connect(mongoUrl, {
         useNewUrlParser: true,
-        useFindAndModify: false,
-        useCreateIndex: true,
+        useUnifiedTopology: true
     }, (err) => {
         if (err) {
             console.error('Failed to connect to mongo on startup - retrying in 5 sec', err)
@@ -85,11 +85,13 @@ app.use('/book', book);
 app.use('/writer', writer);
 app.use('/user', user);
 app.use('/blog', blog);
+app.use('/blog', blog);
+app.use('/api/db', seed);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    // res.render('user/error');
-    next(createError(404));
+    res.render('user/error');
+    // next(createError(404));
 });
 
 // error handler

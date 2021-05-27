@@ -1,48 +1,40 @@
 var express = require('express');
 const { User } = require('../../models/user/user');
+const { Profile } = require('../../models/user/profile');
+const { Book } = require('../../models/user/book');
+const { Blog } = require('../../models/user/blog');
+const { BookCategory } = require('../../models/user/book_category');
+const { BookComment } = require('../../models/user/book_comment');
+const { BlogComment } = require('../../models/user/blog_comment');
 const Notification = require('../../utils/notification');
+const Seeder = require('../../utils/seeder');
+
 
 async function index(request, response) {
-    // console.log(User);
-
-    // const userModel = {
-    //     id: "123452",
-    //     username: "ledutu",
-    //     email: "ledutu.it@gmail.com",
-    //     full_name: "Le Duc Tung",
-    //     address: "341/19/14 Khuong Viet",
-    //     password: "$2y$12$nSnRhlAKH77f6X/abvrFX.EGK98yUr7p/czVbpNUyux2hBpewjoIC",
-    //     password_not_hash: "123456",
-    //     image: "https://lwlies.com/wp-content/uploads/2017/04/avatar-2009.jpg",
-    //     user_follow: [],
-    //     block: false,
-    // }
-
-    try {
-        // const user = new User(userModel);
-
+    // try {
         // const userResponse = await user.save();
 
+        // User -> -> BookCategory -> Book -> Blog -> Book Comment -> Blog Comment
+        // seeders = await Seeder.createBookCategory();
+        // console.log(seeders.bookCategories);
+        // console.log(seeders.blogs);
+        // await BlogComment.insertMany(seeders.blogComments);
+        // await BookCategory.insertMany(seeders.bookCategories);
+        // const users = await User.find({}).select('_id').limit(2);
+        
+        // const books = await Book.find({}).populate('reviewer').populate('category');
+        
+        // console.log(books[0]);
+        
         message = 'Your version is old. You have to update new version to access application again'
 
-        Notification.show(request, message);
+        // Notification.show(request, message);
         // Notification.dismiss(request);
-        response.render('user/home');
-    } catch (error) {
-
-        return response.send(error);
-    }
-
-
-    // User.find().then((result) => {
-    //     console.log(result);
-
-    // }).catch((err) => {
-    //     console.log(err);
-    // });;
-
-    // return response.send()
-
+        response.render('user/home', { message });
+    // } catch (error) {
+    //     console.log('err')
+    //     return response.send(error);
+    // }
 }
 
 module.exports = {
