@@ -63,6 +63,52 @@ http://localhost:3000/
 mongodb://localhost:27018
 ```
 
+## Create database automaticly
+### Database List
+* users: Store all users
+* profiles: Store all detail information of user
+* books: Store all book review article.
+* blogs: Store all blog
+* book_categories: Store all book's category
+* book_comments: Store all comment of one book review article
+* blog_comments: Store all comment of one blog
+
+### To create database by command
+**For Window**
+* Step 1: Open git bash where we can run script file.
+* Step 2: At root project, cd to scripts folder
+```
+cd scripts
+```
+* Step 3: Run script file.
+```
+./create-db.sh <collection> <number of document> <locale>
+```
+
+**For Linux/Ubuntu**
+* Step 1: Open git bash where we can run script file.
+* Step 2: At root project, cd to scripts folder
+```
+cd scripts
+```
+* Step 3: Run script file.
+```
+bash create-db.sh <collection> <number of document> <locale>
+```
+
+**Description**
+__collection__
+** user
+** book
+** book-category
+** blog
+** book-comment
+** blog-comment
+** all: all is create all collection
+
+__number of document__: __It is amount of rows of collection (Default: 5, Optional)__
+__locale__: __It is language of document (Ex: vi, en, de,...) (Default: de, Optional)__
+
 ## Page detail
 * Coming soon.
 
