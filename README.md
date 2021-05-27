@@ -97,17 +97,22 @@ bash create-db.sh <collection> <number of document> <locale>
 ```
 
 **Description**
-__collection__
-** user
-** book
-** book-category
-** blog
-** book-comment
-** blog-comment
-** all: all is create all collection
 
-__number of document__: __It is amount of rows of collection (Default: 5, Optional)__
-__locale__: __It is language of document (Ex: vi, en, de,...) (Default: de, Optional)__
+__collection__
+
+* user
+* book
+* book-category
+* blog
+* book-comment
+* blog-comment
+* all: all is create all collection
+
+__number of document__
+It is amount of rows of collection (Default: 5, Optional)__
+
+__locale__
+It is language of document (Ex: vi, en, de,...) (Default: de, Optional)
 
 ## Page detail
 * Coming soon.
