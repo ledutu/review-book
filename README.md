@@ -109,7 +109,7 @@ __collection__
 * all: all is create all collection
 
 __number of document__:
-It is amount of rows of collection (Default: 5, Optional
+It is amount of rows of collection (Default: 5, Optional)
 
 __locale__:
 It is language of document (Ex: vi, en, de,...) (Default: de, Optional)
