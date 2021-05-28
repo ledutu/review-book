@@ -9,6 +9,7 @@ API_URL=http://localhost:3000/api/db
 TYPE=$1
 TIMES=$2
 LOCALE=$3
+HASH=ledutu
 
 function createUser () {
     echo "Creating User database......"

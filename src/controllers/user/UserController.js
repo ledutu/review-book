@@ -1,6 +1,7 @@
 var express = require('express');
 const { User } = require('../../models/user/user.js');
 
+
 function getUserProfile(request, response) {
     response.render('user/user-profile');
 }
@@ -14,12 +15,15 @@ function getUserWriterFavorite(request, response) {
 }
 
 function postLogin(request, response) {
-    response.send('Login');
+    const { email, password, remember } = request.body;
+
+    console.log(request.body);    
+    
+    response.redirect('back')
+    
 }
 
 async function postSignUp(request, response) {
-
-    console.log(request.body);
 
     try {
         // const newUser = User.findOne

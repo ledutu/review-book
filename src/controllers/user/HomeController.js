@@ -11,32 +11,31 @@ const Seeder = require('../../utils/seeder');
 
 
 async function index(request, response) {
-    // try {
-        // const userResponse = await user.save();
+    try {
+        // message = 'Your version is old. You have to update new version to access application again'
 
-        // User -> -> BookCategory -> Book -> Blog -> Book Comment -> Blog Comment
-        // seeders = await Seeder.createBookCategory();
-        // console.log(seeders.bookCategories);
-        // console.log(seeders.blogs);
-        // await BlogComment.insertMany(seeders.blogComments);
-        // await BookCategory.insertMany(seeders.bookCategories);
-        // const users = await User.find({}).select('_id').limit(2);
-        
-        // const books = await Book.find({}).populate('reviewer').populate('category');
-        
-        // console.log(books[0]);
-        
-        message = 'Your version is old. You have to update new version to access application again'
+        popularBooks = await Book.find({}, {}, { sort: { vote: -1 } })
+            .select(['image', '_id', 'book_name'])
+            .populate('category', ['_id', 'short_name']).limit(12);
 
-        // Notification.show(request, message);
-        // Notification.dismiss(request);
-        response.render('user/home', { message });
-    // } catch (error) {
-    //     console.log('err')
-    //     return response.send(error);
-    // }
+        console.log(popularBooks[0]);
+
+        response.render('user/home', {
+            popularBooks
+        });
+    } catch (error) {
+        console.error(error)
+        return response.send(error);
+    }
+}
+
+function changeLanguage(request, response) {
+    const { lang } = request.params;
+    response.cookie('lang', lang, { maxAge: 900000 });
+    response.redirect('back');
 }
 
 module.exports = {
     index,
+    changeLanguage,
 }

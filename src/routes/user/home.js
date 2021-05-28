@@ -6,5 +6,6 @@ const HomeController = require('../../controllers/user/HomeController');
 
 // get home
 router.get('/', HomeController.index);
+router.get('/language/:lang', HomeController.changeLanguage);
 
 module.exports = router;

@@ -1,0 +1,21 @@
+{
+	"auth": {
+		"login": "Đăng nhập",
+		"email": "Email",
+		"password": "Mật khẩu",
+		"remember-me": "Lưu mật khẩu",
+		"forget-password": "Quên mật khẩu",
+		"or-via-social": "Hoặc qua mạng xã hội",
+		"sign-up": "Đăng kí",
+		"username": "Tên đăng nhập",
+		"retype-password": "Nhập lại mật khẩu",
+		"password-confirm": "Xác nhận mật khẩu"
+	},
+	"header": {
+		"dashboard": "Trang chủ",
+		"category": "Thể loại",
+		"contributor": "Người đóng góp",
+		"blog": "Blog",
+		"about-us": "Về chúng tôi"
+	}
+}

@@ -7,9 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var i18n = require("i18n");
 const session = require('express-session');
-var faker = require('faker');
-
-console.log(faker.image.image());
+var passport = require('passport');
 
 //User
 var homeUser = require('./src/routes/user/home');
@@ -36,6 +34,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/src/public')));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(i18n.init);
 
 i18n.configure({
     locales: ['en', 'vi'],
@@ -85,7 +88,8 @@ app.use('/book', book);
 app.use('/writer', writer);
 app.use('/user', user);
 app.use('/blog', blog);
-app.use('/blog', blog);
+
+//Test
 app.use('/api/db', seed);
 
 // catch 404 and forward to error handler

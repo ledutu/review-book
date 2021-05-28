@@ -2,35 +2,35 @@
 <div class="login-wrapper"  id="signup-content">
     <div class="login-content">
         <a href="#" class="close">x</a>
-        <h3>sign up</h3>
+        <h3><%- __('auth.sign-up') %></h3>
         <form method="post" action="/user/sign-up">
             <div class="row">
                  <label for="username-2">
-                    Username:
-                    <input type="text" name="username" id="username-2" placeholder="Username" required="required" />
+                    <%- __('auth.username') %>
+                    <input type="text" name="username" id="username-2" placeholder="<%- __('auth.username') %>" required="required" />
                 </label>
             </div>
            
             <div class="row">
                 <label for="email-2">
-                    your email:
-                    <input type="email" name="email" id="email-2" placeholder="Email" required="required" />
+                    <%- __('auth.email') %>
+                    <input type="email" name="email" id="email-2" placeholder="<%- __('auth.email') %>" required="required" />
                 </label>
             </div>
              <div class="row">
                 <label for="password-2">
-                    Password:
-                    <input type="password" name="password" id="password-2" placeholder="Password" required="required" />
+                    <%- __('auth.password') %>
+                    <input type="password" name="password" id="password-2" placeholder="<%- __('auth.password') %>" required="required" />
                 </label>
             </div>
              <div class="row">
                 <label for="repassword-2">
-                    re-type Password:
-                    <input type="password" name="password" id="repassword-2" placeholder="Password confirm" required="required" />
+                    <%- __('auth.retype-password') %>
+                    <input type="password" name="password" id="repassword-2" placeholder="<%- __('auth.password-confirm') %>" required="required" />
                 </label>
             </div>
            <div class="row">
-             <button type="submit">sign up</button>
+             <button type="submit"><%- __('auth.sign-up') %></button>
            </div>
         </form>
     </div>

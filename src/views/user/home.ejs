@@ -54,20 +54,22 @@
                         <a href="#"><i class="ion-social-youtube"></i></a>
                     </div>
                     <div  class="slick-multiItemSlider">
-                        <% for(let i = 0; i < 9; i++){ %> 
-                        <div class="movie-item">
-                            <div class="mv-img">
-                                <a href="#"><img src="/user/images/uploads/slider1.jpg" alt="" width="285" height="437"></a>
-                            </div>
-                            <div class="title-in">
-                                <div class="cate">
-                                    <span class="blue"><a href="/book?category=<%= i %>">Khoa học</a></span>
+                        <% popularBooks.forEach(book => { %>
+                            <div class="movie-item">
+                                <div class="mv-img">
+                                    <a href="#"><img src="<%- book.image.title %> " alt="" width="285" height="437"></a>
                                 </div>
-                                <h6><a href="/book/<%= i %>">Phi lí trí</a></h6>
-                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                            </div>
-                        </div>
-                        <% } %>
+                                <div class="title-in">
+                                    <div class="cate">
+                                        <% book.category.forEach(cate => { %>
+                                            <span class="blue"><a href="/book?category=<%- cate._id %>"><%- cate.short_name %> </a></span>
+                                        <% }) %>
+                                    </div>
+                                    <h6 class="short-text"><a href="/book/<%- book._id %>"><%- book.book_name %> </a></h6>
+                                    <p><i class="ion-android-star"></i><span>7.4</span> / 10</p>
+                                </div>
+                            </div> 
+                        <% }) %>
                     </div>
                 </div>
             </div>
