@@ -5671,11 +5671,13 @@ ul {
   height: 538px;
 }
 .common-hero {
-  height: 385px;
-  background: url('../images/uploads/user-hero-bg.jpg') no-repeat;
+  /* height: 385px;
+  background: url('../images/uploads/user-hero-bg.jpg') no-repeat; */
+  background-color: rgb(15, 33, 51);
 }
 .common-hero:before {
-  background-color: rgba(0, 0, 0, 0.4);
+  /* background-color: rgba(0, 0, 0, 0.4); */
+  background-color: rgb(15, 33, 51);
 }
 .user-hero {
   height: 385px;
