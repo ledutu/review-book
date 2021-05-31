@@ -20,38 +20,42 @@
 							<a href="#page-top"></a>
 						</li>
 						<li>
-							<a href="/">Trang chủ</a>
+							<a href="/"><%- __('header.dashboard') %></a>
 						</li>
 						<li class="dropdown first">
 							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							Thể loại<i class="fa fa-angle-down" aria-hidden="true"></i>
+							<%- __('header.category') %><i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
 								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" >Thể loại 1<i class="ion-ios-arrow-forward"></i></a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" ><%- __('header.category') %> 1<i class="ion-ios-arrow-forward"></i></a>
 									<ul class="dropdown-menu level2">
-										<li><a href="/book?category=5">Thể loại 1-1</a></li>
-										<li><a href="/book"><C></C>ategory 1-2</a></li>
+										<li><a href="/book?category=5"><%- __('header.category') %> 1-1</a></li>
+										<li><a href="/book"><%- __('header.category') %> 1-2</a></li>
 									</ul>
 								</li>			
-								<li><a href="movielist.html">Thể loại 2</a></li>
-								<li><a href="moviesingle.html">Thể loại 3</a></li>
-								<li class="it-last"><a href="seriessingle.html">Thể loại 4</a></li>
+								<li><a href="movielist.html"><%- __('header.category') %> 2</a></li>
+								<li><a href="moviesingle.html"><%- __('header.category') %> 3</a></li>
+								<li class="it-last"><a href="seriessingle.html"><%- __('header.category') %> 4</a></li>
 							</ul>
 						</li>
 						<li>
-							<a href="/writer">Người đóng góp</a>
+							<a href="/writer"><%- __('header.contributor') %></a>
 						</li>
 						<li>
-							<a href="/blog">Blog</a>
+							<a href="/blog"><%- __('header.blog') %></a>
 						</li>
 						<li>
-							<a href="/">Về chúng tôi</a>
+							<a href="/"><%- __('header.about-us') %></a>
 						</li>
 					</ul>
 					<ul class="nav navbar-nav flex-child-menu menu-right">
-						<li class="loginLink"><a href="#">Đăng nhập</a></li>
-						<li class="btn signupLink"><a href="#">Đăng kí</a></li>
+						<% if (typeof user !== 'undefined') { %>
+							<img src="/user/images/no-image.png" class="avatar-image" alt="" width="35px" height="35px">						
+						<% } else { %>
+							<li class="loginLink"><a href="#"><%- __('auth.login') %></a></li>
+							<li class="btn signupLink"><a href="#"><%- __('auth.sign-up') %></a></li> 
+						<% } %>
 					</ul>
 				</div>
 			<!-- /.navbar-collapse -->

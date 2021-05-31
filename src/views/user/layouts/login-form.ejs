@@ -2,35 +2,35 @@
 <div class="login-wrapper" id="login-content">
     <div class="login-content">
         <a href="#" class="close">x</a>
-        <h3>Login</h3>
+        <h3><%- __('auth.login') %></h3>
         <form method="post" action="/user/login">
         	<div class="row">
         		 <label for="email">
-                    Email:
-                    <input type="email" name="email" id="email" placeholder="Email" required="required" />
+                    <%- __('auth.email') %>
+                    <input type="email" name="email" id="email" placeholder="<%- __('auth.email') %> " required/>
                 </label>
         	</div>
            
             <div class="row">
             	<label for="password">
-                    Mật khẩu:
-                    <input type="password" name="password" id="password" placeholder="Mật khẩu:" required="required" />
+                    <%- __('auth.password') %>
+                    <input type="password" name="password" id="password" placeholder="<%- __('auth.password') %>" required/>
                 </label>
             </div>
             <div class="row">
             	<div class="remember">
 					<div>
-						<input type="checkbox" name="remember" value="Remember me"><span>Remember me</span>
+						<!-- <input type="checkbox" name="remember" value="true"><span><%- __('auth.remember-me') %></span> -->
 					</div>
-            		<a href="#">Forget password ?</a>
+            		<a href="#"><%- __('auth.forget-password') %>?</a>
             	</div>
             </div>
            <div class="row">
-           	 <button type="submit">Login</button>
+           	 <button type="submit"><%- __('auth.login') %></button>
            </div>
         </form>
         <div class="row">
-        	<p>Or via social</p>
+        	<p><%- __('auth.or-via-social') %></p>
             <div class="social-btn-2">
             	<a class="fb" href="#"><i class="ion-social-facebook"></i>Facebook</a>
             	<a class="tw" href="#"><i class="ion-social-googleplus"></i>Google</a>
