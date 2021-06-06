@@ -12,6 +12,8 @@ const userSchema = new Schema({
     profile: { type: Schema.Types.ObjectId, ref: Profile },
     favorite_writer: [this],
     favorite_book: [{ type: Schema.Types.ObjectId, ref: Book }],
+    total_book: { type: Number, default: 0 },
+    total_blog: { type: Number, default: 0 },
     block: { type: Boolean, default: false },
 }, { timestamps: { currentTime: () => Date.now() } });
 

@@ -78,206 +78,88 @@
             <div class="container">
                 <div class="row ipad-width">
                     <div class="col-md-8">
-                        <div class="title-hd">
-                            <h2>Sách kỹ năng</h2>
-                            <a href="/book" class="viewall">Xem tất cả <i class="ion-ios-arrow-right"></i></a>
-                        </div>
-                        <div class="tabs">
-                            <ul class="tab-links">
-                                <li class="active"><a href="#tab1">#Mới nhất</a></li>
-                                <li><a href="#tab2"> #Đánh giá nhiều nhất</a></li>
-                            </ul>
-                            <div class="tab-content">
-                                <div id="tab1" class="tab active">
-                                    <div class="row">
-                                        <div class="slick-multiItem">
-                                            <% for(let i = 0; i < 9; i++){ %>
-                                            
-                                            <div class="slide-it">
-                                                <div class="movie-item">
-                                                    <div class="mv-img">
-                                                        <img src="/user/images/uploads/mv-item1.jpg" alt="" width="185" height="284">
-                                                    </div> 
-                                                    <div class="hvr-inner">
-                                                        <a  href="/book/<%= i %>"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
-                                                    </div>
-                                                    <div class="title-in">
-                                                        <h6><a href="#">Đi về phương đông</a></h6>
-                                                        <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                        <% for(let i = 0; i < popularCategories.length; i++) { %>
+                            <div class="title-hd">
+                                <h2><%- popularCategories[i].name %> </h2>
+                                <a href="/book?category=<%- popularCategories[i]._id %> " class="viewall">Xem tất cả <i class="ion-ios-arrow-right"></i></a>
+                            </div>
+                            <div class="tabs">
+                                <ul class="tab-links">
+                                    <li class="active"><a href="#<%- popularCategories[i]._id %>1">#Mới nhất</a></li>
+                                    <li><a href="#<%- popularCategories[i]._id %>2"> #Đánh giá nhiều nhất</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="<%- popularCategories[i]._id %>1" class="tab active">
+                                        <div class="row">
+                                            <div class="slick-multiItem">
+                                                <% latestBooks[i].forEach(latest => { %>
+                                                
+                                                <div class="slide-it">
+                                                    <div class="movie-item">
+                                                        <div class="mv-img">
+                                                            <img src="<%- latest.image.small %>" alt="" width="185" height="284">
+                                                        </div> 
+                                                        <div class="hvr-inner">
+                                                            <a  href="/book/<%= latest._id %>"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
+                                                        </div>
+                                                        <div class="title-in">
+                                                            <h6><a href="#"><%- latest.book_name %></a></h6>
+                                                            <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                
+                                                <% }) %>
+
                                             </div>
-                                            
-                                            <% } %>
                                         </div>
                                     </div>
-                                </div>
-                                <div id="tab2" class="tab">
-                                    <div class="row">
-                                        <div class="slick-multiItem">
-                                            <% for(let i = 0; i < 9; i++){ %>
-                                            
-                                            <div class="slide-it">
-                                                <div class="movie-item">
-                                                    <div class="mv-img">
-                                                        <img src="/user/images/uploads/mv-item1.jpg" alt="" width="185" height="284">
-                                                    </div> 
-                                                    <div class="hvr-inner">
-                                                        <a  href="/book/<%= i %>"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                                    </div>
-                                                    <div class="title-in">
-                                                        <h6><a href="#">Interstellar</a></h6>
-                                                        <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                    <div id="<%- popularCategories[i]._id %>2" class="tab">
+                                        <div class="row">
+                                            <div class="slick-multiItem">
+                                                <% votestBooks[i].forEach(votest => { %>
+                                                
+                                                <div class="slide-it">
+                                                    <div class="movie-item">
+                                                        <div class="mv-img">
+                                                            <img src="<%- votest.image.small %>" alt="" width="185" height="284">
+                                                        </div> 
+                                                        <div class="hvr-inner">
+                                                            <a  href="/book/<%- votest._id %>"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
+                                                        </div>
+                                                        <div class="title-in">
+                                                            <h6><a href="#"><%- votest.book_name %> </a></h6>
+                                                            <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                
+                                                <% }) %>
                                             </div>
-                                            
-                                            <% } %>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class="title-hd">
-                            <h2>Sách trinh thám</h2>
-                            <a href="/book" class="viewall">Xem tất cả <i class="ion-ios-arrow-right"></i></a>
-                        </div>
-                        <div class="tabs">
-                            <ul class="tab-links-2">
-                                <li class="active"><a href="#tab3"> #Mới nhất</a></li>
-                                <li><a href="#tab4"> #Đánh giá nhiều nhất</a></li>                        
-                            </ul>
-                            <div class="tab-content">
-                                <div id="tab3" class="tab active">
-                                    <div class="row">
-                                        <div class="slick-multiItem">
-                                            <% for(let i = 0; i < 9; i++){ %>
-                                            
-                                            <div class="slide-it">
-                                                <div class="movie-item">
-                                                    <div class="mv-img">
-                                                        <img src="/user/images/uploads/mv-item1.jpg" alt="" width="185" height="284">
-                                                    </div> 
-                                                    <div class="hvr-inner">
-                                                        <a  href="/book/<%= i %>"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
-                                                    </div>
-                                                    <div class="title-in">
-                                                        <h6><a href="#">Phi lí trí</a></h6>
-                                                        <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <% } %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="tab4" class="tab">
-                                    <div class="row">
-                                        <div class="slick-multiItem">
-                                            <% for(let i = 0; i < 9; i++){ %>
-                                            
-                                            <div class="slide-it">
-                                                <div class="movie-item">
-                                                    <div class="mv-img">
-                                                        <img src="/user/images/uploads/mv-item1.jpg" alt="" width="185" height="284">
-                                                    </div> 
-                                                    <div class="hvr-inner">
-                                                        <a  href="/book?id=1"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
-                                                    </div>
-                                                    <div class="title-in">
-                                                        <h6><a href="#">Dạy con làm giàu</a></h6>
-                                                        <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <% } %>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="title-hd">
-                            <h2>Khoa học</h2>
-                            <a href="/book" class="viewall">Xem tất cả <i class="ion-ios-arrow-right"></i></a>
-                        </div>
-                        <div class="tabs">
-                            <ul class="tab-links-2">
-                                <li class="active"><a href="#tab5"> #Mới nhất</a></li>
-                                <li><a href="#tab6"> #Đánh giá nhiều nhất</a></li>                        
-                            </ul>
-                            <div class="tab-content">
-                                <div id="tab5" class="tab active">
-                                    <div class="row">
-                                        <div class="slick-multiItem">
-                                            <% for(let i = 0; i < 9; i++){ %>
-                                            
-                                            <div class="slide-it">
-                                                <div class="movie-item">
-                                                    <div class="mv-img">
-                                                        <img src="/user/images/uploads/mv-item1.jpg" alt="" width="185" height="284">
-                                                    </div> 
-                                                    <div class="hvr-inner">
-                                                        <a  href="/book/<%= i %>"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
-                                                    </div>
-                                                    <div class="title-in">
-                                                        <h6><a href="#">Dạy con làm giàu</a></h6>
-                                                        <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <% } %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="tab6" class="tab">
-                                    <div class="row">
-                                        <div class="slick-multiItem">
-                                            <% for(let i = 0; i < 9; i++){ %>
-                                            
-                                            <div class="slide-it">
-                                                <div class="movie-item">
-                                                    <div class="mv-img">
-                                                        <img src="/user/images/uploads/mv-item1.jpg" alt="" width="185" height="284">
-                                                    </div> 
-                                                    <div class="hvr-inner">
-                                                        <a  href="/book/<%= i %>"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                                    </div>
-                                                    <div class="title-in">
-                                                        <h6><a href="#">Interstellar</a></h6>
-                                                        <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <% } %>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <% } %>
                     </div>
                     
                     <div class="col-md-4">
                         <div class="sidebar">
                             <div class="ads">
-                                <img src="/user/images/uploads/ads1.png" alt="" width="336" height="296">
+                                <img src="http://placeimg.com/336/296/sports" alt="" width="336" height="296">
                             </div>
                             <div class="celebrities">
                                 <h4 class="sb-title">Những người đóng góp nhiều nhất</h4>
-                                <% for(let i = 0; i < 4; i++) { %>
-                                <div class="celeb-item">
-                                    <a href="#"><img src="/user/images/uploads/ava1.jpg" alt="" width="70" height="70"></a>
-                                    <div class="celeb-author">
-                                        <h6><a href="#">LEDUTU <%= i %></a></h6>
-                                        <span>Tác giả</span>
+                                <% mostContributor.forEach(contributor => { %>
+                                 
+                                    <div class="celeb-item">
+                                        <a href="#"><img src="<%- contributor.profile.image %>" alt="" width="70" height="70"></a>
+                                        <div class="celeb-author">
+                                            <h6><a href="#"><%- contributor.profile.full_name %></a></h6>
+                                            <span>Tác giả</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <% } %>
+                                <% }) %>
                                 <a href="/writer" class="btn">Xem tất cả<i class="ion-ios-arrow-right"></i></a>
                             </div>
                         </div>

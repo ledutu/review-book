@@ -4,6 +4,8 @@ const { Schema } = mongoose;
 const bookCategorySchema = new Schema({
     name: { type: String, default: '' },
     short_name: { type: String, default: '' },
+    children: [this],
+    visited: { type: Number, default: 0 },
     hide: { type: Boolean, default: false },
 }, { timestamps: { currentTime: () => Date.now() } });
 

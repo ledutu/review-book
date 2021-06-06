@@ -14,14 +14,43 @@ async function index(request, response) {
     try {
         // message = 'Your version is old. You have to update new version to access application again'
 
-        popularBooks = await Book.find({}, {}, { sort: { vote: -1 } })
+        books = Book.find({})
             .select(['image', '_id', 'book_name'])
-            .populate('category', ['_id', 'short_name']).limit(12);
+            .populate('category', ['_id', 'short_name']);
 
-        console.log(popularBooks[0]);
+        categories = BookCategory.find({}).populate('children');
+
+        //Get popular book
+        popularBooks = await books.sort({ 'votest': -1 }).limit(12);
+
+        request.app.locals.categories = await categories;
+
+        popularCategories = await categories.sort({ 'visited': -1 }).limit(3);
+
+        votestBooks = [];
+        latestBooks = [];
+
+        for (let i = 0; i < popularCategories.length; i++) {
+            votestBooks[i] = await books.where('category').equals(popularCategories[i]._id)
+                .sort({ vote: -1 })
+                .limit(12);
+
+            latestBooks[i] = await books.where('category').equals(popularCategories[i]._id)
+                .sort({ createdAt: -1 })
+                .limit(12);
+        };
+
+        mostContributor = await User.find({}, {}, { sort: { total_book: -1 } })
+            .select(['profile'])
+            .populate('profile', ['full_name', 'image'])
+            .limit(4);
 
         response.render('user/home', {
-            popularBooks
+            popularBooks,
+            popularCategories,
+            votestBooks,
+            latestBooks,
+            mostContributor,
         });
     } catch (error) {
         console.error(error)
