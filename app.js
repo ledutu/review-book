@@ -9,6 +9,17 @@ var i18n = require("i18n");
 const session = require('express-session');
 var passport = require('passport');
 
+
+//Admin
+var homeAdmin = require('./src/routes/admin/home')
+var userManagement = require('./src/routes/admin/user')
+var bannerManagement = require('./src/routes/admin/banner')
+var bannerCategoryManagement = require('./src/routes/admin/banner-category')
+var categoryManagement = require('./src/routes/admin/category')
+var historyManagement = require('./src/routes/admin/history')
+var reviewManagement = require('./src/routes/admin/review')
+var blogManagement = require('./src/routes/admin/blog')
+
 //User
 var homeUser = require('./src/routes/user/home');
 var book = require('./src/routes/user/book');
@@ -82,6 +93,18 @@ connectWithRetry()
 db.on('connected', () => {
     console.log('Connect DB Successful');
 })
+
+//Route Admin
+
+app.use('/admin',homeAdmin);
+app.use('/admin/user',userManagement);
+app.use('/admin/blog',blogManagement);
+app.use('/admin/banner',bannerManagement);
+app.use('/admin/category',categoryManagement);
+app.use('/admin/banner-category',bannerCategoryManagement);
+app.use('/admin/history',historyManagement);
+app.use('/admin/review',reviewManagement);
+
 
 //Route User
 app.use('/', homeUser);
