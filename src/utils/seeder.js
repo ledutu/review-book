@@ -89,6 +89,10 @@ async function createBookWithoutCategoryDbSeed(times = 5, language) {
             }
         }
 
+        currentUser = await User.findById(_id).select('total_book');
+        currentUser.total_book += 1;
+        currentUser.save();
+
         let book = new Book({
             book_name: faker.name.title(),
             review: faker.lorem.paragraphs(3),
@@ -215,6 +219,11 @@ async function createBlog(times = 5, language) {
                 _id = null;
             }
         }
+        
+        currentUser = await User.findById(_id).select('total_blog');
+        currentUser.total_blog += 1;
+        currentUser.save();
+        
         let blog = new Blog({
             title: faker.name.title(),
             content: faker.lorem.paragraphs(5),
