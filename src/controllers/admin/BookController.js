@@ -1,7 +1,7 @@
 var express = require('express');
 
 function index(request, response){
-    response.render('admin/category');
+    response.render('admin/book');
 }
 
 module.exports = {

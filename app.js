@@ -13,9 +13,10 @@ var passport = require('passport');
 //Admin
 var homeAdmin = require('./src/routes/admin/home')
 var userManagement = require('./src/routes/admin/user')
+var bookManagement = require('./src/routes/admin/book')
 var bannerManagement = require('./src/routes/admin/banner')
 var bannerCategoryManagement = require('./src/routes/admin/banner-category')
-var categoryManagement = require('./src/routes/admin/category')
+var bookCategoryManagement = require('./src/routes/admin/book-category')
 var historyManagement = require('./src/routes/admin/history')
 var reviewManagement = require('./src/routes/admin/review')
 var blogManagement = require('./src/routes/admin/blog')
@@ -98,9 +99,10 @@ db.on('connected', () => {
 
 app.use('/admin',homeAdmin);
 app.use('/admin/user',userManagement);
+app.use('/admin/book',bookManagement);
 app.use('/admin/blog',blogManagement);
 app.use('/admin/banner',bannerManagement);
-app.use('/admin/category',categoryManagement);
+app.use('/admin/book-category',bookCategoryManagement);
 app.use('/admin/banner-category',bannerCategoryManagement);
 app.use('/admin/history',historyManagement);
 app.use('/admin/review',reviewManagement);
