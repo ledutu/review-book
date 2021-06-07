@@ -9,6 +9,10 @@ var i18n = require("i18n");
 const session = require('express-session');
 var passport = require('passport');
 
+
+//Admin
+var homeAdmin = require('./src/routes/admin/home')
+
 //User
 var homeUser = require('./src/routes/user/home');
 var book = require('./src/routes/user/book');
@@ -82,6 +86,11 @@ connectWithRetry()
 db.on('connected', () => {
     console.log('Connect DB Successful');
 })
+
+//Route Admin
+
+app.use('/admin',homeAdmin);
+
 
 //Route User
 app.use('/', homeUser);
