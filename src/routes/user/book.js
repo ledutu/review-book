@@ -5,7 +5,7 @@ var router = express.Router();
 const BookController = require('../../controllers/user/BookController');
 
 // get book
-router.get('/', BookController.index);
-router.get('/:id', BookController.getBookDetail);
+router.get('/category/:id', BookController.index);
+router.get('/*-:id', BookController.getBookDetail);
 
 module.exports = router;

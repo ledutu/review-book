@@ -51,3 +51,10 @@
 .header-dropdown {
     /* overflow: auto; */
 }
+
+.btn.main-button {
+    background-color: #dd003f;
+    color: #ffffff;
+    padding: 7px 20px;
+    border-radius: 20px;
+}

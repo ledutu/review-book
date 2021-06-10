@@ -1,0 +1,51 @@
+.comment-info-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comment-info {
+    margin-left: 10px;
+}
+
+.mv-user-review-item-custom {
+    border-bottom: 1px solid grey;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.movie-img {
+    margin-bottom: 20px;
+}
+
+.comment-container {
+    display: flex;
+    align-items: center;
+}
+
+.ml-20 {
+    margin-left: 20px;
+}
+
+.button-custom {
+    width: 130px;
+    align-self: flex-start;
+}
+
+.comment-input {
+    height: 100px;
+    background: #233a50 !important;
+    color: white;
+    border: 0px;
+    border-radius: 20px;
+    padding: 15px 18px;
+    margin-bottom: 30px;
+}
+
+.describe-custom {
+    overflow: hidden;
+    height: 55px;
+    display: inline-block;
+    white-space: normal;
+    text-overflow: ellipsis;
+}

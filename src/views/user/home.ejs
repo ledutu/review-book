@@ -62,10 +62,10 @@
                                 <div class="title-in">
                                     <div class="cate">
                                         <% book.category.forEach(cate => { %>
-                                            <span class="blue"><a href="/book?category=<%- cate._id %>"><%- cate.short_name %> </a></span>
+                                            <span class="<%- cate.tag_color %>"><a href="/book/category/<%- cate._id %>"><%- cate.short_name %> </a></span>
                                         <% }) %>
                                     </div>
-                                    <h6 class="short-text"><a href="/book/<%- book._id %>"><%- book.book_name %> </a></h6>
+                                    <h6 class="short-text"><a href="/book/<%- book.slug %>-<%- book._id %>"><%- book.book_name %> </a></h6>
                                     <p><i class="ion-android-star"></i><span>7.4</span> / 10</p>
                                 </div>
                             </div> 
@@ -81,7 +81,7 @@
                         <% for(let i = 0; i < popularCategories.length; i++) { %>
                             <div class="title-hd">
                                 <h2><%- popularCategories[i].name %> </h2>
-                                <a href="/book?category=<%- popularCategories[i]._id %> " class="viewall">Xem tất cả <i class="ion-ios-arrow-right"></i></a>
+                                <a href="/book/category/<%- popularCategories[i]._id %> " class="viewall">Xem tất cả <i class="ion-ios-arrow-right"></i></a>
                             </div>
                             <div class="tabs">
                                 <ul class="tab-links">
@@ -100,7 +100,7 @@
                                                             <img src="<%- latest.image.small %>" alt="" width="185" height="284">
                                                         </div> 
                                                         <div class="hvr-inner">
-                                                            <a  href="/book/<%= latest._id %>"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
+                                                            <a  href="/book/<%- latest.slug %>-<%= latest._id %>"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
                                                         </div>
                                                         <div class="title-in">
                                                             <h6><a href="#"><%- latest.book_name %></a></h6>
@@ -125,7 +125,7 @@
                                                             <img src="<%- votest.image.small %>" alt="" width="185" height="284">
                                                         </div> 
                                                         <div class="hvr-inner">
-                                                            <a  href="/book/<%- votest._id %>"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
+                                                            <a  href="/book/<%- votest.slug %>-<%- votest._id %>"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
                                                         </div>
                                                         <div class="title-in">
                                                             <h6><a href="#"><%- votest.book_name %> </a></h6>

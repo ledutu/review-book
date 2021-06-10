@@ -15,8 +15,8 @@ async function index(request, response) {
         // message = 'Your version is old. You have to update new version to access application again'
 
         books = Book.find({})
-            .select(['image', '_id', 'book_name'])
-            .populate('category', ['_id', 'short_name']);
+            .select(['image', '_id', 'book_name', 'slug'])
+            .populate('category', ['_id', 'short_name', 'tag_color']);
 
         categories = BookCategory.find({}).populate('children');
 
@@ -42,7 +42,6 @@ async function index(request, response) {
 
         mostContributor = await User.find({}, {}, { sort: { total_book: -1 } })
             .select(['profile'])
-            .populate('profile', ['full_name', 'image'])
             .limit(4);
 
         response.render('user/home', {

@@ -25,7 +25,8 @@ function createUserDatabaseSeed(times = 5, language) {
         //Create profile
         genders = ['men', 'women', 'third']
         random = Math.floor(Math.random() * 3);
-        let profile = new Profile({
+
+        let profile = {
             username: faker.internet.userName(),
             full_name: faker.name.findName(),
             address: faker.address.city(),
@@ -33,7 +34,7 @@ function createUserDatabaseSeed(times = 5, language) {
             image: faker.internet.avatar(),
             birthday: faker.date.past(),
             introduction: faker.lorem.sentences(5),
-        });
+        }
 
         let password = faker.internet.password(6);
         let hashPassword = bcrypt.hashSync(password, 12);
@@ -41,12 +42,12 @@ function createUserDatabaseSeed(times = 5, language) {
             email: faker.internet.email(),
             password: hashPassword,
             password_not_hash: password,
-            profile: profile._id,
+            profile,
             favorite_writer: i > 0 ? [users[i - 1]._id] : [],
             favorite_book: [],
         })
         users = [...users, user];
-        profiles = [...profiles, profile];
+        // profiles = [...profiles, profile];
     }
 
     return { users, profiles };
@@ -68,34 +69,16 @@ async function createBookWithoutCategoryDbSeed(times = 5, language) {
     const bookCategories = await BookCategory.find({}).select('_id').limit(times);
 
     for (let i = 0; i < times; i++) {
-        let length = users.length;
-        if (length === times) {
-            _id = users[i]._id;
-        } else {
-            if (length > 0) {
-                let index = parseInt(times / length + i);
-                _id = users[index < length - 1 ? index : 0]._id;
-            } else {
-                _id = null;
-            }
-        }
-
-        if (bookCategories.length > 0) {
-            if (bookCategories.length === times) {
-                category_id = bookCategories[i]._id;
-            } else {
-                let index = parseInt(times / bookCategories.length + i);
-                category_id = bookCategories[index < bookCategories.length - 1 ? index : 0]._id;
-            }
-        }
+        _id = faker.helpers.randomize(users)._id
+        category_id = faker.helpers.randomize(bookCategories)._id
 
         currentUser = await User.findById(_id).select('total_book');
         currentUser.total_book += 1;
         currentUser.save();
-
+        book_name = faker.name.title();
         let book = new Book({
-            book_name: faker.name.title(),
-            review: faker.lorem.paragraphs(3),
+            book_name,
+            review: faker.lorem.paragraphs(20),
             reviewer: _id,
             image: {
                 title: faker.image.image(340, 521),
@@ -103,6 +86,7 @@ async function createBookWithoutCategoryDbSeed(times = 5, language) {
                 small: faker.image.image(185, 284),
             },
             category: [category_id],
+            slug: faker.helpers.slugify(book_name.toLowerCase()),
         });
 
         books = [...books, book];
@@ -179,10 +163,14 @@ function createBookCategory(times = 5, language) {
     }
 
     bookCategories = [];
+
+    const color = ['blue', 'green', 'yell', 'orange'];
+
     for (let i = 0; i < times; i++) {
         let word = faker.random.word()
         let category = new BookCategory({
             name: word,
+            tag_color: faker.helpers.randomize(color),
             short_name: word,
         });
 
@@ -208,26 +196,17 @@ async function createBlog(times = 5, language) {
     const users = await User.find({}).select('_id').limit(times);
 
     for (let i = 0; i < times; i++) {
-        let length = users.length;
-        if (length === times) {
-            _id = users[i]._id;
-        } else {
-            if (length > 0) {
-                let index = parseInt(times / length + i);
-                _id = users[index < length - 1 ? index : 0]._id;
-            } else {
-                _id = null;
-            }
-        }
-        
+        _id = faker.helpers.randomize(users)._id
         currentUser = await User.findById(_id).select('total_blog');
         currentUser.total_blog += 1;
         currentUser.save();
-        
+
+        title = faker.name.title();
         let blog = new Blog({
-            title: faker.name.title(),
-            content: faker.lorem.paragraphs(5),
+            title,
+            content: faker.lorem.paragraphs(40),
             blogger: _id,
+            slug: faker.helpers.slugify(title.toLowerCase()),
         });
 
         blogs = [...blogs, blog];
@@ -252,31 +231,9 @@ async function createBookComment(times = 5, language) {
     const books = await Book.find({}).select('_id').limit(times);
 
     for (let i = 0; i < times; i++) {
-        /**Get User Id */
-        let length = users.length;
-        if (length === times) {
-            _id = users[i]._id;
-        } else {
-            if (length > 0) {
-                let index = parseInt(times / length + i);
-                _id = users[index < length - 1 ? index : 0]._id;
-            } else {
-                _id = null;
-            }
-        }
-
-        /**Get book_id */
-        if (books.length === times) {
-            book_id = books[i]._id;
-        } else {
-            if (books.length > 0) {
-                let index = parseInt(times / books.length + i);
-                book_id = books[index < books.length - 1 ? index : 0]._id;
-            } else {
-                book_id = null;
-            }
-        }
-
+        _id = faker.helpers.randomize(users)._id;
+        book_id = faker.helpers.randomize(books)._id
+        
         let bookComment = new BookComment({
             user: _id,
             content: faker.lorem.sentence(),
@@ -306,30 +263,8 @@ async function createBlogComment(times = 5, language) {
     const blogs = await Blog.find({}).select('_id').limit(times);
 
     for (let i = 0; i < times; i++) {
-        /**Get User Id */
-        let length = users.length;
-        if (length === times) {
-            _id = users[i]._id;
-        } else {
-            if (length > 0) {
-                let index = parseInt(times / length + i);
-                _id = users[index < length - 1 ? index : 0]._id;
-            } else {
-                _id = null;
-            }
-        }
-
-        /**Get book_id */
-        if (blogs.length === times) {
-            blog_id = blogs[i]._id;
-        } else {
-            if (blogs.length > 0) {
-                let index = parseInt(times / blogs.length + i);
-                blog_id = blogs[index < blogs.length - 1 ? index : 0]._id;
-            } else {
-                blog_id = null;
-            }
-        }
+        _id = faker.helpers.randomize(users)._id;
+        blog_id = faker.helpers.randomize(blogs)._id
 
         let blogComment = new BlogComment({
             user: _id,

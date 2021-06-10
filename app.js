@@ -8,7 +8,9 @@ var mongoose = require('mongoose');
 var i18n = require("i18n");
 const session = require('express-session');
 var passport = require('passport');
+var faker = require('faker');
 
+console.log(faker.lorem.slug(10));
 
 //Admin
 var homeAdmin = require('./src/routes/admin/home')

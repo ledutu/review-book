@@ -21,7 +21,7 @@ async function createUser(request, response) {
         console.log("User database: ");
 
         await User.insertMany(seeders.users);
-        await Profile.insertMany(seeders.profiles);
+        // await Profile.insertMany(seeders.profiles);
 
         console.info('Create user database successful');
         response.status(200).json({
