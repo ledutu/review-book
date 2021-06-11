@@ -62,7 +62,7 @@
                                 <div class="title-in">
                                     <div class="cate">
                                         <% book.category.forEach(cate => { %>
-                                            <span class="<%- cate.tag_color %>"><a href="/book/category/<%- cate._id %>"><%- cate.short_name %> </a></span>
+                                            <span class="<%- cate.tag_color %>"><a href="/book/category?id=<%- cate._id %>"><%- cate.short_name %> </a></span>
                                         <% }) %>
                                     </div>
                                     <h6 class="short-text"><a href="/book/<%- book.slug %>-<%- book._id %>"><%- book.book_name %> </a></h6>
@@ -81,7 +81,7 @@
                         <% for(let i = 0; i < popularCategories.length; i++) { %>
                             <div class="title-hd">
                                 <h2><%- popularCategories[i].name %> </h2>
-                                <a href="/book/category/<%- popularCategories[i]._id %> " class="viewall">Xem tất cả <i class="ion-ios-arrow-right"></i></a>
+                                <a href="/book/category?id=<%- popularCategories[i]._id %> " class="viewall">Xem tất cả <i class="ion-ios-arrow-right"></i></a>
                             </div>
                             <div class="tabs">
                                 <ul class="tab-links">
@@ -156,7 +156,7 @@
                                         <a href="#"><img src="<%- contributor.profile.image %>" alt="" width="70" height="70"></a>
                                         <div class="celeb-author">
                                             <h6><a href="#"><%- contributor.profile.full_name %></a></h6>
-                                            <span>Tác giả</span>
+                                            <span><%- contributor.total_book %> Bài viết</span>
                                         </div>
                                     </div>
                                 <% }) %>

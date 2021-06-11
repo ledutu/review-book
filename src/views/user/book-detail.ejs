@@ -84,16 +84,16 @@
                             <div class="movie-tabs">
                                 <div class="tabs">
                                     <ul class="tab-links tabs-mv">
-                                        <li class="active"><a href="#overview">Overview</a></li>
-                                        <li><a href="#comment"> Comment</a></li>
+                                        <li class="<%- (allComment.page === 1 && allComment.limit === 5) && 'active' %>"><a href="#overview">Overview</a></li>
+                                        <li class="<%- (allComment.page !== 1 || allComment.limit !== 5) && 'active' %>"><a href="#comment"> Comment</a></li>
                                         <li><a href="#related-book"> Related Books</a></li>                        
                                     </ul>
                                     <div class="tab-content">
-                                        <div id="overview" class="tab active">
+                                        <div id="overview" class="tab <%- (allComment.page === 1 && allComment.limit === 5) && 'active' %> ">
                                             <p style="font-size: 16px;"><%- book.review %></p>
                                         </div>
-                                        <div id="comment" class="tab comment">
-                                            
+                                        
+                                        <div id="comment" class="tab comment <%- (allComment.page !== 1 || allComment.limit !== 5) && 'active' %>">
                                             <div class="comment-container">
                                                 <textarea 
                                                     type="text" 
@@ -103,7 +103,7 @@
                                                 <button type="button" class="btn main-button ml-20 button-custom">Bình luận</button>
                                             </div>
                                             
-                                            <% comments.forEach(comment => { %>
+                                            <% allComment.data.forEach(comment => { %>
                                                 <div class="mv-user-review-item mv-user-review-item-custom">
                                                     <div class="user-infor comment-info-container">
                                                         <img src="<%- comment.user.profile.image %>" alt="" width="40px" height="40px">
@@ -116,19 +116,12 @@
                                                 </div>
                                             <% }) %>
                                             
-                                            <div class="topbar-filter">
-                                                <label>Movies per page:</label>
-                                                <select>
-                                                    <option value="range">5 Movies</option>
-                                                    <option value="saab">10 Movies</option>
-                                                </select>
-                                                <div class="pagination2">
-                                                    <span>Page 1 of 2:</span>
-                                                    <a class="active" href="#">1</a>
-                                                    <a href="#">2</a>
-                                                    <a href="#"><i class="ion-arrow-right-b"></i></a>
-                                                </div>
-                                            </div>
+                                            <%- include('layouts/pagination.ejs', {
+                                                limitTitle: 'Bình luận',
+                                                data: allComment,
+                                                pageLink: '/book/'+book.slug+'-'+book._id,
+                                                title: 'Bình luận mỗi trang'
+                                            }) %> 
                                         </div>
                                         <div id="related-book" class="tab related-book">
                                             <% relatedBook.forEach(related => { %>
@@ -139,7 +132,7 @@
                                                         <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
                                                         <p class="describe describe-custom"><%- related.review %></p>
                                                         <p class="run-time"> Ngày đăng: <%- related.createdAt %> </p>
-                                                        <p>Người đăng: <a href="#"><%- related.reviewer.profile.full_name %></a></p>
+                                                        <p>Người đăng: <a href="/user/profile/<%- related.reviewer.profile.username %>-<%- related.reviewer._id %>"><%- related.reviewer.profile.full_name %></a></p>
                                                         <p>Tác giả sách: <a href="#"></a></p>
                                                     </div>
                                                 </div>

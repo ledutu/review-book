@@ -9,7 +9,7 @@
 <html lang="en" class="no-js">
 <head>
 	<!-- Basic need -->
-	<title>Open Pediatrics</title>
+	<title><%- userProfile.profile.full_name %> </title>
 	<meta charset="UTF-8">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
@@ -70,9 +70,9 @@
                                 <p>Chi tiết tài khoản</p>
                                 <ul>
                                     <li><a href="/user/profile/<%- userProfile.profile.username %>-<%- userProfile._id %>">Thông tin</a></li>
-                                    <li class="active"><a>Bài viết yêu thích</a></li>
+                                    <li><a href="/user/book-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết yêu thích</a></li>
                                     <li><a href="/user/writer-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Người viết yêu thích</a></li>
-                                    <li><a href="/user/my-review/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết của bạn</a></li>
+                                    <li class="active"><a>Bài viết của bạn</a></li>
                                 </ul>
                             </div>
                             <div class="user-fav">
@@ -85,10 +85,10 @@
                     </div>
                     <div class="col-md-9 col-sm-12 col-xs-12">
                         <div class="topbar-filter user">
-                            <p style="padding: 5px 0px;">Đã tìm thấy <span><%- favoriteBookPage.data.length %> cuốn sách</span></p>
+                            <p style="padding: 5px 0px;">Đã tìm thấy <span><%- myBookPage.data.length %> cuốn sách</span></p>
                         </div>
                         <div class="flex-wrap-movielist grid-fav">
-                            <% favoriteBookPage.data.forEach(fabook => { %>
+                            <% myBookPage.data.forEach(fabook => { %>
                                 <div class="movie-item-style-2 movie-item-style-1 style-3">
                                     <img src="<%- fabook.image.small %> " alt="" width="170px" height="261px">
                                     <div class="hvr-inner">
@@ -103,8 +103,8 @@
                         </div>		
                         <%- include('layouts/pagination.ejs', {
                             limitTitle: 'Sách',
-                            data: favoriteBookPage,
-                            pageLink: '/user/book-favorite/'+userProfile.profile.username+'-'+userProfile._id,
+                            data: myBookPage,
+                            pageLink: '/user/my-review/'+userProfile.profile.username+'-'+userProfile._id,
                             title: 'Sách mỗi trang'
                         }) %> 
                     </div>

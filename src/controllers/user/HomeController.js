@@ -41,7 +41,7 @@ async function index(request, response) {
         };
 
         mostContributor = await User.find({}, {}, { sort: { total_book: -1 } })
-            .select(['profile'])
+            .select(['profile', 'total_book'])
             .limit(4);
 
         response.render('user/home', {

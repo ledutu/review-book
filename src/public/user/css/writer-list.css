@@ -1,0 +1,7 @@
+.introduction {
+    overflow: hidden;
+    height: 40px;
+    display: inline-block;
+    white-space: normal;
+    text-overflow: ellipsis;
+}

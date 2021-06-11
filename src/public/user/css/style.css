@@ -5681,13 +5681,13 @@ ul {
 }
 .user-hero {
   height: 385px;
-  background: url('../images/uploads/user-hero-bg.jpg') no-repeat;
+  background: url('../images/uploads/background.jpg') no-repeat;
 }
 .user-hero .hero-ct {
   padding-top: 225px;
 }
 .user-hero .hero-ct h1 {
-  margin-left: -120px;
+  margin-left: 290px;
 }
 .user-hero ul.breadcumb {
   text-align: left;

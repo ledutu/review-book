@@ -27,7 +27,7 @@ function createUserDatabaseSeed(times = 5, language) {
         random = Math.floor(Math.random() * 3);
 
         let profile = {
-            username: faker.internet.userName(),
+            username: faker.internet.userName().toLowerCase(),
             full_name: faker.name.findName(),
             address: faker.address.city(),
             gender: genders[random],

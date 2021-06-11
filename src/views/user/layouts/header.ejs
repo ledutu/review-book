@@ -33,12 +33,12 @@
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown" ><%- category.name %><i class="ion-ios-arrow-forward"></i></a>
 											<ul class="dropdown-menu level2">
 												<% category.children.forEach(child => { %>
-												<li><a href="/book/category/<%- child._id %>"><%- child.name %></a></li>
+												<li><a href="/book/category?id=<%- child._id %>"><%- child.name %></a></li>
 												<% }) %>
 											</ul>
 										</li>			
 									<% } else { %>
-										<li><a href="/book/category/<%- category._id %>"><%- category.name %></a></li>		 
+										<li><a href="/book/category?id=<%- category._id %>"><%- category.name %></a></li>		 
 									<% } %>
 								<% }) %>
 							</ul>

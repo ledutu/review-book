@@ -7,19 +7,47 @@ var moment = require('moment');
 
 async function index(request, response) {
     try {
-        const { id } = request.params;
-
-        books = Book.find({});
-
-        if (id) {
-            books = books.where('category').equals(id);
+        
+        let { page, limit, id } = request.query;
+        page = parseInt(page);
+        limit = parseInt(limit)
+        
+        console.log(id);
+        
+        if (!page) page = 1;
+        if (!limit) limit = 20;
+        
+        books = Book.find();
+        let totalBooks = await Book.find({}).countDocuments();
+                
+        if(id) {
+            console.log('here');
+            books = Book.find({category: id})
+            totalBooks = await Book.find({category: id}).countDocuments();
         }
+        
+        const bookResult = await books
+            .sort({vote: -1})
+            .skip((page * limit) - limit)
+            .limit(limit);
 
-        books = await books.limit(20);
-
-        response.render('user/book-list', [
-            books,
-        ]);
+        const bookPage = {
+            data: bookResult,
+            total_page: Math.ceil(totalBooks / limit),
+            page,
+            limit,
+        };
+        
+        bookCategory = await BookCategory.find({});
+        currentCategory = await BookCategory.findById(id);
+        
+        response.render('user/book-list', {
+            totalBooks,
+            bookPage,
+            id,
+            bookCategory,
+            currentCategory,
+        });
 
     } catch (error) {
         console.log(error);
@@ -29,31 +57,47 @@ async function index(request, response) {
 
 async function getBookDetail(request, response) {
     const { id } = request.params;
+    let { page, limit, full_name, username } = request.query;
+
     // book
     try {
+
+        page = parseInt(page);
+        limit = parseInt(limit)
+
+        if (!page) page = 1;
+        if (!limit) limit = 5;
 
         book = await Book.findById(id)
             .populate(['category', 'reviewer', 'book_information']);
 
-        if (book) {
-            book._doc.createdAt = moment(book.createdAt).format('L');
-            comments = await BookComment.find({book: book._id}).populate('user');
-            
-            relatedBook = await Book.find({category: book.category}, {}, {sort: {vote: -1}})
+        book._doc.createdAt = moment(book.createdAt).format('L');
+
+        totalComment = await BookComment.find({ book: book._id }).countDocuments();
+        comments = await BookComment.find({ book: book._id })
+            .populate('user')
+            .skip((page * limit) - limit)
+            .limit(limit);
+
+        relatedBook = await Book.find({ category: book.category }, {}, { sort: { vote: -1 } })
             .populate('reviewer', ['profile'])
-            .limit(8);
-        } else {
-            console.log('Cannot find book');
-        }
+            .limit(5);
+
+        const allComment = {
+            data: comments,
+            total_page: Math.ceil(totalComment / limit),
+            page,
+            limit,
+        };
 
         response.render('user/book-detail', {
             book,
-            comments,
             relatedBook,
+            allComment,
         });
     } catch (error) {
         console.log(error);
-        response.send(error);
+        response.render('user/error');
     }
 }
 
