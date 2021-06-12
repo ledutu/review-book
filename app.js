@@ -9,6 +9,7 @@ var i18n = require("i18n");
 const session = require('express-session');
 var passport = require('passport');
 var faker = require('faker');
+var methodOverride = require('method-override')
 
 //Admin
 var homeAdmin = require('./src/routes/admin/home')
@@ -38,6 +39,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/src/public')));
+
+app.use(methodOverride('_method'))
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -103,10 +106,10 @@ app.use('/blog', blog);
 app.use('/api/db', seed);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    res.render('user/error');
-    // next(createError(404));
-});
+// app.use(function (req, res, next) {
+//     res.render('user/error');
+//     // next(createError(404));
+// });
 
 // error handler
 app.use(function (err, req, res, next) {

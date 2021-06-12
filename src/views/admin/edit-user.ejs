@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="">
+    <meta name="description" content="">
+    <meta name="keywords" content="" />
+  
+  
+    <!-- ========== Css Files ========== --> 
+    <%- include('layouts/head') %>
+    
+  </head>
+  <body>
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+  <!-- START HEADER -->
+  <%- include('layouts/header') %>
+  <!-- END HEADER -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START SIDEBAR -->
+<%- include('layouts/sidebar') %>
+<!-- END SIDEBAR -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START CONTENT -->
+<div class="content">
+
+  <!-- Start Page Header -->
+  <div class="page-header">
+    <h1 class="title">Sửa tài khoản</h1>
+  
+    <div class="right">
+        <a href="/admin/user"><button class="btn btn-info btn-lg" >Quay lại</button></a>
+      </div>
+  </div>
+  <!-- End Page Header -->
+
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START CONTAINER -->
+<div class="container-padding">
+  <!-- Start Row -->
+  <div class="row">
+    <!-- Start Panel -->
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+            <form class="form-horizontal" action="/admin/user/<%- users._id %>?_method=PUT" method="POST">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label form-label" for="email">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" value="<%- users.email %>" id="email" name="email">
+                    </div>
+                    </div>
+                <div class="form-group">
+                <label class="col-sm-2 control-label form-label" for="username">Username</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="<%- users.profile.username %>" id="username" name="username">
+                </div>
+                </div>
+
+                <div class="form-group">
+                <label class="col-sm-2 control-label form-label" for="full_name">Display Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="<%- users.profile.full_name %>" id="full_name" name="full_name">
+                </div>
+                </div>
+                
+                <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+                </div>
+
+            </form>
+
+            </div>
+        </div>
+      </div>
+    <!-- End Panel -->
+  </div>
+  <!-- End Row -->
+</div>
+<!-- END CONTAINER -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+</div>
+<!-- End Content -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+
+<%- include('layouts/javascript') %>
+
+
+</body>
+</html>

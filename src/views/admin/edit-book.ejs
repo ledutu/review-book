@@ -9,10 +9,10 @@
   
     <!-- ========== Css Files ========== --> 
     <%- include('layouts/head') %>
-
+    
   </head>
   <body>
-  <!-- Start Page Loading -->
+        <!-- Start Page Loading -->
   <%- include('layouts/loading') %>
   <!-- End Page Loading -->
  <!-- //////////////////////////////////////////////////////////////////////////// --> 
@@ -26,33 +26,19 @@
 <!-- START SIDEBAR -->
 <%- include('layouts/sidebar') %>
 <!-- END SIDEBAR -->
-<!-- //////////////////////////////////////////////////////////////////////////// --> 
-
  <!-- //////////////////////////////////////////////////////////////////////////// --> 
 <!-- START CONTENT -->
 <div class="content">
 
   <!-- Start Page Header -->
   <div class="page-header">
-    <h1 class="title">Quản lý banner</h1>
-    
-    <!-- Start Page Header Right Div -->
+    <h1 class="title">Sửa sách</h1>
+  
     <div class="right">
-      <a href="/admin/create-banner" type="button" class="btn btn-success btn-lg" >Thêm</a>
-    </div>
-    <!-- End Page Header Right Div -->
-    <div class="btn-group" role="group" aria-label="...">
-      Filter by :
-      <select class="form-select form-select-lg admin-feature__select" aria-label="Default select example">
-        <option value="all">Tất cả</option>
-        <option value="saab">Saab</option>
-        <option value="opel">Opel</option>
-        <option value="audi">Audi</option>
-      </select>
-    </div>
+        <a href="/admin/book"><button class="btn btn-info btn-lg" >Quay lại</button></a>
+      </div>
   </div>
   <!-- End Page Header -->
-
 
  <!-- //////////////////////////////////////////////////////////////////////////// --> 
 <!-- START CONTAINER -->
@@ -60,32 +46,40 @@
   <!-- Start Row -->
   <div class="row">
     <!-- Start Panel -->
-    <div class="col-md-12">
+    <div class="col-lg-12">
         <div class="panel panel-default">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <!-- <td class="text-center"><i class="fa fa-trash"></i></td> -->
-                <td>ID</td>
-                <td>Name</td>
-                <td>Description</td>
-                <td>Action</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Quảng cáo thực phẩm sạch</td>
-                <td>Thực phẩm sạch asd Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus ex voluptas non soluta, alias unde magni perspiciatis quidem praesentium, minus officiis illum sit nobis ipsa eaque corporis facilis, eos fuga.</td>
-                <td>
-                  <i class="fas fa-edit admin-table__icon-edit"></i>
-                  <i class="fas fa-trash-alt admin-table__icon-delete"></i>
-                </td>
-              </tr>     
-            </tbody>
-          </table>
+            <div class="panel-body">
+            <form class="form-horizontal" action="/admin/book/<%- books._id %>?_method=PUT" method="POST">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label form-label" for="book_name">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" value="<%- books.book_name %>" id="book_name" name="book_name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label form-label">Category</label>
+                      <div class="col-sm-10">
+                        <select class="selectpicker" multiple data-live-search="true" name="category">
+                            <% categories.forEach(category =>{%>
+                                <option value="<%- category._id %>" class="<%- category._id %>" <%- arrID.some(function (cate) {
+                                    return cate.equals(category._id);
+                                }) && 'selected' %> > <%- category.name %></option>
+                            <% })%>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                    </div>
+            </form>
+
+            </div>
         </div>
-    </div>
+      </div>
     <!-- End Panel -->
   </div>
   <!-- End Row -->
@@ -100,6 +94,9 @@
 <!-- //////////////////////////////////////////////////////////////////////////// --> 
 <!-- //////////////////////////////////////////////////////////////////////////// --> 
 
+
 <%- include('layouts/javascript') %>
+
+
 </body>
 </html>
