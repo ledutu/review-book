@@ -7,27 +7,32 @@ var moment = require('moment');
 
 async function index(request, response) {
     try {
-        
-        let { page, limit, id } = request.query;
+
+        let { page, limit, id, book_name } = request.query;
         page = parseInt(page);
         limit = parseInt(limit)
-        
-        console.log(id);
-        
+
         if (!page) page = 1;
         if (!limit) limit = 20;
-        
-        books = Book.find();
+
+        books = Book.find({});
         let totalBooks = await Book.find({}).countDocuments();
-                
-        if(id) {
-            console.log('here');
-            books = Book.find({category: id})
-            totalBooks = await Book.find({category: id}).countDocuments();
-        }
         
+        if (id) {
+            books = Book.find({ category: { '$in': id } })
+            totalBooks = await Book.find({ category: { '$in': id } }).countDocuments();
+        }
+
+        if (book_name) {
+            books = books.where('book_name').equals({ $regex: new RegExp(book_name, 'i') });
+            totalBooks = await Book.find({
+                book_name: { $regex: new RegExp(book_name, 'i') },
+                category: id ? { '$in': id } : { $ne: null }
+            }).countDocuments();
+        }
+
         const bookResult = await books
-            .sort({vote: -1})
+            .sort({ vote: -1 })
             .skip((page * limit) - limit)
             .limit(limit);
 
@@ -37,10 +42,10 @@ async function index(request, response) {
             page,
             limit,
         };
-        
+
         bookCategory = await BookCategory.find({});
-        currentCategory = await BookCategory.findById(id);
-        
+        currentCategory = await BookCategory.find({ _id: { '$in': id } });
+
         response.render('user/book-list', {
             totalBooks,
             bookPage,
@@ -51,7 +56,7 @@ async function index(request, response) {
 
     } catch (error) {
         console.log(error);
-        response.send(error);
+        response.render('user/error');
     }
 }
 

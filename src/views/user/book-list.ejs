@@ -9,7 +9,7 @@
 <html lang="en" class="no-js">
 <head>
 	<!-- Basic need -->
-	<title><%- id? currentCategory.name: 'Thể loại' %></title>
+	<title>Thể loại</title>
 	<meta charset="UTF-8">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
@@ -46,7 +46,20 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="hero-ct">
-                            <h1> <%- id? currentCategory.name: 'Tất cả' %> </h1>
+                            <% if (id) { 
+                                var result = '';
+                                for (let i = 0; i < currentCategory.length; i++) {
+                                    if(i !== currentCategory.length - 1) {
+                                        result += currentCategory[i].name + ', ';
+                                    } else {
+                                        result += currentCategory[i].name;
+                                    }
+                                }
+                            %>
+                                 <h1><%- result %></h1>
+                            <% } else { %>
+                                <h1>Tất cả</h1>
+                            <% } %>
                             <ul class="breadcumb">
                                 <li class="active"><a href="/">Trang chủ</a></li>
                                 <li> <span class="ion-ios-arrow-right"></span> Danh sách bài biết</li>
@@ -93,7 +106,7 @@
                                     <div class="row">
                                         <div class="col-md-12 form-it">
                                             <label>Tên bài viết</label>
-                                            <input type="text" placeholder="Tên bài viết">
+                                            <input type="text" placeholder="Tên bài viết" name="book_name">
                                         </div>
                                         <div class="col-md-12 form-it">
                                             <label>Thể loại</label>
@@ -116,19 +129,6 @@
                             <div class="ads">
                                 <img src="/user/images/uploads/ads1.png" alt="">
                             </div>
-                            <div class="sb-facebook sb-it">
-                                <h4 class="sb-title">Find us on Facebook</h4>
-                                <iframe src="" data-src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fhaintheme%2F%3Ffref%3Dts&tabs=timeline&width=340&height=315px&small_header=true&adapt_container_width=false&hide_cover=false&show_facepile=true&appId"  height="315" style="width:100%;border:none;overflow:hidden" ></iframe>
-                            </div>
-                            <!-- <div class="sb-twitter sb-it">
-                                <h4 class="sb-title">Tweet to us</h4>
-                                <div class="slick-tw">
-                                    <div class="tweet item" id="599202861751410688">
-                                    </div>
-                                    <div class="tweet item" id="297462728598122498">
-                                    </div>
-                                </div>					
-                            </div> -->
                         </div>
                     </div>
                 </div>

@@ -66,14 +66,14 @@
 	    </nav>
 	    
 	    <!-- top search form -->
-		<form action="" method="get" class="top-search">
-	    	<select>
+		<form action="/book/category" method="get" class="top-search">
+	    	<!-- <select name="id">
 				<option value="">Thể loại</option>
 				<% typeof categories != 'undefined' && categories.forEach(category => { %>
-					<option value="<%- category.short_name %> "><%- category.name %> </option>
+					<option value="<%- category._id %>"><%- category.name %> </option>
 				<% }) %> 
-			</select>
-			<input type="text" placeholder="Tìm kiếm sách mà bạn cần">
+			</select> -->
+			<input type="text" placeholder="Tìm kiếm sách mà bạn cần" name="book_name">
 	    </form>
 	</div>
 </header>
