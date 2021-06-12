@@ -13,7 +13,7 @@
   </head>
   <body>
   <!-- Start Page Loading -->
-  <!-- <%- include('layouts/loading') %> -->
+  <%- include('layouts/loading') %>
   <!-- End Page Loading -->
  <!-- //////////////////////////////////////////////////////////////////////////// --> 
   <!-- START HEADER -->
@@ -57,7 +57,6 @@
                     <td>Email</td>
                     <td>Username</td>
                     <td>Display name</td>
-                    <td>Password</td>
                     <td>Action</td>
                   </tr>
                 </thead>
@@ -67,33 +66,52 @@
                       <td><%- user.email %></td>
                       <td><%- user.profile.username %></td>
                       <td><%- user.profile.full_name %></td>
-                      <td><%- user.password_not_hash %></td>
                       <td>
-                        <i class="fas fa-edit admin-table__icon-edit"></i>
-                        <i class="fas fa-trash-alt admin-table__icon-delete"></i>
+                        <a href="/admin/user/<%- user._id %>"><i class="fas fa-edit admin-table__icon-edit"></i></a>
+                        
+                        <a href="" data-id="<%- user._id %>" data-toggle="modal" data-target="#delete-user-modal">
+                          <i class="fas fa-trash-alt admin-table__icon-delete"></i>
+                        </a>
                       </td>
                     </tr> 
                   <% }) %>
                 </tbody>
             </table>
 
-
         </div>
 
       </div>
     </div>
     <!-- End Panel -->
+    <div class="modal fade" id="delete-user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xóa User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn xóa?
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-delete-user" type="button" class="btn btn-danger">Xóa</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
   <!-- End Row -->
-
-  Quản lý User
 </div>
 <!-- END CONTAINER -->
  <!-- //////////////////////////////////////////////////////////////////////////// --> 
 </div>
 <!-- End Content -->
  <!-- //////////////////////////////////////////////////////////////////////////// --> 
-
+ <form name="delete-user-form" method="POST"></form>
 
 <!-- //////////////////////////////////////////////////////////////////////////// --> 
 <!-- //////////////////////////////////////////////////////////////////////////// --> 
@@ -103,70 +121,7 @@
 <!-- ================================================
 jQuery Library
 ================================================ -->
-<script src="js/jquery.min.js"></script>
-
-<!-- ================================================
-Bootstrap Core JavaScript File
-================================================ -->
-<script src="js/bootstrap/bootstrap.min.js"></script>
-
-<!-- ================================================
-Plugin.js - Some Specific JS codes for Plugin Settings
-================================================ -->
-<script src="js/plugins.js"></script>
-
-<!-- ================================================
-Data Tables
-================================================ -->
-<script src="js/datatables/datatables.min.js"></script>
-
-
-
-<script>
-$(document).ready(function() {
-    $('#example0').DataTable();
-} );
-</script>
-
-
-
-<script>
-$(document).ready(function() {
-    var table = $('#example').DataTable({
-        "columnDefs": [
-            { "visible": false, "targets": 2 }
-        ],
-        "order": [[ 2, 'asc' ]],
-        "displayLength": 25,
-        "drawCallback": function ( settings ) {
-            var api = this.api();
-            var rows = api.rows( {page:'current'} ).nodes();
-            var last=null;
- 
-            api.column(2, {page:'current'} ).data().each( function ( group, i ) {
-                if ( last !== group ) {
-                    $(rows).eq( i ).before(
-                        '<tr class="group"><td colspan="5">'+group+'</td></tr>'
-                    );
- 
-                    last = group;
-                }
-            } );
-        }
-    } );
- 
-    // Order by the grouping
-    $('#example tbody').on( 'click', 'tr.group', function () {
-        var currentOrder = table.order()[0];
-        if ( currentOrder[0] === 2 && currentOrder[1] === 'asc' ) {
-            table.order( [ 2, 'desc' ] ).draw();
-        }
-        else {
-            table.order( [ 2, 'asc' ] ).draw();
-        }
-    } );
-} );
-</script>
+<%- include('layouts/javascript') %>
 
 
 </body>

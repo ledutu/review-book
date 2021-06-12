@@ -21,14 +21,19 @@ const CreateBannerCategoryController = require('../../controllers/admin/CreateBa
 router.get('/', HomeController.index);
 
 
-router.get('/user', UserController.index);
+router.get('/user', UserController.show);
+router.get('/user/:id',UserController.edit)
+router.put('/user/:id',UserController.update)
+router.delete('/user/:id',UserController.destroy)
 
 router.get('/create-user',getCreateUser)
 router.post('/create-user',postCreateUser)
 
 router.get('/history', HistoryController.index);
 
-router.get('/book', BookController.index);
+router.get('/book', BookController.show);
+router.get('/book/:id', BookController.edit);
+router.put('/book/:id', BookController.update);
 
 router.get('/create-book',CreateBookController.index)
 

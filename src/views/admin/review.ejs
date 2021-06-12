@@ -13,7 +13,7 @@
   </head>
   <body>
   <!-- Start Page Loading -->
-  <%- include('layouts/loading') %>
+  <!-- <%- include('layouts/loading') %> -->
   <!-- End Page Loading -->
  <!-- //////////////////////////////////////////////////////////////////////////// --> 
   <!-- START HEADER -->
@@ -32,80 +32,50 @@
 <!-- START CONTENT -->
 <div class="content">
 
-  <!-- Start Page Header -->
-  <div class="page-header">
-    <h1 class="title">Quản lý bài review</h1>
-    
-    <!-- Start Page Header Right Div -->
-    <div class="right">
-    </div>
-    <!-- End Page Header Right Div -->
-    <div class="btn-group" role="group" aria-label="...">
-      Filter by :
-      <select class="form-select form-select-lg admin-feature__select" aria-label="Default select example">
-        <option value="all">Tất cả</option>
-        <option value="saab">Đã duyệt</option>
-        <option value="opel">Chưa duyệt</option>
-      </select>
-    </div>
-  </div>
-  <!-- End Page Header -->
-
  <!-- //////////////////////////////////////////////////////////////////////////// --> 
 <!-- START CONTAINER -->
 <div class="container-padding">
   <!-- Start Row -->
   <div class="row">
     <!-- Start Panel -->
+    
     <div class="col-md-12">
-        <div class="panel panel-default">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <!-- <td class="text-center"><i class="fa fa-trash"></i></td> -->
-                <td>ID</td>
-                <td>Tên sách</td>
-                <td>Title</td>
-                <td>Người đăng</td>
-                <td>Trạng thái</td>
-                <td>Action</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mình là cá, việc của mình là bơi</td>
-                <td>Sách định hướng hay</td>
-                <td>Ngân</td>
-                <td>Đã duyệt</td>
-                <td>
-                  <i class="fas fa-edit admin-table__icon-edit"></i>
-                  <i class="fas fa-trash-alt admin-table__icon-delete"></i>
-                </td>
-              <tr>
-                <td>2</td>
-                <td>Cà phê cùng tony</td>
-                <td>Cuốn sách dành cho người bắt đầu</td>
-                <td>Tùng</td>
-                <td>Đã duyệt</td>
-                <td>
-                  <i class="fas fa-edit admin-table__icon-edit"></i>
-                  <i class="fas fa-trash-alt admin-table__icon-delete"></i>
-                </td>
-              <tr>
-                <td>3</td>
-                <td>Hai số phận</td>
-                <td>Tiểu thuyết hay đáng đọc</td>
-                <td>Sơn</td>
-                <td>Chưa duyệt</td>
-                <td>
-                  <i class="fas fa-edit admin-table__icon-edit"></i>
-                  <i class="fas fa-trash-alt admin-table__icon-delete"></i>
-                </td>
-              </tr>     
-            </tbody>
-          </table>
+      <div class="panel panel-default">
+        <div class="panel-title">
+          
+          <div class="btnAdd" style="display:flex;justify-content: space-between;">
+            Quản lý bài review
+          </div>
         </div>
+        <div class="panel-body table-responsive">
+
+            <table id="example0" class="table display">
+                <thead>
+                  <tr>
+                    <!-- <td class="text-center"><i class="fa fa-trash"></i></td> -->
+                    <td>Book</td>
+                    <td>Reviewer</td>
+                    <td>Action</td>
+                  </tr>
+                </thead>
+                <tbody>    
+                  <% reviews.forEach(review =>{  %>
+                    <tr>
+                      <td><%- review.book_name %></td>                       
+                      <td><%- review.reviewer.profile.username %></td>
+                      <td>
+                        <i class="fas fa-edit admin-table__icon-edit"></i>
+                        <i class="fas fa-trash-alt admin-table__icon-delete"></i>
+                      </td>
+                    </tr> 
+                  <% }) %>
+                </tbody>
+            </table>
+
+
+        </div>
+
+      </div>
     </div>
     <!-- End Panel -->
   </div>
@@ -122,118 +92,9 @@
 <!-- //////////////////////////////////////////////////////////////////////////// --> 
 
 
-<!-- ================================================
-jQuery Library
-================================================ -->
-<script src="js/jquery.min.js"></script>
 
-<!-- ================================================
-Bootstrap Core JavaScript File
-================================================ -->
-<script src="js/bootstrap/bootstrap.min.js"></script>
+<%- include('layouts/javascript') %>
 
-<!-- ================================================
-Plugin.js - Some Specific JS codes for Plugin Settings
-================================================ -->
-<script src="js/plugins.js"></script>
-
-<!-- ================================================
-Bootstrap Select
-================================================ -->
-<script src="js/bootstrap-select/bootstrap-select.js"></script>
-
-<!-- ================================================
-Bootstrap Toggle
-================================================ -->
-<script src="js/bootstrap-toggle/bootstrap-toggle.min.js"></script>
-
-<!-- ================================================
-Bootstrap WYSIHTML5
-================================================ -->
-<!-- main file -->
-<script src="js/bootstrap-wysihtml5/wysihtml5-0.3.0.min.js"></script>
-<!-- bootstrap file -->
-<script src="js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
-
-<!-- ================================================
-Summernote
-================================================ -->
-<script src="js/summernote/summernote.min.js"></script>
-
-<!-- ================================================
-Flot Chart
-================================================ -->
-<!-- main file -->
-<script src="js/flot-chart/flot-chart.js"></script>
-<!-- time.js -->
-<script src="js/flot-chart/flot-chart-time.js"></script>
-<!-- stack.js -->
-<script src="js/flot-chart/flot-chart-stack.js"></script>
-<!-- pie.js -->
-<script src="js/flot-chart/flot-chart-pie.js"></script>
-<!-- demo codes -->
-<script src="js/flot-chart/flot-chart-plugin.js"></script>
-
-<!-- ================================================
-Chartist
-================================================ -->
-<!-- main file -->
-<script src="js/chartist/chartist.js"></script>
-<!-- demo codes -->
-<script src="js/chartist/chartist-plugin.js"></script>
-
-<!-- ================================================
-Easy Pie Chart
-================================================ -->
-<!-- main file -->
-<script src="js/easypiechart/easypiechart.js"></script>
-<!-- demo codes -->
-<script src="js/easypiechart/easypiechart-plugin.js"></script>
-
-<!-- ================================================
-Rickshaw
-================================================ -->
-<!-- d3 -->
-<script src="js/rickshaw/d3.v3.js"></script>
-<!-- main file -->
-<script src="js/rickshaw/rickshaw.js"></script>
-<!-- demo codes -->
-<script src="js/rickshaw/rickshaw-plugin.js"></script>
-
-<!-- ================================================
-Data Tables
-================================================ -->
-<script src="js/datatables/datatables.min.js"></script>
-
-<!-- ================================================
-Sweet Alert
-================================================ -->
-<script src="js/sweet-alert/sweet-alert.min.js"></script>
-
-<!-- ================================================
-Kode Alert
-================================================ -->
-<script src="js/kode-alert/main.js"></script>
-
-<!-- ================================================
-jQuery UI
-================================================ -->
-<script src="js/jquery-ui/jquery-ui.min.js"></script>
-
-<!-- ================================================
-Moment.js
-================================================ -->
-<script src="js/moment/moment.min.js"></script>
-
-<!-- ================================================
-Full Calendar
-================================================ -->
-<script src="js/full-calendar/fullcalendar.js"></script>
-
-<!-- ================================================
-Bootstrap Date Range Picker
-================================================ -->
-<script src="js/date-range-picker/daterangepicker.js"></script>
 
 </body>
 </html>
