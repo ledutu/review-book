@@ -68,7 +68,8 @@
                                 <div class="blog-it-infor custom-blog-card">
                                     <h3><a href="/blog/<%- blog.slug %>-<%- blog._id %>"><%- blog.title %></a></h3>
                                     <p>Người đăng: <a href="/user/profile/<%- blog.blogger.profile.username %>-<%- blog.blogger._id %>"><%- blog.blogger.profile.full_name %> </a></p>
-                                    <span class="time"><%- blog.createdAt %> </span>
+                                    <p><i class="ion-android-star"></i><span class="rate-number"><%- blog.vote %></span> / 5</p>
+                                    <span class="time datetime"><%- blog.createdAt %> </span>
                                 </div>
                             </div>
                         <% }) %>

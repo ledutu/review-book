@@ -63,8 +63,8 @@
                 <div class="row">
                     <div class="col-md-9 col-sm-12 col-xs-12">
                         <div class="blog-detail-ct">
-                            <h1 class="title"><%- blog.title %> </h1>
-                            <span class="time">27 Mar 2017</span>
+                            <h1 class="title"><%- blog.title %> </h1>                    
+                            <span class="time datetime"><%- blog.createdAt %></span>
                             <div class="blog-content">
                                 <%- blog.content %> 
                             </div>
@@ -75,6 +75,7 @@
                                     <a href="#"><i class="ion-social-facebook"></i></a>
                                 </div>
                                 <div class="right-it">
+                                    
                                     <h4>Tags</h4>
                                     <% for( let i = 0; i < blog.tag.length; i++ ) { %>
                                         <a href="/blog?id=<%- blog.tag[i]._id %>"><%- blog.tag[i].name %><%- (i !== blog.tag.length - 1)? ', ':'' %>  </a>
@@ -86,6 +87,22 @@
                             </div>
                             <!-- comment items -->
                             <div class="comments">
+                                <p style="margin-bottom: 5px !important;"><i class="ion-android-star"></i><span class="rate-number"><%- blog.vote %></span> / 5</p>
+                                <div class="rate-star-custom movie-rate-custom" style="margin-bottom: 10px;">
+                                    <p>Đánh giá bài này:  </p>
+                                    <div class="rate">
+                                        <input type="radio" id="star5" name="rate" value="5" />
+                                        <label for="star5" title="text">5 stars</label>
+                                        <input type="radio" id="star4" name="rate" value="4" />
+                                        <label for="star4" title="text">4 stars</label>
+                                        <input type="radio" id="star3" name="rate" value="3" />
+                                        <label for="star3" title="text">3 stars</label>
+                                        <input type="radio" id="star2" name="rate" value="2" />
+                                        <label for="star2" title="text">2 stars</label>
+                                        <input type="radio" id="star1" name="rate" value="1" />
+                                        <label for="star1" title="text">1 star</label>
+                                    </div>
+                                </div>
                                 <h4 class="mb-20"><%- totalComment %>  Bình luận</h4>
                                 
                                 <div class="comment-container">
@@ -103,7 +120,7 @@
                                             <img src="<%- comment.user.profile.image %> " alt="" width="40px" height="40px">
                                             <div class="comment-info">
                                                 <h4 style="color: #ffffff;"><%- comment.user.profile.full_name %></h4>
-                                                <p class="time"><%- comment.createdAt %></p>
+                                                <p class="time datetime"><%- comment.createdAt %></p>
                                             </div>
                                         </div>
                                         <p class="comment-content"><%- comment.content %></p>

@@ -66,7 +66,7 @@
                                         <% }) %>
                                     </div>
                                     <h6 class="short-text"><a href="/book/<%- book.slug %>-<%- book._id %>"><%- book.book_name %> </a></h6>
-                                    <p><i class="ion-android-star"></i><span>7.4</span> / 10</p>
+                                    <p><i class="ion-android-star"></i><span><%- book.vote %></span> / 5</p>
                                 </div>
                             </div> 
                         <% }) %>
@@ -104,7 +104,7 @@
                                                         </div>
                                                         <div class="title-in">
                                                             <h6><a href="/book/<%- latest.slug %>-<%= latest._id %>"><%- latest.book_name %></a></h6>
-                                                            <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                            <p><i class="ion-android-star"></i><span><%- latest.vote %></span> /5</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -129,7 +129,7 @@
                                                         </div>
                                                         <div class="title-in">
                                                             <h6><a href="/book/<%- votest.slug %>-<%- votest._id %>"><%- votest.book_name %> </a></h6>
-                                                            <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                            <p><i class="ion-android-star"></i><span><%- votest.vote %></span> /5</p>
                                                         </div>
                                                     </div>
                                                 </div>

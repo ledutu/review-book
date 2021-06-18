@@ -329,6 +329,14 @@ async function createBookVote(times = 5, language) {
         _id = faker.helpers.randomize(users)._id;
         book_id = faker.helpers.randomize(books)._id
         rate = faker.helpers.randomize([1, 2, 3, 4, 5]);
+        
+        vote = await Reaction.findOne({
+            type: 'book',
+            user: _id,
+            type_id: book_id,
+        });
+        
+        if(vote) continue;
 
         let bookVote = new Reaction({
             rate,
@@ -339,6 +347,8 @@ async function createBookVote(times = 5, language) {
 
         bookVotes = [...bookVotes, bookVote];
     }
+    
+    console.log(bookVotes.length);
 
     return { bookVotes };
 }
@@ -361,7 +371,15 @@ async function createBlogVote(times = 5, language) {
 
     for (let i = 0; i < times; i++) {
         _id = faker.helpers.randomize(users)._id;
-        blog_id = faker.helpers.randomize(blogs)._id
+        blog_id = faker.helpers.randomize(blogs)._id;
+        vote = await Reaction.findOne({
+            type: 'blog',
+            user: _id,
+            type_id: blog_id,
+        });
+        
+        if(vote) continue;
+        
         rate = faker.helpers.randomize([1, 2, 3, 4, 5]);
 
         let blogVote = new Reaction({
@@ -374,6 +392,8 @@ async function createBlogVote(times = 5, language) {
         blogVotes = [...blogVotes, blogVote];
     }
 
+    console.log(blogVotes.length);
+    
     return { blogVotes };
 }
 
@@ -383,9 +403,6 @@ async function createBlogVote(times = 5, language) {
 async function calculateRating() {
     books = await Book.find({}).select(['vote']);
     blogs = await Blog.find({}).select(['vote']);
-
-    console.log(books);
-    console.log(blogs);
 
     books.forEach(async book => {
         let mean = await getMean(book._id);

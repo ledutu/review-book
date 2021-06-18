@@ -14,7 +14,7 @@ async function index(request, response) {
         if (!limit) limit = 10;
 
         blogs = Blog.find({});
-        let totalBlog = await BlogTag.find({}).countDocuments();
+        let totalBlog = await Blog.find({}).countDocuments();
 
         if (id) {
             blogs = Blog.find({ tag: { '$in': id } })
@@ -34,7 +34,7 @@ async function index(request, response) {
             .populate('blogger', ['profile'])
             .skip((page * limit) - limit)
             .limit(limit);
-
+            
         const blogPage = {
             data: blogResult,
             total_page: Math.ceil(totalBlog / limit),
@@ -58,8 +58,6 @@ async function index(request, response) {
                 }
             }
         }
-
-        console.log(blogPage);
 
         blogTag = await BlogTag.find({});
         currentBlogTag = await BlogTag.find({ _id: { '$in': id } });

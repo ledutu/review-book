@@ -98,8 +98,6 @@ async function getBookDetail(request, response) {
         book = await Book.findById(id)
             .populate(['category', 'reviewer', 'book_information']);
 
-        book._doc.createdAt = moment(book.createdAt).format('L');
-
         totalComment = await BookComment.find({ book: book._id }).countDocuments();
         comments = await BookComment.find({ book: book._id })
             .populate('user')

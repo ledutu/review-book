@@ -15,7 +15,7 @@ async function index(request, response) {
         // message = 'Your version is old. You have to update new version to access application again'
 
         books = Book.find({})
-            .select(['image', '_id', 'book_name', 'slug'])
+            .select(['image', '_id', 'book_name', 'slug', 'vote'])
             .populate('category', ['_id', 'short_name', 'tag_color']);
 
         categories = BookCategory.find({}).populate('children');
