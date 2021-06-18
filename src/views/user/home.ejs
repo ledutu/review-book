@@ -103,7 +103,7 @@
                                                             <a  href="/book/<%- latest.slug %>-<%= latest._id %>"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
                                                         </div>
                                                         <div class="title-in">
-                                                            <h6><a href="#"><%- latest.book_name %></a></h6>
+                                                            <h6><a href="/book/<%- latest.slug %>-<%= latest._id %>"><%- latest.book_name %></a></h6>
                                                             <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
                                                         </div>
                                                     </div>
@@ -125,10 +125,10 @@
                                                             <img src="<%- votest.image.small %>" alt="" width="185" height="284">
                                                         </div> 
                                                         <div class="hvr-inner">
-                                                            <a  href="/book/<%- votest.slug %>-<%- votest._id %>"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
+                                                            <a href="/book/<%- votest.slug %>-<%- votest._id %>"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
                                                         </div>
                                                         <div class="title-in">
-                                                            <h6><a href="#"><%- votest.book_name %> </a></h6>
+                                                            <h6><a href="/book/<%- votest.slug %>-<%- votest._id %>"><%- votest.book_name %> </a></h6>
                                                             <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
                                                         </div>
                                                     </div>
@@ -153,9 +153,9 @@
                                 <% mostContributor.forEach(contributor => { %>
                                  
                                     <div class="celeb-item">
-                                        <a href="#"><img src="<%- contributor.profile.image %>" alt="" width="70" height="70"></a>
+                                        <a href="/user/profile/<%- contributor.profile.username %>-<%- contributor._id %>"><img src="<%- contributor.profile.image %>" alt="" width="70" height="70"></a>
                                         <div class="celeb-author">
-                                            <h6><a href="#"><%- contributor.profile.full_name %></a></h6>
+                                            <h6><a href="/user/profile/<%- contributor.profile.username %>-<%- contributor._id %>"><%- contributor.profile.full_name %></a></h6>
                                             <span><%- contributor.total_book %> Bài viết</span>
                                         </div>
                                     </div>

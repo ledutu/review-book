@@ -81,10 +81,10 @@
                                 <div class="movie-item-style-2 movie-item-style-1">
                                     <img src="<%- book.image.small %> " alt="">
                                     <div class="hvr-inner">
-                                        <a  href="moviesingle.html"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
+                                        <a  href="/book/<%- book.slug %>-<%= book._id %>"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
                                     </div>
                                     <div class="mv-item-infor">
-                                        <h6><a href="#"><%- book.book_name %> </a></h6>
+                                        <h6><a href="/book/<%- book.slug %>-<%= book._id %>"><%- book.book_name %> </a></h6>
                                         <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
                                     </div>
                                 </div>					
@@ -93,7 +93,7 @@
                         <%- include('layouts/pagination.ejs', {
                             limitTitle: 'Bài viết',
                             data: bookPage,
-                            pageLink: '/book/category'+(id && '?id='+id),
+                            pageLink: '/book/category'+link,
                             title: 'Bài viết mỗi trang',
                             isParam: true,
                         }) %> 

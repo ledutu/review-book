@@ -72,6 +72,8 @@ mongodb://localhost:27018
 * book_categories: Store all book's category
 * book_comments: Store all comment of one book review article
 * blog_comments: Store all comment of one blog
+* blog_tags: Store all tag of blog
+* reactions: Store all rate of blog or tag
 
 ### To create database by command
 **For Window**
@@ -105,6 +107,11 @@ __collection__
 * book-category
 * blog
 * book-comment
+* blog-comment
+* blog-tag
+* book-vote
+* blog-vote
+* calculate-vote: to calculate vote of blog or book
 * blog-comment
 * all: all is create all collection
 

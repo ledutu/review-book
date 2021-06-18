@@ -42,6 +42,27 @@ async function index(request, response) {
             page,
             limit,
         };
+        
+        console.log(typeof id);
+        
+        // response.json('OK')
+        link = '?';
+        if(id){
+            link = '?id='+id;
+            console.log(typeof id);
+            if(typeof id === "object") {
+                link = '?';
+                for (let i = 0; i < id.length; i++) {
+                    if(i === id.length - 1) {
+                        link += 'id='+id[i];
+                    } else {
+                        link += 'id='+id[i]+'&';
+                    }
+                    
+                }            
+            }
+        
+        }
 
         bookCategory = await BookCategory.find({});
         currentCategory = await BookCategory.find({ _id: { '$in': id } });
@@ -52,6 +73,7 @@ async function index(request, response) {
             id,
             bookCategory,
             currentCategory,
+            link,
         });
 
     } catch (error) {

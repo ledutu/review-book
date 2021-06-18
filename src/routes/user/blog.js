@@ -6,6 +6,6 @@ const BlogController = require('../../controllers/user/BlogController');
 
 // get book
 router.get('/', BlogController.index);
-router.get('/:id', BlogController.getBlogDetail);
+router.get('/*-:id', BlogController.getBlogDetail);
 
 module.exports = router;

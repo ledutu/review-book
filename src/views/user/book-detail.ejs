@@ -6,16 +6,15 @@
 <html class="ie ie8 no-js" lang="en-US">
 <![endif]-->
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
-<html lang="en" class="no-js">
+<html lang="en" class="no-js" >
 <head>
 	<!-- Basic need -->
-	<title>Open Pediatrics</title>
+	<title><%- book.book_name %> </title>
 	<meta charset="UTF-8">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<meta name="author" content="">
 	<link rel="profile" href="#">
-
 	<!-- Mobile specific meta -->
 	<meta name=viewport content="width=device-width, initial-scale=1">
 	<meta name="format-detection" content="telephone-no">
@@ -172,10 +171,10 @@
                             <div class="celebrities">
                                 <h4 class="sb-title">Người review</h4>
                                 <div class="celeb-item">
-                                    <a href="#"><img src="<%- book.reviewer.profile.image %>" alt="" width="70px" height="70px"></a>
+                                    <a href="/user/profile/<%- book.reviewer.profile.username %>-<%- book.reviewer._id %>"><img src="<%- book.reviewer.profile.image %>" alt="" width="70px" height="70px"></a>
                                     <div class="celeb-author">
-                                        <h6><a href="#"><%- book.reviewer.profile.full_name %></a></h6>
-                                        <span>Actor</span>
+                                        <h6><a href="/user/profile/<%- book.reviewer.profile.username %>-<%- book.reviewer._id %>"><%- book.reviewer.profile.full_name %></a></h6>
+                                        <span>Tác giả</span>
                                     </div>
                                 </div>
                             </div>

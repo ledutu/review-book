@@ -6,6 +6,8 @@ const { BookCategory } = require('../models/user/book_category');
 const { Blog } = require('../models/user/blog');
 const { BookComment } = require('../models/user/book_comment');
 const { BlogComment } = require('../models/user/blog_comment');
+const { BlogTag } = require('../models/user/blog_tag');
+const { Reaction } = require('../models/user/reaction');
 var bcrypt = require('bcrypt');
 
 /**
@@ -152,6 +154,31 @@ async function createBookWithCategoryDbSeed(times = 5, language) {
 }
 
 /**
+ * @function createBlogTag
+ * @param {number} times 
+ * @param {string} language
+ * @return {Object} blogTags
+ */
+function createBlogTag(times = 5, language) {
+    if (language) {
+        faker.locale = language;
+    }
+
+    blogTags = [];
+
+    for (let i = 0; i < times; i++) {
+        let word = faker.random.word()
+        let tag = new BlogTag({
+            name: word,
+        });
+
+        blogTags = [...blogTags, tag];
+    }
+
+    return { blogTags };
+}
+
+/**
  * @function createBookCategroy
  * @param {number} times 
  * @param {string} language
@@ -194,6 +221,7 @@ async function createBlog(times = 5, language) {
     blogs = [];
 
     const users = await User.find({}).select('_id').limit(times);
+    const blogTags = await BlogTag.find({}).select('_id').limit(times);
 
     for (let i = 0; i < times; i++) {
         _id = faker.helpers.randomize(users)._id
@@ -201,10 +229,13 @@ async function createBlog(times = 5, language) {
         currentUser.total_blog += 1;
         currentUser.save();
 
+        _blogTagId = faker.helpers.randomize(blogTags)._id
+
         title = faker.name.title();
         let blog = new Blog({
             title,
             content: faker.lorem.paragraphs(40),
+            tag: [_blogTagId],
             blogger: _id,
             slug: faker.helpers.slugify(title.toLowerCase()),
         });
@@ -233,7 +264,7 @@ async function createBookComment(times = 5, language) {
     for (let i = 0; i < times; i++) {
         _id = faker.helpers.randomize(users)._id;
         book_id = faker.helpers.randomize(books)._id
-        
+
         let bookComment = new BookComment({
             user: _id,
             content: faker.lorem.sentence(),
@@ -278,6 +309,118 @@ async function createBlogComment(times = 5, language) {
     return { blogComments };
 }
 
+/**
+ * @function createBookVote
+ * @param {number} times 
+ * @param {string} language
+ * @return {Object} bookVotes
+ */
+async function createBookVote(times = 5, language) {
+    if (language) {
+        faker.locale = language;
+    }
+
+    bookVotes = [];
+
+    const users = await User.find({}).select('_id').limit(times);
+    const books = await Book.find({}).select('_id').limit(times);
+
+    for (let i = 0; i < times; i++) {
+        _id = faker.helpers.randomize(users)._id;
+        book_id = faker.helpers.randomize(books)._id
+        rate = faker.helpers.randomize([1, 2, 3, 4, 5]);
+
+        let bookVote = new Reaction({
+            rate,
+            type: 'book',
+            user: _id,
+            type_id: book_id,
+        });
+
+        bookVotes = [...bookVotes, bookVote];
+    }
+
+    return { bookVotes };
+}
+
+/**
+ * @function createBlogVote
+ * @param {number} times 
+ * @param {string} language
+ * @return {Object} blogVotes
+ */
+async function createBlogVote(times = 5, language) {
+    if (language) {
+        faker.locale = language;
+    }
+
+    blogVotes = [];
+
+    const users = await User.find({}).select('_id').limit(times);
+    const blogs = await Blog.find({}).select('_id').limit(times);
+
+    for (let i = 0; i < times; i++) {
+        _id = faker.helpers.randomize(users)._id;
+        blog_id = faker.helpers.randomize(blogs)._id
+        rate = faker.helpers.randomize([1, 2, 3, 4, 5]);
+
+        let blogVote = new Reaction({
+            rate,
+            type: 'blog',
+            user: _id,
+            type_id: blog_id,
+        });
+
+        blogVotes = [...blogVotes, blogVote];
+    }
+
+    return { blogVotes };
+}
+
+/**
+ * @function calculateRating
+ */
+async function calculateRating() {
+    books = await Book.find({}).select(['vote']);
+    blogs = await Blog.find({}).select(['vote']);
+
+    console.log(books);
+    console.log(blogs);
+
+    books.forEach(async book => {
+        let mean = await getMean(book._id);
+        book.vote = mean;
+        await book.save();
+    });
+
+    blogs.forEach(async blog => {
+        let mean = await getMean(blog._id);
+        blog.vote = mean;
+        await blog.save();
+    });
+}
+
+/**
+ * @function getMean
+ * @param {ObjectId} id 
+ * @return mean,
+ */
+async function getMean(id) {
+    reactions = await Reaction.find({ type_id: id }).select(['rate']);
+
+    let total = 0;
+    reactions.forEach(reaction => {
+        total += reaction.rate;
+    });
+
+    mean = 0;
+    if (reactions.length) {
+        mean = total / reactions.length;
+    }
+
+    return mean.toFixed(2);
+}
+
 const Seeder = {
     createUserDatabaseSeed,
     createBookWithoutCategoryDbSeed,
@@ -286,6 +429,11 @@ const Seeder = {
     createBlog,
     createBookComment,
     createBlogComment,
+    createBlogTag,
+    createBookVote,
+    createBlogVote,
+    calculateRating,
+    getMean,
 }
 
 module.exports = Seeder

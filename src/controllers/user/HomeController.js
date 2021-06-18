@@ -21,7 +21,7 @@ async function index(request, response) {
         categories = BookCategory.find({}).populate('children');
 
         //Get popular book
-        popularBooks = await books.sort({ 'votest': -1 }).limit(12);
+        popularBooks = await books.sort({ 'vote': -1 }).limit(12);
 
         request.app.locals.categories = await categories;
 
