@@ -40,78 +40,36 @@
     <!-- Start Panel -->
     <div class="col-md-12">
       <div class="panel panel-default">
-    
+
         <div class="panel-title">
           Người dùng
         </div>
 
-        <button type="button" class="btn btn-option1 btn-search">Tìm kiếm</button>
-        <button class="btn btn-light btn-refresh-user"><i class="fa fa-refresh"></i></button>
-    
-      </div>
-      <div class="panel panel-default" id="panel-search" >
         <div class="panel-body">
-          <form class="form" action="/admin/user" method="GET">
-            <div class="panel-title">
-              Tìm kiếm người dùng
-            </div>
-            <div class="flex-search">
-              <div class="form-group flex-left-search">
-                <input type="text" class="form-control" id="email" name="email" placeholder="Nhập email">
-              </div>
-              <div class="form-group flex-right-search" >
-                <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Nhập tên đầy đủ">
-              </div>
-            </div>
-            <div class="flex-search">
-              <div class="form-group flex-left-search">
-                <input type="text" class="form-control" id="username" name="username" placeholder="Nhập biệt danh">
-              </div>
-              <div class="form-group flex-right-search">
-                <select class="selectpicker form-control" name="block">
-                  <option data-content="Chọn status"></option>
-                  <option data-content="<span class='label label-success'>Active</span>">false</option>
-                  <option data-content="<span class='label label-danger'>InActive</span>">true</option>
-                </select>   
-              </div>
-            </div>
-              <div class="form-group ">
-                <button type="button" class="btn btn-close-search">Đóng</button>
-                <button type="submit" class="btn btn-default">Tìm kiếm</button>              
-              </div>
-          </form>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        
-        <div class="panel-body">
-          
+
           <div class="table-responsive">
-            <p>Số lượng người dùng: <%- totalUser %></p>
             <table class="table table-bordered table-striped">
               <thead>
                 <tr>
                   <td>Email</td>
-                  <td>Full name</td>
-                  <td>Nickname</td>
+                  <td>Username</td>
+                  <td>Display name</td>
                   <td>Status</td>
                   <td>Action</td>
                 </tr>
               </thead>
               <tbody>    
-
                 <% allUserPage.data.forEach(user =>{  %>
                   <tr>
                     <td><%- user.email %></td>
-                    <td><%- user.profile.full_name %></td>
                     <td><%- user.profile.username %></td>
-                    <td >
-                      <button href="" data-id="<%- user._id %>" data-toggle="modal" data-target="#inActive-user-modal" class=" btn-change-status <%- user.block ? 'btn btn-danger' : 'btn btn-success' %>">
-                        <%- user.block ? 'InActive' : 'Active' %>
-                      </button>
-                    </td>
+                    <td><%- user.profile.full_name %></td>
                     <td>
                       <a href="/admin/user/<%- user._id %>"><i class=" admin-table__icon-edit"> Reset Password</i></a>
+                      
+                      <a href="" data-id="<%- user._id %>" data-toggle="modal" data-target="#delete-user-modal">
+                        <i class="fas fa-trash-alt admin-table__icon-delete"></i>
+                      </a>
                     </td>
                   </tr> 
                 <% }) %>
@@ -124,27 +82,28 @@
         limitTitle: 'Người dùng',
         data: allUserPage,
         pageLink: '/admin/user',
-        title: 'Chọn số người dùng mỗi trang'
+        title: 'Người dùng mỗi trang'
     }) %> 
       </div>
       
     </div>
-  <div class="modal fade" id="inActive-user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- End Panel -->
+    <div class="modal fade" id="delete-user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><%- allUserPage.data.block ? 'InActive User' : 'Active User' %></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Xóa User</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" >
-                    Bạn có chắc chắn muốn InActive người dùng này?
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn xóa?
                 </div>
                 <div class="modal-footer">
-                      <button id="btn-inActive-user" data-id="???" type="button" class="btn btn-success">Chấp nhận</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy bỏ</button>
+                    <button id="btn-delete-user" type="button" class="btn btn-danger">Xóa</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
                 </div>
             </div>
         </div>
@@ -157,8 +116,7 @@
 </div>
 <!-- End Content -->
  <!-- //////////////////////////////////////////////////////////////////////////// --> 
- <form name="inActive-user-form" method="POST"></form>
- <form name="active-user-form" method="POST"></form>
+ <form name="delete-user-form" method="POST"></form>
 
 <!-- //////////////////////////////////////////////////////////////////////////// --> 
 <!-- //////////////////////////////////////////////////////////////////////////// --> 
@@ -168,7 +126,6 @@
 <!-- ================================================
 jQuery Library
 ================================================ -->
-
 <%- include('layouts/javascript') %>
 
 

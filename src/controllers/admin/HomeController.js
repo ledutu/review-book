@@ -1,7 +1,7 @@
 var express = require('express');
 
-function index(request, response){
-    response.render('admin/home');
+function index(req, res){
+    res.render('admin/home');
 }
 
 module.exports = {
