@@ -1,9 +1,24 @@
 var express = require('express');
 
-function index(request, response){
-    response.render('admin/banner');
+async function show(req, res) {
+	try {
+		res.render('admin/banner');
+
+	} catch (error) {
+		console.log(error);
+		res.send(error);
+	}
+}
+
+async function create(req,res) {
+    try {
+        res.render('admin/create-banner');
+    } catch (error) {
+        console.log(error);
+        res.send(error)
+    }
 }
 
 module.exports = {
-    index,
+    show,create
 }

@@ -1,7 +1,4 @@
-
-
 <script src="/admin/js/jquery.min.js"></script>
-
 <!-- ================================================
 Bootstrap Core JavaScript File
 ================================================ -->
@@ -34,96 +31,82 @@ Bootstrap Date Range Picker
 ================================================ -->
 <script src="/admin/js/date-range-picker/daterangepicker.js"></script>
 
-
-
 <script>
-$(document).ready(function() {
-    $('#example0').DataTable();
-} );
+	$(document).ready(function () {
+        $('.btn-search').click((e) => {
+			$('#panel-search').toggle();
+		});
+		$('.btn-close-search').click((e) => {
+			$('#panel-search').hide();
+		});
+		$('.btn-refresh-user').click((e) => {
+			location.replace('/admin/user');
+		});
+		$('.btn-refresh-review').click((e) => {
+			location.replace('/admin/review');
+		});
+		$('.btn-refresh-blog').click((e) => {
+			location.replace('/admin/blog');
+		});
+		$('.btn-change-status').click((e) => {
+			const id = $(e.target).data('id');
+			$('#btn-inActive-user').data('id', id);
+			$('#btn-inActive-review').data('id', id);
+			$('#btn-inActive-blog').data('id', id);
+		});
+		$('#btn-inActive-user').click((e) => {
+			const id = $(e.target).data('id');
+			fetch(`http://localhost:3000/admin/user/${id}`, {
+				method: 'PUT', // or 'PUT'
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					$(`.btn-change-status[data-id=${id}]`).text(
+						data.newUser.block ? 'InActive' : 'Active'
+					);
+					$(`.btn-change-status[data-id=${id}]`).attr(
+						'class',
+						data.newUser.block
+							? 'btn-change-status btn btn-danger'
+							: 'btn-change-status btn btn-success'
+					);
+					$('#inActive-user-modal').modal('hide');
+				})
+				.catch((error) => {
+					console.error('Error:', error);
+				});
+		});
+
+		$('#btn-inActive-blog').click((e) => {
+			const id = $(e.target).data('id');
+			fetch(`http://localhost:3000/admin/blog/${id}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					$(`.btn-change-status[data-id=${id}]`).text(
+						data.newBlog.hide ? 'InActive' : 'Active'
+					);
+					$(`.btn-change-status[data-id=${id}]`).attr(
+						'class',
+						data.newBlog.hide
+							? 'btn-change-status btn btn-danger'
+							: 'btn-change-status btn btn-success'
+					);
+					$('#inActive-blog-modal').modal('hide');
+				})
+				.catch((error) => {
+					console.error('Error:', error);
+				});
+		});
+
+		
+
+	});
 </script>
-
-
-
-<script>
-$(document).ready(function() {
-  var userId;
-    var deleteForm = document.forms['delete-user-form'];
-    var btnDeleteUser = document.getElementById('btn-delete-user');
-    $('#example0').DataTable();
-    var table = $('#example').DataTable({
-        "columnDefs": [
-            { "visible": false, "targets": 2 }
-        ],
-        "order": [[ 2, 'asc' ]],
-        "displayLength": 25,
-        "drawCallback": function ( settings ) {
-            var api = this.api();
-            var rows = api.rows( {page:'current'} ).nodes();
-            var last=null;
- 
-            api.column(2, {page:'current'} ).data().each( function ( group, i ) {
-                if ( last !== group ) {
-                    $(rows).eq( i ).before(
-                        '<tr class="group"><td colspan="5">'+group+'</td></tr>'
-                    );
-                    last = group;
-                }
-            } );
-        }
-    } );
-
-    //When dialog confirm clicked
-    $('#delete-user-modal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            userId = button.data('id');
-    });
-    
-    //When delete user btn clicked
-    btnDeleteUser.onclick = function () {
-            deleteForm.action = '/admin/user/' + userId + '?_method=DELETE';
-            deleteForm.submit();
-        };
-
-
-    // Order by the grouping
-    $('#example tbody').on( 'click', 'tr.group', function () {
-        var currentOrder = table.order()[0];
-        if ( currentOrder[0] === 2 && currentOrder[1] === 'asc' ) {
-            table.order( [ 2, 'desc' ] ).draw();
-        }
-        else {
-            table.order( [ 2, 'asc' ] ).draw();
-        }
-    } );
-} );
-</script>
-
-<script>
-    $(document).ready(function() {
-      $('#date-range-picker').daterangepicker(null, function(start, end, label) {
-        console.log(start.toISOString(), end.toISOString(), label);
-      });
-    });
-    </script>
-    
-    <!-- Basic Single Date Picker -->
-    <script>
-    $(document).ready(function() {
-      $('#date-picker').daterangepicker({ singleDatePicker: true }, function(start, end, label) {
-        console.log(start.toISOString(), end.toISOString(), label);
-      });
-    });
-    </script>
-    
-    <!-- Date Range and Time Picker -->
-    <script>
-    $(document).ready(function() {
-      $('#date-range-and-time-picker').daterangepicker({
-        timePicker: true,
-        timePickerIncrement: 30,
-        format: 'MM/DD/YYYY h:mm A'
-      }, function(start, end, label) {
-        console.log(start.toISOString(), end.toISOString(), label);
-      });
-    });
-    </script>

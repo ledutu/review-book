@@ -13,7 +13,7 @@
   </head>
   <body>
   <!-- Start Page Loading -->
-  <!-- <%- include('layouts/loading') %> -->
+  <%- include('layouts/loading') %>
   <!-- End Page Loading -->
  <!-- //////////////////////////////////////////////////////////////////////////// --> 
   <!-- START HEADER -->
@@ -41,45 +41,87 @@
     
     <div class="col-md-12">
       <div class="panel panel-default">
+    
         <div class="panel-title">
-          
-          <div class="btnAdd" style="display:flex;justify-content: space-between;">
-            Quản lý thể loại sách
-            <a href="/admin/create-book" type="button" class="btn btn-success btn-lg" >Thêm</a>
-          </div>
-        </div>
-        <div class="panel-body table-responsive">
-
-            <table id="example0" class="table display">
-                <thead>
-                  <tr>
-                    <!-- <td class="text-center"><i class="fa fa-trash"></i></td> -->
-                    <td>Name</td>
-                    <td>Short name</td>
-                    <td>Tag color</td>
-                    <td>Action</td>
-                  </tr>
-                </thead>
-                <tbody>    
-                  <% bookCategories.forEach(category =>{  %>
-                    <tr>
-                      <td><%- category.name %></td>
-                      <td><%- category.short_name %></td>
-                      <td><%- category.tag_color %></td>
-                      <td>
-                        <i class="fas fa-edit admin-table__icon-edit"></i>
-                        <i class="fas fa-trash-alt admin-table__icon-delete"></i>
-                      </td>
-                    </tr> 
-                  <% }) %>
-                </tbody>
-            </table>
-
-
+          Quản lý thể loại 
         </div>
 
+        <button type="button" class="btn btn-option1 btn-search">Tìm kiếm</button>
+        <button class="btn btn-light btn-refresh-blog"><i class="fa fa-refresh"></i></button>
+    
       </div>
-    </div>
+      <div class="panel panel-default" id="panel-search" >
+        <div class="panel-body">
+          <form class="form" action="/admin/book-category" method="GET">
+            <div class="panel-title">
+              Tìm kiếm thể loại
+            </div>
+            <div class="flex-search">
+              <div class="form-group flex-left-search">
+                <input type="text" class="form-control" id="nameCate" name="nameCate" placeholder="Nhập tên bài blog">
+              </div>
+              <div class="form-group flex-right-search" >
+                <input type="text" class="form-control" id="username" name="username" placeholder="Nhập tên blogger">
+              </div>
+            </div>
+            <div class="flex-search">
+              <div class="form-group flex-right-search">
+                <select class="selectpicker form-control" name="hide">
+                  <option data-content="Chọn status"></option>
+                  <option data-content="<span class='label label-success'>Active</span>">false</option>
+                  <option data-content="<span class='label label-danger'>InActive</span>">true</option>
+                </select>   
+              </div>
+            </div>
+              <div class="form-group ">
+                <button type="button" class="btn btn-close-search">Đóng</button>
+                <button type="submit" class="btn btn-default">Tìm kiếm</button>              
+              </div>
+          </form>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        
+        <div class="panel-body">
+          
+          <div class="table-responsive">
+            <p>Số lượng thể loại: <%- totalCategory %></p>
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <td>Name</td>
+                  <td>Short name</td>
+                  <td>Tag color</td>
+                  <td>Action</td>
+                </tr>
+              </thead>
+              <tbody>    
+
+                <% allCatePage.data.forEach(cate =>{  %>
+                  <tr>
+                    <td><%- cate.name %></td>
+                    <td><%- cate.short_name %></td>
+                    <td><%- cate.tag_color %></td>
+                    <td>
+                      <i class="fas fa-edit admin-table__icon-edit"></i>
+                      <i class="fas fa-trash-alt admin-table__icon-delete"></i>
+                    </td>
+                  </tr> 
+                <% }) %>
+              </tbody>
+            </table>
+          </div> 
+        </div>
+        
+  <%- include('layouts/pagination.ejs', {
+        limitTitle: 'Thể loại',
+        data: allCatePage,
+        pageLink: '/admin/book-category',
+        title: 'Chọn số lượng hiển thị mỗi trang'
+    }) %> 
+      </div>
+  </div>
+</div>
     <!-- End Panel -->
   </div>
   <!-- End Row -->
