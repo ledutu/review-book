@@ -41,7 +41,7 @@ function createUserDatabaseSeed(times = 5, language) {
         let password = faker.internet.password(6);
         let hashPassword = bcrypt.hashSync(password, 12);
         let user = new User({
-            email: faker.internet.email(),
+            email: faker.internet.email().toLowerCase(),
             password: hashPassword,
             password_not_hash: password,
             profile,

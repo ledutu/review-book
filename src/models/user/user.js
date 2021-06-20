@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const { Profile } = require('./profile');
 const { Book } = require('./book');
+const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
     google_id: { type: String, default: '' },
@@ -9,7 +10,7 @@ const userSchema = new Schema({
     email: { type: String, default: '' },
     password: { type: String, select: false },
     password_not_hash: { type: String, select: false },
-    profile: { 
+    profile: {
         username: { type: String, default: '' },
         full_name: { type: String, default: '' },
         address: { type: String, default: '' },
@@ -25,24 +26,35 @@ const userSchema = new Schema({
     block: { type: Boolean, default: false },
 }, { timestamps: { currentTime: () => Date.now() } });
 
-const User = mongoose.model('users', userSchema);
-
 //Create new function
-// userSchema.statics.authenticate = function (email, password, callback) {
-//     User.findOne({ email }).exec(function (err, user) {
-//         if (err) return callback(err);
-//         else if (!user) {
-//             var err = new Error('User not found.');
-//             err.status = 401;
-//             return callback(err);
-//         }
+userSchema.statics.authenticate = async function (email, password, callbackResult, callbackErr) {
+    User.findOne({ email }).exec(async function (err, user) {
+        if (err) {
+            var error = new Error();
+            error.message = 'Máy chủ đang gặp sự cố, xin thử lại sau';
+            error.status = 500;
+            return callbackErr(error)
+        } else if (!user) {
+            var err = new Error();
+            err.message = 'Không tìm thấy user';
+            err.status = 401;
+            return callbackErr(err);
+        }
 
-//         bcrypt.compare(password, user.password, function (err, result) {
-//             if (result) return callback(null, user);
-//             else return callback();
-//         })
-//     })
-// }
+        userPassword = await User.findById(user._id).select(['password']);
+        bcrypt.compare(password, userPassword.password, function (err, result) {
+            if (result) return callbackResult(user);
+            else {
+                err = new Error();
+                err.message = 'Sai mật khẩu',
+                    err.status = 401;
+                return callbackErr(err);
+            };
+        })
+    })
+}
+
+const User = mongoose.model('users', userSchema);
 
 module.exports = {
     User,

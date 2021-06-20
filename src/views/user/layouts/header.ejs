@@ -55,7 +55,7 @@
 					</ul>
 					<ul class="nav navbar-nav flex-child-menu menu-right">
 						<% if (typeof user !== 'undefined') { %>
-							<img src="/user/images/no-image.png" class="avatar-image" alt="" width="35px" height="35px">						
+							<a href="/user/profile/<%- user.profile.username %>-<%- user._id %>"><img src="<%- user.profile.image %>" class="avatar-image" alt="" width="35px" height="35px"></a>						
 						<% } else { %>
 							<li class="loginLink"><a href="#"><%- __('auth.login') %></a></li>
 							<li class="btn signupLink"><a href="#"><%- __('auth.sign-up') %></a></li> 

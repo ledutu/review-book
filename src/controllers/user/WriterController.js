@@ -1,12 +1,13 @@
 var express = require('express');
 const { User } = require('../../models/user/user');
+var auth = require('../../config/auth');
 
 async function index(request, response) {
 
     let { page, limit, full_name, username } = request.query;
 
     try {
-        
+
         page = parseInt(page);
         limit = parseInt(limit)
 
@@ -28,7 +29,7 @@ async function index(request, response) {
 
         const userResults = await allUsers
             .select(['profile', 'total_book'])
-            .sort({total_book: -1})
+            .sort({ total_book: -1 })
             .skip((page * limit) - limit)
             .limit(limit);
 

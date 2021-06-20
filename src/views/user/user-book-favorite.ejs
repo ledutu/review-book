@@ -78,7 +78,7 @@
                             <div class="user-fav">
                                 <p>Khác</p>
                                 <ul>
-                                    <li><a href="#">Đăng xuât</a></li>
+                                    <li><a href="/user/logout">Đăng xuât</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                                     </div>
                                     <div class="mv-item-infor">
                                         <h6><a href="/book/<%- fabook.slug %>-<%- fabook._id %>"><%- fabook.book_name %> </a></h6>
-                                        <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
+                                        <p class="rate"><i class="ion-android-star"></i><span><%- fabook.vote %></span> /5</p>
                                     </div>
                                 </div>		
                             <% }) %>

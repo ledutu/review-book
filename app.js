@@ -33,8 +33,20 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 
+// express-session
+app.use(
+    session({
+        secret: 'secret',
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+        },
+    })
+);
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -54,17 +66,6 @@ i18n.configure({
     objectNotation: true
 });
 
-// express-session
-app.use(
-    session({
-        secret: 'secret',
-        resave: false,
-        saveUninitialized: true,
-        cookie: {
-            maxAge: 1000 * 60 * 60 * 24 * 7,
-        },
-    })
-);
 
 const { DB_HOST, DB_PORT, DB_NAME, ACCESS_TIMEOUT, MONGODB_URL } = process.env;
 
@@ -92,7 +93,7 @@ db.on('connected', () => {
 
 //Route Admin
 
-app.use('/admin',homeAdmin);
+app.use('/admin', homeAdmin);
 
 
 //Route User
