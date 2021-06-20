@@ -25,7 +25,7 @@
   width: auto !important;
 }
 .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
-  width: 220px;
+  width: 100%;
 }
 .bootstrap-select .btn:focus {
   outline: thin dotted #333333 !important;
