@@ -38,6 +38,7 @@ router.get('/book-category/create', BookCategoryController.create);
 //blog
 router.get('/blog', BlogController.show);
 router.put('/blog/:id',BlogController.update)
+
 //banner
 router.get('/banner', BannerController.show);
 router.get('/banner/create', BannerController.create);
