@@ -23,6 +23,7 @@ const userSchema = new Schema({
     favorite_book: [{ type: Schema.Types.ObjectId, ref: 'books' }],
     total_book: { type: Number, default: 0 },
     total_blog: { type: Number, default: 0 },
+    role: { type: Number, default: 0 },
     block: { type: Boolean, default: false },
 }, { timestamps: { currentTime: () => Date.now() } });
 
