@@ -8,7 +8,8 @@ var mongoose = require('mongoose');
 var i18n = require("i18n");
 const session = require('express-session');
 var passport = require('passport');
-
+var faker = require('faker');
+var methodOverride = require('method-override')
 
 //Admin
 var homeAdmin = require('./src/routes/admin/home')
@@ -32,12 +33,26 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 
+// express-session
+app.use(
+    session({
+        secret: 'secret',
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+        },
+    })
+);
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/src/public')));
+
+app.use(methodOverride('_method'))
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -51,17 +66,6 @@ i18n.configure({
     objectNotation: true
 });
 
-// express-session
-app.use(
-    session({
-        secret: 'secret',
-        resave: false,
-        saveUninitialized: true,
-        cookie: {
-            maxAge: 1000 * 60 * 60 * 24 * 7,
-        },
-    })
-);
 
 const { DB_HOST, DB_PORT, DB_NAME, ACCESS_TIMEOUT, MONGODB_URL } = process.env;
 
@@ -89,7 +93,7 @@ db.on('connected', () => {
 
 //Route Admin
 
-app.use('/admin',homeAdmin);
+app.use('/admin', homeAdmin);
 
 
 //Route User
@@ -103,10 +107,10 @@ app.use('/blog', blog);
 app.use('/api/db', seed);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    res.render('user/error');
-    // next(createError(404));
-});
+// app.use(function (req, res, next) {
+//     res.render('user/error');
+//     // next(createError(404));
+// });
 
 // error handler
 app.use(function (err, req, res, next) {

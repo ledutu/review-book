@@ -13,15 +13,15 @@ const Seeder = require('../../utils/seeder');
 async function index(request, response) {
     try {
         // message = 'Your version is old. You have to update new version to access application again'
-
+        
         books = Book.find({})
-            .select(['image', '_id', 'book_name'])
-            .populate('category', ['_id', 'short_name']);
+            .select(['image', '_id', 'book_name', 'slug', 'vote'])
+            .populate('category', ['_id', 'short_name', 'tag_color']);
 
         categories = BookCategory.find({}).populate('children');
 
         //Get popular book
-        popularBooks = await books.sort({ 'votest': -1 }).limit(12);
+        popularBooks = await books.sort({ 'vote': -1 }).limit(12);
 
         request.app.locals.categories = await categories;
 
@@ -41,8 +41,7 @@ async function index(request, response) {
         };
 
         mostContributor = await User.find({}, {}, { sort: { total_book: -1 } })
-            .select(['profile'])
-            .populate('profile', ['full_name', 'image'])
+            .select(['profile', 'total_book'])
             .limit(4);
 
         response.render('user/home', {

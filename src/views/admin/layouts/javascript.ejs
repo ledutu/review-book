@@ -1,1 +1,112 @@
-<script src="/user/js"></script>
+<script src="/admin/js/jquery.min.js"></script>
+<!-- ================================================
+Bootstrap Core JavaScript File
+================================================ -->
+<script src="/admin/js/bootstrap/bootstrap.min.js"></script>
+
+<!-- ================================================
+Plugin.js - Some Specific JS codes for Plugin Settings
+================================================ -->
+<script src="/admin/js/plugins.js"></script>
+
+<!-- ================================================
+Data Tables
+================================================ -->
+<script src="/admin/js/datatables/datatables.min.js"></script>
+
+<script src="/admin/js/bootstrap-select/bootstrap-select.js"></script>
+
+<!-- ================================================
+Bootstrap Toggle
+================================================ -->
+<script src="/admin/js/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+
+<!-- ================================================
+Moment.js
+================================================ -->
+<script src="/admin/js/moment/moment.min.js"></script>
+
+<!-- ================================================
+Bootstrap Date Range Picker
+================================================ -->
+<script src="/admin/js/date-range-picker/daterangepicker.js"></script>
+
+<script>
+	$(document).ready(function () {
+        $('.btn-search').click((e) => {
+			$('#panel-search').toggle();
+		});
+		$('.btn-close-search').click((e) => {
+			$('#panel-search').hide();
+		});
+		$('.btn-refresh-user').click((e) => {
+			location.replace('/admin/user');
+		});
+		$('.btn-refresh-review').click((e) => {
+			location.replace('/admin/review');
+		});
+		$('.btn-refresh-blog').click((e) => {
+			location.replace('/admin/blog');
+		});
+		$('.btn-change-status').click((e) => {
+			const id = $(e.target).data('id');
+			$('#btn-inActive-user').data('id', id);
+			$('#btn-inActive-review').data('id', id);
+			$('#btn-inActive-blog').data('id', id);
+		});
+		$('#btn-inActive-user').click((e) => {
+			const id = $(e.target).data('id');
+			fetch(`http://localhost:3000/admin/user/${id}`, {
+				method: 'PUT', // or 'PUT'
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					$(`.btn-change-status[data-id=${id}]`).text(
+						data.newUser.block ? 'InActive' : 'Active'
+					);
+					$(`.btn-change-status[data-id=${id}]`).attr(
+						'class',
+						data.newUser.block
+							? 'btn-change-status btn btn-danger'
+							: 'btn-change-status btn btn-success'
+					);
+					$('#inActive-user-modal').modal('hide');
+				})
+				.catch((error) => {
+					console.error('Error:', error);
+				});
+		});
+
+		$('#btn-inActive-blog').click((e) => {
+			const id = $(e.target).data('id');
+			fetch(`http://localhost:3000/admin/blog/${id}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					$(`.btn-change-status[data-id=${id}]`).text(
+						data.newBlog.hide ? 'InActive' : 'Active'
+					);
+					$(`.btn-change-status[data-id=${id}]`).attr(
+						'class',
+						data.newBlog.hide
+							? 'btn-change-status btn btn-danger'
+							: 'btn-change-status btn btn-success'
+					);
+					$('#inActive-blog-modal').modal('hide');
+				})
+				.catch((error) => {
+					console.error('Error:', error);
+				});
+		});
+
+		
+
+	});
+</script>

@@ -3,7 +3,7 @@
     <div class="login-content">
         <a href="#" class="close">x</a>
         <h3><%- __('auth.login') %></h3>
-        <form method="post" action="/user/login">
+        <form id="loginForm">
         	<div class="row">
         		 <label for="email">
                     <%- __('auth.email') %>
@@ -18,6 +18,9 @@
                 </label>
             </div>
             <div class="row">
+                <p class="err-message"></p>
+            </div>
+            <div class="row">
             	<div class="remember">
 					<div>
 						<!-- <input type="checkbox" name="remember" value="true"><span><%- __('auth.remember-me') %></span> -->
@@ -26,7 +29,7 @@
             	</div>
             </div>
            <div class="row">
-           	 <button type="submit"><%- __('auth.login') %></button>
+           	 <button type="submit" id="loginButtonClick"><%- __('auth.login') %></button>
            </div>
         </form>
         <div class="row">

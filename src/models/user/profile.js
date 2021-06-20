@@ -3,7 +3,6 @@ const { Schema } = mongoose;
 
 const profileSchema = new Schema({
     username: { type: String, default: '' },
-    full_name: { type: String, default: '' },
     address: { type: String, default: '' },
     image: { type: String, default: '' },
     gender: { type: String, enum: ['men', 'women', 'third'], default: 'men' },

@@ -21,6 +21,7 @@
 	<meta name="format-detection" content="telephone-no">
     
     <%- include('layouts/head') %>
+    <link rel="stylesheet" href="/user/css/user.css">
 
 </head>
 <body>
@@ -46,10 +47,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="hero-ct">
-                            <h1>Edward kennedy’s profile</h1>
+                            <h1 class="full-name-style"><%- userProfile.profile.full_name %></h1>
                             <ul class="breadcumb">
-                                <li class="active"><a href="#">Home</a></li>
-                                <li> <span class="ion-ios-arrow-right"></span>Profile</li>
+                                <li class="active"><a href="/">Trang chủ</a></li>
+                                <li> <span class="ion-ios-arrow-right"></span>Trang cá nhân</li>
                             </ul>
                         </div>
                     </div>
@@ -62,96 +63,91 @@
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <div class="user-information">
                             <div class="user-img">
-                                <a href="#"><img src="images/uploads/user-img.png" alt=""><br></a>
-                                <a href="#" class="redbtn">Change avatar</a>
+                                <a href="#"><img src="<%- userProfile.profile.image %> " alt="" width="120" height="120"><br></a>
+                                <% if (isAuth){ %>
+                                    <a href="#" class="redbtn">Đổi ảnh đại diện</a>
+                                <% } %>
                             </div>
                             <div class="user-fav">
-                                <p>Account Details</p>
+                                <p>Chi tiết tài khoản</p>
                                 <ul>
-                                    <li  class="active"><a href="/user/profile">Profile</a></li>
-                                    <li><a href="/user/book-favorite">Favorite book</a></li>
-                                    <li><a href="/user/writer-favorite">Favorite writer</a></li>
+                                    <li class="active"><a>Thông tin</a></li>
+                                    <li><a href="/user/book-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết yêu thích</a></li>
+                                    <li><a href="/user/writer-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Người viết yêu thích</a></li>
+                                    <li><a href="/user/my-review/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết của bạn</a></li>
                                 </ul>
                             </div>
-                            <div class="user-fav">
-                                <p>Others</p>
-                                <ul>
-                                    <li><a href="#">Log out</a></li>
-                                </ul>
-                            </div>
+                            <% if (isAuth){ %>
+                                <div class="user-fav">
+                                    <p>Khác</p>
+                                    <ul>
+                                        <li><a href="/user/logout">Đăng xuât</a></li>
+                                    </ul>
+                                </div> 
+                            <% } %>
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-12 col-xs-12">
+                        
                         <div class="form-style-1 user-pro" action="">
                             <form action="" class="user">
-                                <h4>01. Profile details</h4>
+                                <h4>01. Thông tin chi tiết</h4>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
-                                        <label>Username</label>
-                                        <input type="text" placeholder="edwardkennedy">
+                                        <label>Biệt danh</label>
+                                        <input type="text" placeholder="Biệt danh" value="<%- userProfile.profile.username %>" <%- !isAuth && 'disabled' %>>
                                     </div>
                                     <div class="col-md-6 form-it">
-                                        <label>Email Address</label>
-                                        <input type="text" placeholder="edward@kennedy.com">
+                                        <label>Địa chỉ email</label>
+                                        <input type="email" placeholder="Địa chỉ email" value="<%- userProfile.email %> " <%- !isAuth && 'disabled' %>>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
-                                        <label>First Name</label>
-                                        <input type="text" placeholder="Edward ">
+                                        <label>Tên đầy đủ</label>
+                                        <input type="text" placeholder="Tên đầy đủ" value="<%- userProfile.profile.full_name %>" <%- !isAuth && 'disabled' %>>
                                     </div>
                                     <div class="col-md-6 form-it">
-                                        <label>Last Name</label>
-                                        <input type="text" placeholder="Kennedy">
+                                        <label>Địa chỉ</label>
+                                        <input type="text" placeholder="Địa chỉ" value="<%- userProfile.profile.address %>" <%- !isAuth && 'disabled' %>>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6 form-it">
-                                        <label>Country</label>
-                                        <select>
-                                          <option value="united">United States</option>
-                                          <option value="saab">Others</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 form-it">
-                                        <label>State</label>
-                                        <select>
-                                          <option value="united">New York</option>
-                                          <option value="saab">Others</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <input class="submit" type="submit" value="save">
-                                    </div>
-                                </div>	
+                                
+                                <% if (isAuth) { %>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <input class="submit" type="submit" value="Lưu">
+                                        </div>
+                                    </div>	
+                                <% } %>
                             </form>
                             <form action="" class="password">
-                                <h4>02. Change password</h4>
+                                <h4>02. Đổi mật khẩu</h4>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
-                                        <label>Old Password</label>
-                                        <input type="text" placeholder="**********">
+                                        <label>Mật khẩu cũ</label>
+                                        <input type="text" placeholder="**********" <%- !isAuth && 'disabled' %>>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
-                                        <label>New Password</label>
-                                        <input type="text" placeholder="***************">
+                                        <label>Mật khẩu mới</label>
+                                        <input type="text" placeholder="***************" <%- !isAuth && 'disabled' %>>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
-                                        <label>Confirm New Password</label>
-                                        <input type="text" placeholder="*************** ">
+                                        <label>Xác nhận mật khẩu mới</label>
+                                        <input type="text" placeholder="*************** " <%- !isAuth && 'disabled' %>>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <input class="submit" type="submit" value="change">
-                                    </div>
-                                </div>	
+                                <% if (isAuth) { %>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <input class="submit" type="submit" value="Xác nhận">
+                                        </div>
+                                    </div>	
+                                <% } %>
                             </form>
                         </div>
                     </div>

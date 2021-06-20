@@ -1,0 +1,53 @@
+<div class="topbar-filter">
+    <div>
+        <label><%- title || 'Dữ liệu mỗi trang' %>:</label>
+    <select onchange="location=this.value">
+        
+        <% for( let i = 1; i <= 4; i++ ) { %>
+            <option 
+                value="<%- pageLink+(typeof isParam !== 'undefined'? '&': '?')+'page=1&limit='+(i*5) %>"
+                <%- data.limit ===  i*5 && 'selected'%> 
+            >  
+                <%- i*5 %> <%- limitTitle %>
+                
+            </option>
+        <% } %>
+        
+    </select>
+    
+    </div>
+    
+    <div class="pagination2">
+        <span>Trang <%- data.page+' trên '+data.total_page %>:</span>
+        <% if (data.page === 1) { %>
+            <a><i class="fa fa-caret-left"></i></a>
+        <% } else { %>
+            <a href="<%- pageLink+(typeof isParam !== 'undefined'? '&': '?')+'page=1&limit='+data.limit %>"><i class="fa fa-caret-left"></i></a>
+        <% } %>
+        
+        <% var i = (Number(data.page) > 3 ? Number(data.page) - 2 : 1) %>
+        
+        <% if(i !== 1) { %>
+            <a class="page-link" href="#">...</a>
+        <% } %>
+        
+        <% for(; i <= (Number(data.page) + 2) && i <= data.total_page; i++) { %>
+            <% if (data.page === i) { %>
+                <a class="active"> <%- i %> </a> 
+            <% } else { %>
+                <a href="<%- pageLink+(typeof isParam !== 'undefined'? '&': '?')+'page='+i+'&limit='+data.limit %>"> <%- i %> </a> 
+            <% } %>
+            
+            <% if (i == Number(data.page) + 2 && i < data.total_page) { %>
+                <a class="page-link" href="#">...</a>
+            <% } %>
+        <% } %>
+        
+        <% if (data.page === data.total_page) { %>
+            <a><i class="fa fa-caret-right"></i></a>
+        <% } else { %>
+            <a href="<%- pageLink+(typeof isParam !== 'undefined'? '&': '?')+'page='+data.total_page+'&limit='+data.limit %>"><i class="fa fa-caret-right"></i></a>
+        <% } %>
+            
+    </div>
+</div>

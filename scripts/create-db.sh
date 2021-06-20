@@ -35,6 +35,18 @@ function createBookCategory() {
     fi
 }
 
+function createBlogTag() {
+    echo "Creating Blog Tag"
+    RESPONSE=`wget -qO- ${API_URL}/blog-tag?times=${TIMES}\&locale=${LOCALE}`
+    if [ $RESPONSE ]
+    then
+        echo "Create blog tag database successful"
+    else
+        echo "Create blog tag database fail, please check and try again"
+        exit 1
+    fi
+}
+
 function createBook() {
     echo "Creating Book database......"
     RESPONSE=`wget -qO- ${API_URL}/book?times=${TIMES}\&locale=${LOCALE}`
@@ -83,13 +95,53 @@ function createBlogComment() {
     fi
 }
 
+function createBookVote() {
+    echo "Creating Book vote database......"
+    RESPONSE=`wget -qO- ${API_URL}/create-book-vote?times=${TIMES}\&locale=${LOCALE}`
+    if [ $RESPONSE ]
+    then
+        echo "Create Book vote database successful"
+    else
+        echo "Create Book vote database fail, please check and try again"
+        exit 1
+    fi
+}
+
+function createBlogVote() {
+    echo "Creating Blog vote database......"
+    RESPONSE=`wget -qO- ${API_URL}/create-blog-vote?times=${TIMES}\&locale=${LOCALE}`
+    if [ $RESPONSE ]
+    then
+        echo "Create Blog vote database successful"
+    else
+        echo "Create Blog vote database fail, please check and try again"
+        exit 1
+    fi
+}
+
+function calculateVote() {
+    echo "Calculating book and blog database......"
+    RESPONSE=`wget -qO- ${API_URL}/calculate-vote`
+    if [ $RESPONSE ]
+    then
+        echo "Calculating book and blog database successful"
+    else
+        echo "Calculating book and blog database fail, please check and try again"
+        exit 1
+    fi
+}
+
 function createAll() {
     createUser
     createBookCategory
+    createBlogTag
     createBook
     createBlog
     createBookComment
     createBlogComment
+    createBookVote
+    createBlogVote
+    calculateVote
 }
 
 function main() {
@@ -99,6 +151,9 @@ function main() {
         ;;
         "book-category")
             createBookCategory
+        ;;
+        "blog-tag")
+            createBlogTag
         ;;
         "book")
             createBook
@@ -111,6 +166,15 @@ function main() {
         ;;
         "blog-comment")
             createBlogComment
+        ;;
+        "book-vote")
+            createBookVote
+        ;;
+        "blog-vote")
+            createBlogVote
+        ;;
+        "calculate-vote")
+            calculateVote
         ;;
         "all")
             createAll

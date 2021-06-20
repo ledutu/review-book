@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en" class="no-js">
+<head>
+	<!-- Basic need -->
+	<title><%- userProfile.profile.full_name %> </title>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<link rel="profile" href="#">
+
+	<!-- Mobile specific meta -->
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone-no">
+    
+    <%- include('layouts/head') %>
+    <link rel="stylesheet" href="/user/css/user.css">
+
+</head>
+<body>
+    <!--preloading-->
+    <%- include('layouts/loading') %>
+    <!--end of preloading-->
+
+    <!--login form popup-->
+    <%- include('layouts/login-form') %>
+    <!--end of login form popup-->
+
+    <!--signup form popup-->
+    <%- include('layouts/sign-up-form') %>
+    <!--end of signup form popup-->
+
+    <!-- BEGIN | Header -->
+    <%- include('layouts/header') %>
+    <!-- END | Header -->
+    
+    <div class="content">
+        <div class="hero user-hero">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="hero-ct">
+                            <h1 class="full-name-style"><%- userProfile.profile.full_name %></h1>
+                            <ul class="breadcumb">
+                                <li class="active"><a href="/">Trang chủ</a></li>
+                                <li> <span class="ion-ios-arrow-right"></span>Sách yêu thích</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-single">
+            <div class="container">
+                <div class="row ipad-width2">
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        <div class="user-information">
+                            <div class="user-img">
+                                <a href="#"><img src="<%- userProfile.profile.image %> " alt="" width="120" height="120"><br></a>
+                                <a href="#" class="redbtn">Đổi ảnh đại diện</a>
+                            </div>
+                            <div class="user-fav">
+                                <p>Chi tiết tài khoản</p>
+                                <ul>
+                                    <li><a href="/user/profile/<%- userProfile.profile.username %>-<%- userProfile._id %>">Thông tin</a></li>
+                                    <li><a href="/user/book-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết yêu thích</a></li>
+                                    <li><a href="/user/writer-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Người viết yêu thích</a></li>
+                                    <li class="active"><a>Bài viết của bạn</a></li>
+                                </ul>
+                            </div>
+                            <div class="user-fav">
+                                <p>Khác</p>
+                                <ul>
+                                    <li><a href="/user/logout">Đăng xuât</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-sm-12 col-xs-12">
+                        <div class="topbar-filter user">
+                            <p style="padding: 5px 0px;">Đã tìm thấy <span><%- myBookPage.data.length %> cuốn sách</span></p>
+                        </div>
+                        <div class="flex-wrap-movielist grid-fav">
+                            <% myBookPage.data.forEach(fabook => { %>
+                                <div class="movie-item-style-2 movie-item-style-1 style-3">
+                                    <img src="<%- fabook.image.small %> " alt="" width="170px" height="261px">
+                                    <div class="hvr-inner">
+                                        <a  href="/book/<%- fabook.slug %>-<%- fabook._id %>"> Chi tiết <i class="ion-android-arrow-dropright"></i> </a>
+                                    </div>
+                                    <div class="mv-item-infor">
+                                        <h6><a href="/book/<%- fabook.slug %>-<%- fabook._id %>"><%- fabook.book_name %> </a></h6>
+                                        <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
+                                    </div>
+                                </div>		
+                            <% }) %>
+                        </div>		
+                        <%- include('layouts/pagination.ejs', {
+                            limitTitle: 'Sách',
+                            data: myBookPage,
+                            pageLink: '/user/my-review/'+userProfile.profile.username+'-'+userProfile._id,
+                            title: 'Sách mỗi trang'
+                        }) %> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end of latest new v1 section-->
+
+    <!-- footer section-->
+    <%- include('layouts/footer') %>
+    <!-- end of footer section-->
+
+    <%- include('layouts/javascript') %>
+</body>
+</html>

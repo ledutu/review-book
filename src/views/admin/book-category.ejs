@@ -10,290 +10,124 @@
     <!-- ========== Css Files ========== --> 
     <%- include('layouts/head') %>
 
-  <!-- ========== Css Files ========== -->
-  <link href="css/root.css" rel="stylesheet">
-  <%- include('layouts/head') %>
-
   </head>
   <body>
   <!-- Start Page Loading -->
   <%- include('layouts/loading') %>
   <!-- End Page Loading -->
- <!-- //////////////////////////////////////////////////////////////////////////// --> 
   <!-- START HEADER -->
   <%- include('layouts/header') %>
   <!-- END HEADER -->
- <!-- //////////////////////////////////////////////////////////////////////////// --> 
 
 
-<!-- //////////////////////////////////////////////////////////////////////////// --> 
 <!-- START SIDEBAR -->
 <%- include('layouts/sidebar') %>
 <!-- END SIDEBAR -->
-<!-- //////////////////////////////////////////////////////////////////////////// --> 
 
- <!-- //////////////////////////////////////////////////////////////////////////// --> 
 <!-- START CONTENT -->
 <div class="content">
 
-  <!-- Start Page Header -->
-  <div class="page-header">
-    <h1 class="title">Quản lý thể loại sách</h1>
-    
-    <!-- Start Page Header Right Div -->
-    <div class="right">
-      <!-- <button class="btn btn-info admin-feature__btn" type="button" data-bs-toggle="modal" data-bs-target="#modalCreateAccount">Thêm tài khoản</button> -->
-      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Thêm thể loại</button>
-    </div>
-    <!-- End Page Header Right Div -->
-    <div class="btn-group" role="group" aria-label="...">
-      Filter by :
-      <select class="form-select form-select-lg admin-feature__select" aria-label="Default select example">
-        <option value="all">Tất cả</option>
-        <option value="saab">Tiểu thuyết</option>
-        <option value="opel">Truyện ngắn</option>
-        <option value="audi">Học tập</option>
-      </select>
-    </div>
-  </div>
-  <!-- End Page Header -->
-
-  <!-- Start Form -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="panel panel-default">
-
-        <div class="panel-title">
-          Thêm thể loại
-          <ul class="panel-tools">
-            <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
-            <li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
-            <li><a class="icon "><i class="fa fa-times" data-dismiss="modal"></i></a></li>
-          </ul>
-        </div>
-
-            <div class="panel-body">
-              <form class="form-horizontal">
-
-                <div class="form-group">
-                  <label class="col-sm-2 control-label form-label">Name</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="input11">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-sm-2 control-label form-label">Surname</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-sm-2 control-label form-label">Password</label>
-                  <div class="col-sm-10">
-                    <input type="password" class="form-control">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-sm-2 control-label form-label">Subject</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="input122">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-sm-2 control-label form-label">Message</label>
-                  <div class="col-sm-10">
-                    <textarea class="form-control" rows="3"></textarea>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">Submit</button>
-                  </div>
-                </div>
-
-              </form>
-
-            </div>
-
-      </div>
-      
-    </div>
-  </div>
-  <!-- End Form -->
-
- <!-- //////////////////////////////////////////////////////////////////////////// --> 
 <!-- START CONTAINER -->
 <div class="container-padding">
   <!-- Start Row -->
   <div class="row">
     <!-- Start Panel -->
+    
     <div class="col-md-12">
-        <div class="panel panel-default">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <!-- <td class="text-center"><i class="fa fa-trash"></i></td> -->
-                <td>ID</td>
-                <td>Name</td>
-                <td>Display name</td>
-                <td>Action</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Tiểu thuyết</td>
-                <td>Discription</td>
-                <td>
-                  <i class="fas fa-edit admin-table__icon-edit"></i>
-                  <i class="fas fa-trash-alt admin-table__icon-delete"></i>
-                </td>
-              </tr>     
-              <tr>
-                <td>2</td>
-                <td>Truyện ngắn</td>
-                <td>Truyện ngắn</td>
-                <td>
-                  <i class="fas fa-edit admin-table__icon-edit"></i>
-                  <i class="fas fa-trash-alt admin-table__icon-delete"></i>
-                </td>
-              </tr>     
-            </tbody>
-          </table>
+      <div class="panel panel-default">
+    
+        <div class="panel-title">
+          Quản lý thể loại 
         </div>
-    </div>
+
+        <button type="button" class="btn btn-option1 btn-search">Tìm kiếm</button>
+        <button class="btn btn-light btn-refresh-blog"><i class="fa fa-refresh"></i></button>
+    
+      </div>
+      <div class="panel panel-default" id="panel-search" >
+        <div class="panel-body">
+          <form class="form" action="/admin/book-category" method="GET">
+            <div class="panel-title">
+              Tìm kiếm thể loại
+            </div>
+            <div class="flex-search">
+              <div class="form-group flex-left-search">
+                <input type="text" class="form-control" id="nameCate" name="nameCate" placeholder="Nhập tên bài blog">
+              </div>
+              <div class="form-group flex-right-search" >
+                <input type="text" class="form-control" id="username" name="username" placeholder="Nhập tên blogger">
+              </div>
+            </div>
+            <div class="flex-search">
+              <div class="form-group flex-right-search">
+                <select class="selectpicker form-control" name="hide">
+                  <option data-content="Chọn status"></option>
+                  <option data-content="<span class='label label-success'>Active</span>">false</option>
+                  <option data-content="<span class='label label-danger'>InActive</span>">true</option>
+                </select>   
+              </div>
+            </div>
+              <div class="form-group ">
+                <button type="button" class="btn btn-close-search">Đóng</button>
+                <button type="submit" class="btn btn-default">Tìm kiếm</button>              
+              </div>
+          </form>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        
+        <div class="panel-body">
+          
+          <div class="table-responsive">
+            <p>Số lượng thể loại: <%- totalCategory %></p>
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <td>Name</td>
+                  <td>Short name</td>
+                  <td>Tag color</td>
+                  <td>Action</td>
+                </tr>
+              </thead>
+              <tbody>    
+
+                <% allCatePage.data.forEach(cate =>{  %>
+                  <tr>
+                    <td><%- cate.name %></td>
+                    <td><%- cate.short_name %></td>
+                    <td><%- cate.tag_color %></td>
+                    <td>
+                      <i class="fas fa-edit admin-table__icon-edit"></i>
+                      <i class="fas fa-trash-alt admin-table__icon-delete"></i>
+                    </td>
+                  </tr> 
+                <% }) %>
+              </tbody>
+            </table>
+          </div> 
+        </div>
+        
+  <%- include('layouts/pagination.ejs', {
+        limitTitle: 'Thể loại',
+        data: allCatePage,
+        pageLink: '/admin/book-category',
+        title: 'Chọn số lượng hiển thị mỗi trang'
+    }) %> 
+      </div>
+  </div>
+</div>
     <!-- End Panel -->
   </div>
   <!-- End Row -->
 </div>
 <!-- END CONTAINER -->
- <!-- //////////////////////////////////////////////////////////////////////////// --> 
 </div>
 <!-- End Content -->
- <!-- //////////////////////////////////////////////////////////////////////////// --> 
 
 
-<!-- //////////////////////////////////////////////////////////////////////////// --> 
-<!-- //////////////////////////////////////////////////////////////////////////// --> 
 
 
-<!-- ================================================
-jQuery Library
-================================================ -->
-<script src="js/jquery.min.js"></script>
-
-<!-- ================================================
-Bootstrap Core JavaScript File
-================================================ -->
-<script src="js/bootstrap/bootstrap.min.js"></script>
-
-<!-- ================================================
-Plugin.js - Some Specific JS codes for Plugin Settings
-================================================ -->
-<script src="js/plugins.js"></script>
-
-<!-- ================================================
-Bootstrap Select
-================================================ -->
-<script src="js/bootstrap-select/bootstrap-select.js"></script>
-
-<!-- ================================================
-Bootstrap Toggle
-================================================ -->
-<script src="js/bootstrap-toggle/bootstrap-toggle.min.js"></script>
-
-<!-- ================================================
-Bootstrap WYSIHTML5
-================================================ -->
-<!-- main file -->
-<script src="js/bootstrap-wysihtml5/wysihtml5-0.3.0.min.js"></script>
-<!-- bootstrap file -->
-<script src="js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
-
-<!-- ================================================
-Summernote
-================================================ -->
-<script src="js/summernote/summernote.min.js"></script>
-
-<!-- ================================================
-Flot Chart
-================================================ -->
-<!-- main file -->
-<script src="js/flot-chart/flot-chart.js"></script>
-<!-- time.js -->
-<script src="js/flot-chart/flot-chart-time.js"></script>
-<!-- stack.js -->
-<script src="js/flot-chart/flot-chart-stack.js"></script>
-<!-- pie.js -->
-<script src="js/flot-chart/flot-chart-pie.js"></script>
-<!-- demo codes -->
-<script src="js/flot-chart/flot-chart-plugin.js"></script>
-
-<!-- ================================================
-Chartist
-================================================ -->
-<!-- main file -->
-<script src="js/chartist/chartist.js"></script>
-<!-- demo codes -->
-<script src="js/chartist/chartist-plugin.js"></script>
-
-<!-- ================================================
-Easy Pie Chart
-================================================ -->
-<!-- main file -->
-<script src="js/easypiechart/easypiechart.js"></script>
-<!-- demo codes -->
-<script src="js/easypiechart/easypiechart-plugin.js"></script>
-
-<!-- ================================================
-Rickshaw
-================================================ -->
-<!-- d3 -->
-<script src="js/rickshaw/d3.v3.js"></script>
-<!-- main file -->
-<script src="js/rickshaw/rickshaw.js"></script>
-<!-- demo codes -->
-<script src="js/rickshaw/rickshaw-plugin.js"></script>
-
-<!-- ================================================
-Data Tables
-================================================ -->
-<script src="js/datatables/datatables.min.js"></script>
-
-<!-- ================================================
-Sweet Alert
-================================================ -->
-<script src="js/sweet-alert/sweet-alert.min.js"></script>
-
-<!-- ================================================
-Kode Alert
-================================================ -->
-<script src="js/kode-alert/main.js"></script>
-
-<!-- ================================================
-jQuery UI
-================================================ -->
-<script src="js/jquery-ui/jquery-ui.min.js"></script>
-
-<!-- ================================================
-Moment.js
-================================================ -->
-<script src="js/moment/moment.min.js"></script>
-
-<!-- ================================================
-Full Calendar
-================================================ -->
-<script src="js/full-calendar/fullcalendar.js"></script>
-
-<!-- ================================================
-Bootstrap Date Range Picker
-================================================ -->
-<script src="js/date-range-picker/daterangepicker.js"></script>
+<%- include('layouts/javascript') %>
 
 
 </body>

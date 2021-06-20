@@ -4,8 +4,12 @@ var router = express.Router();
 //import controller
 const BookController = require('../../controllers/user/BookController');
 
+var { isAuthenticate } = require('../../middlewares/user/auth.middleware');
+
+router.use(isAuthenticate);
+
 // get book
-router.get('/', BookController.index);
-router.get('/:id', BookController.getBookDetail);
+router.get('/category', BookController.index);
+router.get('/*-:id', BookController.getBookDetail);
 
 module.exports = router;

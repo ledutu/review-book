@@ -12,25 +12,44 @@ const BannerCategoryController = require('../../controllers/admin/BannerCategory
 const UserController = require('../../controllers/admin/UserController');
 const ReviewController = require('../../controllers/admin/ReviewController');
 
-
 // get home
-
 router.get('/', HomeController.index);
 
-router.get('/user', UserController.index);
+//user
+router.get('/user', UserController.show);
+router.get('/user/:id',UserController.edit)
+router.put('/user/:id',UserController.update)
+router.delete('/user/:id',UserController.destroy)
 
+//review
+router.get('/review', ReviewController.show);
+router.put('/review/:id', ReviewController.update);
+
+
+
+router.get('/book', BookController.show);
+router.get('/book/:id', BookController.edit);
+router.put('/book/:id', BookController.update);
+
+//book-category
+router.get('/book-category', BookCategoryController.show);
+router.get('/book-category/create', BookCategoryController.create);
+
+//blog
+router.get('/blog', BlogController.show);
+router.put('/blog/:id',BlogController.update)
+
+//banner
+router.get('/banner', BannerController.show);
+router.get('/banner/create', BannerController.create);
+
+//banner-category
+router.get('/banner-category', BannerCategoryController.show);
+router.get('/banner-category/create', BannerCategoryController.create);
+
+//history
 router.get('/history', HistoryController.index);
 
-router.get('/book', BookController.index);
 
-router.get('/book-category', BookCategoryController.index);
-
-router.get('/blog', BlogController.index);
-
-router.get('/banner', BannerController.index);
-
-router.get('/banner-category', BannerCategoryController.index);
-
-router.get('/review', ReviewController.index);
 
 module.exports = router;

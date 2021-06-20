@@ -51,3 +51,120 @@
 .header-dropdown {
     /* overflow: auto; */
 }
+
+.btn.main-button {
+    background-color: #dd003f;
+    color: #ffffff;
+    padding: 7px 20px;
+    border-radius: 20px;
+}
+
+/* .rate-star-custom {
+    color: #f5b50a;
+    font-size: 36px;
+} */
+
+@media (max-width: 767px) {
+    .rate-star-custom {
+        padding-left: 0;
+        border: none;
+    }
+}
+.rate-star-custom p {
+    font-size: 18px;
+    color: #abb7c4;
+    /* margin-right: 15px; */
+    margin-bottom: 0;
+}
+@media (max-width: 767px) {
+    .rate-star-custom p {
+        font-size: 16px;
+        margin-right: 0;
+        margin-top: -60px;
+    }
+}
+.rate-star-custom i {
+    font-size: 36px;
+    color: #abb7c4;
+}
+@media (max-width: 767px) {
+    .rate-star-custom i {
+        font-size: 22px;
+    }
+}
+.rate-star-custom i.ion-ios-star {
+    color: #f5b50a;
+}
+
+@media (max-width: 767px) {
+    .movie-rate-custom {
+        display: flex;
+        flex-direction: column;
+        padding: 15px 0;
+    }
+}
+.movie-rate-custom {
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.movie-rate-custom p {
+    font-size: 18px !important;
+    color: #abb7c4 !important;
+    margin-bottom: 0 !important;
+}
+
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position: absolute;
+    /* top:-9999px; */
+    display: none;
+}
+.rate:not(:checked) > label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
+}
+.rate:not(:checked) > label:before {
+    content: "★ ";
+}
+.rate > input:checked ~ label {
+    color: #ffc700;
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+/* .readonly {
+    background-color: #233a50 !important;
+} */
+
+input:disabled {
+    background: #233a50 !important;
+}
+
+.err-message {
+    color: red !important;
+    margin-top: -15px !important;
+    margin-bottom: 0px !important;
+}

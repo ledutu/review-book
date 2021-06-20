@@ -3,3 +3,42 @@
 <script src="/user/js/plugins2.js"></script>
 <script src="/user/js/custom.js"></script>
 <script src="/user/js/custom-jquery.js"></script>
+<script src="/javascripts/moment.js"></script>
+<script src="/javascripts/moment-with-locale.js"></script>
+
+<script>
+    $(document).ready(function() {
+        moment.locale('vi');
+        var time = $('.datetime').html();
+        $('.datetime').text(moment(new Date(time)).format('lll'));
+        
+        //Login function
+        $('#loginForm').submit(function(e){
+            e.preventDefault();
+            let email = $('#email').val();
+            let password = $('#password').val();
+
+            fetch('/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'Accept': 'application/json',
+                },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === 200) {
+                    // console.log(data);
+                    document.location.reload(true);
+                } else {
+                    $('.err-message').text(data.message);
+                }
+            })
+            .catch(err => {
+                console.log('error nhe')
+                console.error(err)
+            });
+        })
+    });
+</script>

@@ -21,6 +21,7 @@
 	<meta name="format-detection" content="telephone-no">
     
     <%- include('layouts/head') %>
+    <link rel="stylesheet" href="/user/css/user.css">
 
 </head>
 <body>
@@ -62,111 +63,48 @@
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <div class="user-information">
                             <div class="user-img">
-                                <a href="#"><img src="images/uploads/user-img.png" alt=""><br></a>
-                                <a href="#" class="redbtn">Change avatar</a>
+                                <a href="#"><img src="<%- userProfile.profile.image %> " alt="" width="120" height="120"><br></a>
+                                <a href="#" class="redbtn">Đổi ảnh đại diện</a>
                             </div>
                             <div class="user-fav">
-                                <p>Account Details</p>
+                                <p>Chi tiết tài khoản</p>
                                 <ul>
-                                    <li><a href="/user/profile">Profile</a></li>
-                                    <li><a href="/user/book-favorite">Favorite book</a></li>
-                                    <li class="active"><a href="/user/writer-favorite">Favorite writer</a></li>
+                                    <li><a href="/user/profile/<%- userProfile.profile.username %>-<%- userProfile._id %>">Thông tin</a></li>
+                                    <li><a href="/user/book-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết yêu thích</a></li>
+                                    <li class="active"><a>Người viết yêu thích</a></li>
+                                    <li><a href="/user/my-review/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết của bạn</a></li>
                                 </ul>
                             </div>
                             <div class="user-fav">
-                                <p>Others</p>
+                                <p>Khác</p>
                                 <ul>
-                                    <li><a href="#">Log out</a></li>
+                                    <li><a href="/user/logout">Đăng xuât</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-12 col-xs-12">
                         <div class="topbar-filter user">
-                            <p>Found <span>1,608 movies</span> in total</p>
-                            <label>Sort by:</label>
-                            <select>
-                                <option value="range">-- Choose option --</option>
-                                <option value="saab">-- Choose option 2--</option>
-                            </select>
-                            <a href="userfavoritelist.html" class="list"><i class="ion-ios-list-outline active"></i></a>
-                            <a  href="userfavoritegrid.html" class="grid"><i class="ion-grid "></i></a>
+                            <p>Tìm thấy <span><%- totalfavoriteWriter %> </span> tác giả review</p>
                         </div>
-                        <div class="flex-wrap-movielist user-fav-list">
-                            <div class="movie-item-style-2">
-                                <img src="images/uploads/mv1.jpg" alt="">
-                                <div class="mv-item-infor">
-                                    <h6><a href="#">oblivion <span>(2012)</span></a></h6>
-                                    <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
-                                    <p class="describe">Earth's mightiest heroes must come together and learn to fight as a team if they are to stop the mischievous Loki and his alien army from enslaving humanity...</p>
-                                    <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                    <p>Director: <a href="#">Joss Whedon</a></p>
-                                    <p>Stars: <a href="#">Robert Downey Jr.,</a> <a href="#">Chris Evans,</a> <a href="#">  Chris Hemsworth</a></p>
-                                </div>
-                            </div>
-                            <div class="movie-item-style-2">
-                                <img src="images/uploads/mv2.jpg" alt="">
-                                <div class="mv-item-infor">
-                                    <h6><a href="#">into the wild <span>(2014)</span></a></h6>
-                                    <p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
-                                    <p class="describe">As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat...</p>
-                                    <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                    <p>Director: <a href="#">Anthony Russo,</a><a href="#">Joe Russo</a></p>
-                                    <p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a> <a href="#">  Scarlett Johansson</a></p>
-                                </div>
-                            </div>
-                            <div class="movie-item-style-2">
-                                <img src="images/uploads/mv3.jpg" alt="">
-                                <div class="mv-item-infor">
-                                    <h6><a href="#">blade runner  <span>(2015)</span></a></h6>
-                                    <p class="rate"><i class="ion-android-star"></i><span>7.3</span> /10</p>
-                                    <p class="describe">Armed with a super-suit with the astonishing ability to shrink in scale but increase in strength, cat burglar Scott Lang must embrace his inner hero and help...</p>
-                                    <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                    <p>Director: <a href="#">Peyton Reed</a></p>
-                                    <p>Stars: <a href="#">Paul Rudd,</a> <a href="#"> Michael Douglas</a></p>
-                                </div>
-                            </div>
-                            <div class="movie-item-style-2">
-                                <img src="images/uploads/mv4.jpg" alt="">
-                                <div class="mv-item-infor">
-                                    <h6><a href="#">Mulholland pride<span> (2013)  </span></a></h6>
-                                    <p class="rate"><i class="ion-android-star"></i><span>7.2</span> /10</p>
-                                    <p class="describe">When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.</p>
-                                    <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                    <p>Director: <a href="#">Shane Black</a></p>
-                                    <p>Stars: <a href="#">Robert Downey Jr., </a> <a href="#">  Guy Pearce,</a><a href="#">Don Cheadle</a></p>
-                                </div>
-                            </div>
-                            <div class="movie-item-style-2">
-                                <img src="images/uploads/mv5.jpg" alt="">
-                                <div class="mv-item-infor">
-                                    <h6><a href="#">skyfall: evil of boss<span> (2013)  </span></a></h6>
-                                    <p class="rate"><i class="ion-android-star"></i><span>7.0</span> /10</p>
-                                    <p class="describe">When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.</p>
-                                    <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                    <p>Director: <a href="#">Alan Taylor</a></p>
-                                    <p>Stars: <a href="#">Chris Hemsworth,  </a> <a href="#">  Natalie Portman,</a><a href="#">Tom Hiddleston</a></p>
-                                </div>
-                            </div>
-                        </div>		
-                        <div class="topbar-filter">
-                            <label>Movies per page:</label>
-                            <select>
-                                <option value="range">5 Movies</option>
-                                <option value="saab">10 Movies</option>
-                            </select>
-                            
-                            <div class="pagination2">
-                                <span>Page 1 of 2:</span>
-                                <a class="active" href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#">...</a>
-                                <a href="#">78</a>
-                                <a href="#">79</a>
-                                <a href="#"><i class="ion-arrow-right-b"></i></a>
+                        
+                        <% favoriteWriterPage.data.forEach(usr => { %>
+                        <div class="ceb-item-style-2">
+                            <img src="<%- usr.profile.image %>" alt="" width="128" height="128">
+                            <div class="ceb-infor">
+                                <h2><a href="/user/profile/<%- usr.profile.username %>-<%- usr._id %>"><%- usr.profile.full_name %></a></h2>
+                                <span><%- usr.profile.username %> </span>
+                                <p class="introduction"><%- usr.profile.introduction %></p>
                             </div>
                         </div>
+                        <% }) %>
+
+                        <%- include('layouts/pagination.ejs', {
+                            limitTitle: 'Tác giả',
+                            data: favoriteWriterPage,
+                            pageLink: '/user/writer-favorite/'+userProfile.profile.username+'-'+userProfile._id,
+                            title: 'Tác giả mỗi trang'
+                        }) %> 
                     </div>
                 </div>
             </div>

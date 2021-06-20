@@ -5681,13 +5681,13 @@ ul {
 }
 .user-hero {
   height: 385px;
-  background: url('../images/uploads/user-hero-bg.jpg') no-repeat;
+  background: url('../images/uploads/background.jpg') no-repeat;
 }
 .user-hero .hero-ct {
   padding-top: 225px;
 }
 .user-hero .hero-ct h1 {
-  margin-left: -120px;
+  margin-left: 290px;
 }
 .user-hero ul.breadcumb {
   text-align: left;
@@ -7134,7 +7134,7 @@ p.ceb-single {
   text-align: right;
 }
 .sliderv2 {
-  background: url('../images/uploads/slider-bg2.jpg') no-repeat;
+  background: url('../images/uploads/background.jpg') no-repeat;
   padding-bottom: 0;
   padding-top: 180px;
   overflow: hidden;
@@ -7262,7 +7262,7 @@ p.ceb-single {
   font-size: 40px;
 }
 .sliderv3 {
-  padding-top: 300px;
+  padding-top: 283px;
   padding-bottom: 0;
 }
 @media (max-width: 991px) {
