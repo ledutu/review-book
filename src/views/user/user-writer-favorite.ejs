@@ -47,10 +47,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="hero-ct">
-                            <h1>Edward kennedy’s profile</h1>
+                            <h1 class="full-name-style"><%- userProfile.profile.full_name %> </h1>
                             <ul class="breadcumb">
-                                <li class="active"><a href="#">Home</a></li>
-                                <li> <span class="ion-ios-arrow-right"></span>Favorite movies</li>
+                                <li class="active"><a href="/">Trang chủ</a></li>
+                                <li> <span class="ion-ios-arrow-right"></span>Bài viết yêu thích</li>
                             </ul>
                         </div>
                     </div>
@@ -63,8 +63,10 @@
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <div class="user-information">
                             <div class="user-img">
-                                <a href="#"><img src="<%- userProfile.profile.image %> " alt="" width="120" height="120"><br></a>
-                                <a href="#" class="redbtn">Đổi ảnh đại diện</a>
+                                <a><img src="<%- userProfile.profile.image %> " alt="" width="120" height="120"><br></a>                                
+                                <% if (isAuth){ %>
+                                    <a href="#" class="redbtn">Đổi ảnh đại diện</a>
+                                <% } %>
                             </div>
                             <div class="user-fav">
                                 <p>Chi tiết tài khoản</p>
@@ -75,12 +77,14 @@
                                     <li><a href="/user/my-review/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết của bạn</a></li>
                                 </ul>
                             </div>
-                            <div class="user-fav">
-                                <p>Khác</p>
-                                <ul>
-                                    <li><a href="/user/logout">Đăng xuât</a></li>
-                                </ul>
-                            </div>
+                            <% if (isAuth){ %>
+                                <div class="user-fav">
+                                    <p>Khác</p>
+                                    <ul>
+                                        <li><a href="/auth/logout">Đăng xuât</a></li>
+                                    </ul>
+                                </div> 
+                            <% } %>
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-12 col-xs-12">

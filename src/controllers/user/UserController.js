@@ -1,9 +1,6 @@
 var express = require('express');
 const { User } = require('../../models/user/user.js');
 const { Book } = require('../../models/user/book.js');
-// const { User } = require('../../models/user/user.js');
-const HTTP = require('../../constant/http-status');
-var auth = require('../../config/auth');
 
 async function getUserProfile(request, response) {
     try {
@@ -11,7 +8,7 @@ async function getUserProfile(request, response) {
 
         userProfile = await User.findById(id);
         isAuth = false;
-        if(typeof request.user !== 'undefined' && request.user._id.equals(userProfile._id)) {
+        if (typeof request.user !== 'undefined' && request.user._id.equals(userProfile._id)) {
             isAuth = true;
         }
 
@@ -50,10 +47,16 @@ async function getUserBookFavorite(request, response) {
             page,
             limit,
         }
+        
+        isAuth = false;
+        if (typeof request.user !== 'undefined' && request.user._id.equals(userProfile._id)) {
+            isAuth = true;
+        }
 
         response.render('user/user-book-favorite', {
             userProfile,
             favoriteBookPage,
+            isAuth,
         });
     } catch (error) {
         console.log(error);
@@ -86,11 +89,17 @@ async function getUserWriterFavorite(request, response) {
             page,
             limit,
         }
+        
+        isAuth = false;
+        if (typeof request.user !== 'undefined' && request.user._id.equals(userProfile._id)) {
+            isAuth = true;
+        }
 
         response.render('user/user-writer-favorite', {
             userProfile,
             favoriteWriterPage,
-            totalfavoriteWriter
+            totalfavoriteWriter,
+            isAuth,
         });
     } catch (error) {
         console.log(error);
@@ -122,11 +131,17 @@ async function getUserMyReview(request, response) {
             total_page: Math.ceil(totalMyBook / limit),
             page,
             limit,
+        };
+        
+        isAuth = false;
+        if (typeof request.user !== 'undefined' && request.user._id.equals(userProfile._id)) {
+            isAuth = true;
         }
 
         response.render('user/user-my-review', {
             userProfile,
             myBookPage,
+            isAuth
         });
     } catch (error) {
         console.log(error);
@@ -134,67 +149,9 @@ async function getUserMyReview(request, response) {
     }
 }
 
-function postLogin(request, response, next) {
-    auth.authenticate('local', (err, user, info) => {
-        if (err) {
-            if (err.status === HTTP.UN_AUTHORIZED) {
-                return response.status(HTTP.UN_AUTHORIZED).json({
-                    message: err.message,
-                    status: err.status,
-                    user: {}
-                })
-            } else {
-                return response.status(HTTP.SERVER_ERROR).json({
-                    message: err.message,
-                    status: err.status,
-                    user: {}
-                })
-            }
-        }
-
-        if (user) {
-            request.logIn(user, {}, function (error) {
-                if (error) {
-                    return response.status(HTTP.UN_AUTHORIZED).json({
-                        user: {},
-                        message: error.message,
-                        status: error.status,
-                    });
-                }
-                return response.status(HTTP.OK).json({
-                    user: request.user,
-                    message: 'Đăng nhập thành công',
-                    status: 200,
-                })
-            })
-        }
-    })(request, response, next);
-    return;
-}
-
-async function postSignUp(request, response) {
-
-    try {
-        // const newUser = User.findOne
-    } catch (error) {
-
-    }
-
-    response.send('sign-up')
-}
-
-function logout(request, response) {
-    request.logout();
-    request.app.locals.user = undefined;
-    response.redirect('/');
-}
-
 module.exports = {
     getUserProfile,
     getUserBookFavorite,
     getUserWriterFavorite,
     getUserMyReview,
-    postLogin,
-    postSignUp,
-    logout,
 }

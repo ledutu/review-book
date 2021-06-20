@@ -16,6 +16,7 @@ var homeAdmin = require('./src/routes/admin/home')
 
 //User
 var homeUser = require('./src/routes/user/home');
+var auth = require('./src/routes/user/auth');
 var book = require('./src/routes/user/book');
 var writer = require('./src/routes/user/writer');
 var user = require('./src/routes/user/user');
@@ -102,6 +103,7 @@ app.use('/book', book);
 app.use('/writer', writer);
 app.use('/user', user);
 app.use('/blog', blog);
+app.use('/auth', auth);
 
 //Test
 app.use('/api/db', seed);

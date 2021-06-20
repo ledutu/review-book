@@ -41,6 +41,20 @@ userSchema.statics.authenticate = async function (email, password, callbackResul
             err.status = 401;
             return callbackErr(err);
         }
+        
+        if(user.google_id) {
+            var err = new Error();
+            err.message = 'Account này đăng nhập bằng google.';
+            err.status = 401;
+            return callbackErr(err);
+        }
+        
+        if(user.facebook_id) {
+            var err = new Error();
+            err.message = 'Account này đăng nhập bằng facebook.';
+            err.status = 401;
+            return callbackErr(err);
+        }
 
         userPassword = await User.findById(user._id).select(['password']);
         bcrypt.compare(password, userPassword.password, function (err, result) {

@@ -18,7 +18,7 @@
             let email = $('#email').val();
             let password = $('#password').val();
 
-            fetch('/user/login', {
+            fetch('/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
