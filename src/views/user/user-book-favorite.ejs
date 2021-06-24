@@ -9,7 +9,7 @@
 <html lang="en" class="no-js">
 <head>
 	<!-- Basic need -->
-	<title>Open Pediatrics</title>
+	<title><%- userProfile.profile.full_name %></title>
 	<meta charset="UTF-8">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
@@ -41,6 +41,8 @@
     <%- include('layouts/header') %>
     <!-- END | Header -->
     
+    <%- include('layouts/notification') %> 
+    
     <div class="content">
         <div class="hero user-hero">
             <div class="container">
@@ -65,7 +67,7 @@
                             <div class="user-img">
                                 <a href="#"><img src="<%- userProfile.profile.image %> " alt="" width="120" height="120"><br></a>
                                 <% if (isAuth) { %>
-                                    <a href="#" class="redbtn">Đổi ảnh đại diện</a>
+                                    <a id="uploadAvatarButton" class="redbtn">Đổi ảnh đại diện</a>
                                 <% } %>
                             </div>
                             <div class="user-fav">
@@ -75,6 +77,7 @@
                                     <li class="active"><a>Bài viết yêu thích</a></li>
                                     <li><a href="/user/writer-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Người viết yêu thích</a></li>
                                     <li><a href="/user/my-review/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết của bạn</a></li>
+                                    <li><a href="/user/my-blog/<%- userProfile.profile.username %>-<%- userProfile._id %>">Blog của bạn</a></li>
                                 </ul>
                             </div>
                             <% if (isAuth) { %>

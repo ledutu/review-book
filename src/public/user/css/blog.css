@@ -86,3 +86,10 @@ i.ion-android-star {
     font-weight: 400;
     font-size: 18px;
 }
+
+.option-menu {
+    position: absolute !important;
+    right: 15px;
+    font-size: 18px;
+    color: #abb7c4;;
+}

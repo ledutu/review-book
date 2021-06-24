@@ -5,3 +5,4 @@ yarn-error.log
 package-lock.json
 docker
 .env
+src/public/statics

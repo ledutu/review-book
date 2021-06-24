@@ -1,12 +1,17 @@
 <!--signup form popup-->
-<div class="overlay notification-overlay">
+<!-- <div class="overlay notification-overlay">
     <div class="notification-message">
         <div class="login-content notification-container">
-            <h3>Notification</h3>
-            <p class="notification-text"><%- typeof message !== 'undefined'? message: '' %> </p>
-                <button class="close-notification-message">Close</button>
+            <h3><%- typeof message !== 'undefined'? (message.title || 'Thông báo'): 'Thông báo' %></h3>
+            <p class="notification-text <%- typeof message !== 'undefined'? message.status: '' %>"><%- typeof message !== 'undefined'? message.content: '' %> </p>
+                <button class="close-notification-message">Đóng</button>
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!--end of signup form popup-->
+
+<div style="display: none;">
+    <p id="statusMessageAlert"><%- typeof message !== 'undefined'? message.status: '' %></p>
+    <p id="contentMessageAlert"><%- typeof message !== 'undefined'? message.content: '' %></p>
+</div>

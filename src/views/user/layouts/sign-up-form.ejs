@@ -3,11 +3,11 @@
     <div class="login-content">
         <a href="#" class="close">x</a>
         <h3><%- __('auth.sign-up') %></h3>
-        <form method="post" action="/user/sign-up">
+        <form id="signUpForm">
             <div class="row">
                  <label for="username-2">
-                    <%- __('auth.username') %>
-                    <input type="text" name="username" id="username-2" placeholder="<%- __('auth.username') %>" required="required" />
+                     Tên đầy đủ
+                    <input type="text" name="full_name" id="full_name-2" placeholder="Tên đầy đủ" required="required" />
                 </label>
             </div>
            

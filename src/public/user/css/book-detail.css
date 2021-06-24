@@ -49,3 +49,10 @@
     white-space: normal;
     text-overflow: ellipsis;
 }
+
+.option-menu {
+    position: absolute;
+    right: 15px;
+    font-size: 18px;
+    color: #abb7c4;;
+}

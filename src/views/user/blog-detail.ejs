@@ -91,41 +91,95 @@
                                 <div class="rate-star-custom movie-rate-custom" style="margin-bottom: 10px;">
                                     <p>Đánh giá bài này:  </p>
                                     <div class="rate">
-                                        <input type="radio" id="star5" name="rate" value="5" />
+                                        <input 
+                                            type="radio" 
+                                            id="star5" 
+                                            name="rate" 
+                                            value="5" 
+                                            class="<%- !user && 'loginLink' %>" <%- (blogReaction.rate === 5) && 'checked' %>
+                                            onclick="handleRateBlog('<%- blog._id %>', '5')"
+                                        />
                                         <label for="star5" title="text">5 stars</label>
-                                        <input type="radio" id="star4" name="rate" value="4" />
+                                        <input
+                                            type="radio" 
+                                            id="star4" 
+                                            name="rate" 
+                                            value="4" 
+                                            class="<%- !user && 'loginLink' %>" <%- (blogReaction.rate === 4) && 'checked' %>
+                                            onclick="handleRateBlog('<%- blog._id %>', '4')"
+                                        />
                                         <label for="star4" title="text">4 stars</label>
-                                        <input type="radio" id="star3" name="rate" value="3" />
+                                        <input 
+                                            type="radio" 
+                                            id="star3" 
+                                            name="rate" 
+                                            value="3" 
+                                            class="<%- !user && 'loginLink' %>" <%- (blogReaction.rate === 3) && 'checked' %>
+                                            onclick="handleRateBlog('<%- blog._id %>', '3')"
+                                        />
                                         <label for="star3" title="text">3 stars</label>
-                                        <input type="radio" id="star2" name="rate" value="2" />
+                                        <input 
+                                            type="radio" 
+                                            id="star2" 
+                                            name="rate" 
+                                            value="2" 
+                                            class="<%- !user && 'loginLink' %>" <%- (blogReaction.rate === 2) && 'checked' %>
+                                            onclick="handleRateBlog('<%- blog._id %>', '2')"
+                                        />
                                         <label for="star2" title="text">2 stars</label>
-                                        <input type="radio" id="star1" name="rate" value="1" />
+                                        <input 
+                                            type="radio" 
+                                            id="star1" 
+                                            name="rate" 
+                                            value="1" 
+                                            class="<%- !user && 'loginLink' %>" <%- (blogReaction.rate === 1) && 'checked' %>
+                                            onclick="handleRateBlog('<%- blog._id %>', '1')"
+                                        />
                                         <label for="star1" title="text">1 star</label>
                                     </div>
                                 </div>
                                 <h4 class="mb-20"><%- totalComment %>  Bình luận</h4>
                                 
-                                <div class="comment-container">
-                                    <textarea 
-                                        type="text" 
-                                        class="comment-input"
-                                        placeholder="Nhập bình luận của bạn vào đây"
-                                    ></textarea>
-                                    <button type="button" class="btn main-button ml-20 button-custom">Bình luận</button>
-                                </div>
-                                
-                                <% allComment.data.forEach(comment => { %>
-                                    <div class="mv-user-review-item mv-user-review-item-custom">
-                                        <div class="comment-info-container">
-                                            <img src="<%- comment.user.profile.image %> " alt="" width="40px" height="40px">
-                                            <div class="comment-info">
-                                                <h4 style="color: #ffffff;"><%- comment.user.profile.full_name %></h4>
-                                                <p class="time datetime"><%- comment.createdAt %></p>
-                                            </div>
-                                        </div>
-                                        <p class="comment-content"><%- comment.content %></p>
+                                <form id="blogCommentForm">
+                                    <div class="comment-container">
+                                        <input type="hidden" id="blogId" value="<%- blog._id %>">
+                                        <textarea 
+                                            type="text" 
+                                            class="comment-input"
+                                            id="blogCommentInput"
+                                            placeholder="Nhập bình luận của bạn vào đây"
+                                        ></textarea>
+                                        <button type="submit" class="btn main-button ml-20 button-custom <%- !user && 'loginLink' %>">Bình luận</button>
                                     </div>
-                                <% }) %>
+                                </form>
+                                
+                                <div class="comment-container-display">
+                                    <% allComment.data.forEach(comment => { %>
+                                        <div class="mv-user-review-item mv-user-review-item-custom" id="<%- comment._id %>">
+                                            <div class="user-infor comment-info-container">
+                                                <img src="<%- comment.user.profile.image %> " alt="" width="40px" height="40px">
+                                                <div class="comment-info">
+                                                    <h4 style="color: #ffffff;"><%- comment.user.profile.full_name %></h4>
+                                                    <p class="time datetime"><%- comment.createdAt %></p>
+                                                </div>
+                                                
+                                                <% if (user && comment.user.equals(user._id)) { %>
+                                                    <div class="dropdown option-menu">
+                                                        <!-- <button class="dropdown-toggle" type="button" data-toggle="dropdown"> -->
+                                                        <i class="dropdown-toggle ion-android-menu" type="button" data-toggle="dropdown">
+                                                        </i>
+                                                        
+                                                        <ul class="dropdown-menu">
+                                                            <li><a data-toggle="modal" data-target="#exampleModal">Chỉnh sửa</a></li>
+                                                            <li><a onclick="deleteCommentBlog('<%- comment._id %>')">Xóa</a></li>
+                                                        </ul>
+                                                    </div>
+                                                <% } %>
+                                            </div>
+                                            <p class="comment-content"><%- comment.content %></p>
+                                        </div>
+                                    <% }) %>
+                                </div>
                                 
                                 <%- include('layouts/pagination.ejs', {
                                     limitTitle: 'Bình luận',
@@ -165,19 +219,6 @@
                                     </div>
                                 </form>
                             </div>
-                            <!-- <div class="sb-tags sb-it">
-                                <h4 class="sb-title">tags</h4>
-                                <ul class="tag-items">
-                                    
-                                    <li><a href="#">Batman</a></li>
-                                    <li><a href="#">film</a></li>
-                                    <li><a href="#">homeland</a></li>
-                                    <li><a href="#">Fast & Furious</a></li>
-                                    <li><a href="#">Dead Walker</a></li>
-                                    <li><a href="#">King</a></li>
-                                    <li><a href="#">Beauty</a></li>
-                                </ul>
-                            </div> -->
                             <div class="ads">
                                 <img src="/user/images/uploads/ads1.png" alt="">
                             </div>

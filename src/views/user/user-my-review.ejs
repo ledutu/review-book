@@ -41,6 +41,8 @@
     <%- include('layouts/header') %>
     <!-- END | Header -->
     
+    <%- include('layouts/notification') %> 
+    
     <div class="content">
         <div class="hero user-hero">
             <div class="container">
@@ -65,7 +67,7 @@
                             <div class="user-img">
                                 <a href="#"><img src="<%- userProfile.profile.image %> " alt="" width="120" height="120"><br></a>
                                 <% if (isAuth){ %>
-                                    <a href="#" class="redbtn">Đổi ảnh đại diện</a>
+                                    <a id="uploadAvatarButton" class="redbtn">Đổi ảnh đại diện</a>
                                 <% } %>
                             </div>
                             <div class="user-fav">
@@ -75,20 +77,26 @@
                                     <li><a href="/user/book-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết yêu thích</a></li>
                                     <li><a href="/user/writer-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Người viết yêu thích</a></li>
                                     <li class="active"><a>Bài viết của bạn</a></li>
+                                    <li><a href="/user/my-blog/<%- userProfile.profile.username %>-<%- userProfile._id %>">Blog của bạn</a></li>
                                 </ul>
                             </div>
                             <% if (isAuth) { %>
                                 <div class="user-fav">
                                     <p>Khác</p>
                                     <ul>
-                                        <li><a href="/user/logout">Đăng xuât</a></li>
+                                        <li><a href="/user/logout">Đăng xuất</a></li>
                                     </ul>
                                 </div>
                             <% } %>
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-12 col-xs-12">
-                        <div class="topbar-filter user">
+                        <% if (isAuth){ %>
+                            <div class=""  style="text-align: right;">
+                                <a href="/user/write-review" class="redbtn">Đăng Bài Review</a>
+                            </div>
+                        <% } %>
+                        <div class="topbar-filter user <%- isAuth? 'mt-30': '' %>">
                             <p style="padding: 5px 0px;">Đã tìm thấy <span><%- myBookPage.data.length %> cuốn sách</span></p>
                         </div>
                         <div class="flex-wrap-movielist grid-fav">
@@ -100,7 +108,7 @@
                                     </div>
                                     <div class="mv-item-infor">
                                         <h6><a href="/book/<%- fabook.slug %>-<%- fabook._id %>"><%- fabook.book_name %> </a></h6>
-                                        <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
+                                        <p class="rate"><i class="ion-android-star"></i><span><%- fabook.vote %></span> /5</p>
                                     </div>
                                 </div>		
                             <% }) %>

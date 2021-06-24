@@ -6,6 +6,7 @@ function isAuthenticate(request, response, next) {
         return next();
     }
     console.log('not login');
+    request.app.locals.user = undefined;
     next();
 }
 

@@ -163,8 +163,87 @@ input:disabled {
     background: #233a50 !important;
 }
 
+input:read-only {
+    background: #233a50 !important;
+}
+
 .err-message {
     color: red !important;
     margin-top: -15px !important;
     margin-bottom: 0px !important;
+}
+
+.notification-container {
+    padding: 20px !important;
+    width: 300px !important;
+}
+
+.notification-container h3 {
+    margin-bottom: 10px !important;
+    font-size: 30px !important;
+}
+
+.notification-container p {
+    margin-top: 0px !important;
+}
+
+.notification-container p.success {
+}
+.notification-container p.error {
+    color: red;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.ck-editor__editable_inline {
+    min-height: 300px;
+    background-color: red;
+}
+
+.ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+    background-color: #233a50;
+}
+
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners{
+    background-color: #233a50;
+}
+
+.content-review-book {
+    color: #abb7c4;
+}
+
+h1,h2,h3,h4.content-review-book{
+    margin-bottom: 15px;
+}
+
+.content-review-book table,th,td{
+    border: 1px solid #eaeaea;
+}
+
+.content-review-book a:hover{
+    color: #abb7c4;
+}
+
+.cancel-btn {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: 'Dosis', sans-serif;
+    width: 100%;
+}
+
+.cancel-btn:hover {
+    color: #ffffff;
+}
+
+.cancel-btn-container {
+    background: #424242;
+    padding: 9px;
+    border-radius: 3px;
+}
+
+.mt-30 {
+    margin-top: 30px;
 }

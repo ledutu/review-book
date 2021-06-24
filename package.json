@@ -7,6 +7,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-upload": "^28.0.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
@@ -31,7 +32,9 @@
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth": "^2.0.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "sweetalert": "^2.1.2",
+    "tinymce": "^5.8.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"

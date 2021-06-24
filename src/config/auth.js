@@ -18,7 +18,7 @@ passport.use(new LocalStrategy({
     session: true,
     passReqToCallback: true,
 }, function (request, email, password, done) {
-    User.authenticate(email, password, result => {
+    User.authenticate(email, password.toString(), result => {
         return done(null, result);
     }, err => {
         return done(err, false)
@@ -61,8 +61,6 @@ passport.use(new FacebookStrategy({
     callbackURL: "/auth/facebook/callback"
 },
     function (accessToken, refreshToken, profile, done) {
-        console.log(accessToken);
-        console.log(profile);
         User.findOne({ facebook_id: profile.id }, async function (err, existUser) {
             user = existUser;
             if (!user) {

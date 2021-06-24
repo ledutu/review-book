@@ -8,7 +8,7 @@ const { BookComment } = require('../../models/user/book_comment');
 const { BlogComment } = require('../../models/user/blog_comment');
 const Notification = require('../../utils/notification');
 const Seeder = require('../../utils/seeder');
-
+var swal = require('sweetalert');
 
 async function index(request, response) {
     try {
@@ -43,7 +43,7 @@ async function index(request, response) {
         mostContributor = await User.find({}, {}, { sort: { total_book: -1 } })
             .select(['profile', 'total_book'])
             .limit(4);
-
+            
         response.render('user/home', {
             popularBooks,
             popularCategories,
