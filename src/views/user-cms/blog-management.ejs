@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Kode is a Premium Bootstrap Admin Template, It's responsive, clean coded and mobile friendly">
+<meta name="keywords" content="bootstrap, admin, dashboard, flat admin template, responsive," />
+<title>Trang chủ</title>
+
+<!-- ========== Css Files ========== -->
+<%- include('layouts/head') %> 
+
+
+</head>
+<body>
+    <!-- Start Page Loading -->
+    <%- include('layouts/loading') %> 
+    <!-- End Page Loading -->
+
+    <!-- START TOP -->
+    <%- include('layouts/header') %> 
+    <!-- END TOP -->
+
+    <!-- START SIDEBAR -->
+    <%- include('layouts/sidebar') %> 
+    <!-- END SIDEBAR -->
+
+    <!-- START CONTENT -->
+    <div class="content">
+
+        <!-- Start Page Header -->
+        <div class="page-header">
+            <h1 class="title">Danh sách blog</h1>
+
+            <!-- Start Page Header Right Div -->
+            <div class="right">
+            <div class="btn-group" role="group" aria-label="...">
+                <a href="index.html" class="btn btn-light">Tạo bài mới</a>
+                <a href="/user-cms/book-review" class="btn btn-light"><i class="fa fa-refresh"></i></a>
+                <a href="#" class="btn btn-light"><i class="fa fa-search"></i></a>
+            </div>
+            </div>
+            <!-- End Page Header Right Div -->
+
+        </div>
+        <!-- End Page Header -->
+
+        <div class="container-flush">
+            
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="panel panel-default">
+                
+                        <div class="panel-title">
+                            Tìm kiếm
+                            <ul class="panel-tools">
+                            <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+                            <li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
+                            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                            </ul>
+                        </div>
+                
+                            <div class="panel-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-6">
+                                            <div class="form-group">
+                                                <label for="input1" class="form-label">Name</label>
+                                                <input type="text" class="form-control" id="input1">
+                                            </div>            
+                                        </div>
+                                        
+                                        <div class="col-md-12 col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Multiple selects</label>
+                                                <select class="form-control selectpicker" multiple data-live-search="true">
+                                                    <option>Themeforest</option>
+                                                    <option>Codecanyon</option>
+                                                    <option>Photodune</option>
+                                                    <option>Graphicriver</option>
+                                                    <option>Activeden</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-6">
+                                            <fieldset>
+                                                <div class="control-group">
+                                                    <label for="input1" class="form-label">Từ ngày</label>
+                                                    <div class="controls">
+                                                        <div class="input-prepend input-group">
+                                                            <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                            <input type="text" id="date-picker" class="form-control" value="20/5/2021"/> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        
+                                        <div class="col-md-12 col-lg-6">
+                                            <fieldset>
+                                                <div class="control-group">
+                                                    <label for="input1" class="form-label">Từ ngày</label>
+                                                    <div class="controls">
+                                                        <div class="input-prepend input-group">
+                                                            <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                            <input type="text" id="date-picker-2" class="form-control" value="20/5/2021"/> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="button-container mt-20">
+                                        <a href="#" class="btn">Hủy</a>
+                                        <button type="submit" class="btn btn-default">Tìm kiếm</button>
+                                    </div>
+                                </form>
+                
+                            </div>
+                
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Start Panel -->
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+            
+                    <div class="panel-title">
+                        Bordered table
+                    </div>
+            
+                    <div class="panel-body">
+                        <p>Add <code>.table-bordered</code> for borders on all sides of the table and cells.</p>
+            
+                        <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <td>Order ID</td>
+                                <td>Product</td>
+                                <td>Buyer</td>
+                                <td>Date</td>
+                                <td>Order Note</td>
+                                <td>Payment</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td># <b>9652</b></td>
+                                <td>Kode Gaming Laptop</td>
+                                <td>John Doe</td>
+                                <td>12/10/2015</td>
+                                <td>As we got further and further away, it [the Earth] diminished in size.</td>
+                                <td>Credit Card</td>
+                            </tr>
+                            <tr>
+                                <td># <b>1963</b></td>
+                                <td>New Season Jacket</td>
+                                <td>Jane Doe</td>
+                                <td>12/10/2015</td>
+                                <td>As we got further and further away, it [the Earth] diminished in size.</td>
+                                <td>Paypal</td>
+                            </tr>
+                            <tr>
+                                <td># <b>9652</b></td>
+                                <td>IO Mouse</td>
+                                <td>Jonathan Doe</td>
+                                <td>12/10/2015</td>
+                                <td>As we got further and further away, it [the Earth] diminished in size.</td>
+                                <td>Credit Card</td>
+                            </tr>
+                            <tr>
+                                <td># <b>9651</b></td>
+                                <td>Doe Bike</td>
+                                <td>Jonathan Doe</td>
+                                <td>12/10/2015</td>
+                                <td>As we got further and further away, it [the Earth] diminished in size.</td>
+                                <td>Credit Card</td>
+                            </tr>
+                            <tr>
+                                <td># <b>6962</b></td>
+                                <td>Zets Baseball Bat</td>
+                                <td>Jonathan Doe</td>
+                                <td>12/10/2015</td>
+                                <td>As we got further and further away, it [the Earth] diminished in size.</td>
+                                <td>Credit Card</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <nav class="text-right">
+                            <ul class="pagination">
+                              <li>
+                                <a href="#" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                </a>
+                              </li>
+                              <li class="disabled"><a href="#">1</a></li>
+                              <li class="active"><a href="#">2</a></li>
+                              <li><a href="#">3</a></li>
+                              <li><a href="#">4</a></li>
+                              <li><a href="#">5</a></li>
+                              <li>
+                                <a href="#" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                </a>
+                              </li>
+                            </ul>
+                        </nav>
+                        </div>
+                    </div>
+            
+                    </div>
+                </div>
+                <!-- End Panel -->
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
+
+
+<%- include('layouts/javascript') %> 
+
+</body>
+    
+</html>

@@ -10,6 +10,20 @@ function isAuthenticate(request, response, next) {
     next();
 }
 
+function isLogin(request, response, next) {
+    if(!request.user) {
+        request.session.message = {
+            status: 'error',
+            content: 'Bạn phải đăng nhập mới vào được chức năng này',
+        }
+
+        return response.redirect('/');
+    }
+    
+    return next();
+}
+
 module.exports = {
     isAuthenticate,
+    isLogin,
 }

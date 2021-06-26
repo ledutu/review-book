@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Kode is a Premium Bootstrap Admin Template, It's responsive, clean coded and mobile friendly">
+<meta name="keywords" content="bootstrap, admin, dashboard, flat admin template, responsive," />
+<title>Trang chủ</title>
+
+<!-- ========== Css Files ========== -->
+<%- include('layouts/head') %> 
+
+
+</head>
+<body>
+    <!-- Start Page Loading -->
+    <%- include('layouts/loading') %> 
+    <!-- End Page Loading -->
+
+    <!-- START TOP -->
+    <%- include('layouts/header') %> 
+    <!-- END TOP -->
+
+    <!-- START SIDEBAR -->
+    <%- include('layouts/sidebar') %> 
+    <!-- END SIDEBAR -->
+    
+    <%- include('layouts/notification') %> 
+
+    <!-- START CONTENT -->
+    <div class="content">
+
+        <!-- Start Page Header -->
+        <div class="page-header">
+            <h1 class="title">Dashboard</h1>
+            <ol class="breadcrumb">
+                <li class="active">This is a quick overview of some features</li>
+            </ol>
+
+            <!-- Start Page Header Right Div -->
+            <div class="right">
+            <div class="btn-group" role="group" aria-label="...">
+                <a href="index.html" class="btn btn-light">Dashboard</a>
+                <a href="#" class="btn btn-light"><i class="fa fa-refresh"></i></a>
+                <a href="#" class="btn btn-light"><i class="fa fa-search"></i></a>
+                <a href="#" class="btn btn-light" id="topstats"><i class="fa fa-line-chart"></i></a>
+            </div>
+            </div>
+            <!-- End Page Header Right Div -->
+
+        </div>
+        <!-- End Page Header -->
+
+        <!-- START CONTAINER -->
+        <div class="container-widget">
+
+            <!-- Start Top Stats -->
+            <div class="col-md-12">
+                <ul class="topstats clearfix">
+                    <li class="arrow"></li>
+                    <li class="col-xs-6 col-lg-2">
+                    <span class="title"><i class="fa fa-dot-circle-o"></i> Today Profit</span>
+                    <h3>$36.45</h3>
+                    <span class="diff"><b class="color-down"><i class="fa fa-caret-down"></i> 26%</b> from yesterday</span>
+                    </li>
+                    <li class="col-xs-6 col-lg-2">
+                    <span class="title"><i class="fa fa-calendar-o"></i> This Week</span>
+                    <h3>$96.25</h3>
+                    <span class="diff"><b class="color-up"><i class="fa fa-caret-up"></i> 26%</b> from last week</span>
+                    </li>
+                    <li class="col-xs-6 col-lg-2">
+                    <span class="title"><i class="fa fa-shopping-cart"></i> Total Sales</span>
+                    <h3 class="color-up">696</h3>
+                    <span class="diff"><b class="color-up"><i class="fa fa-caret-up"></i> 26%</b> from last month</span>
+                    </li>
+                    <li class="col-xs-6 col-lg-2">
+                    <span class="title"><i class="fa fa-users"></i> Visitors</span>
+                    <h3>960</h3>
+                    <span class="diff"><b class="color-down"><i class="fa fa-caret-down"></i> 26%</b> from yesterday</span>
+                    </li>
+                    <li class="col-xs-6 col-lg-2">
+                    <span class="title"><i class="fa fa-eye"></i> Page View</span>
+                    <h3 class="color-up">46.230</h3>
+                    <span class="diff"><b class="color-down"><i class="fa fa-caret-down"></i> 26%</b> from yesterday</span>
+                    </li>
+                    <li class="col-xs-6 col-lg-2">
+                    <span class="title"><i class="fa fa-clock-o"></i> Avarage Time</span>
+                    <h3 class="color-down">2:10<small>min</small></h3>
+                    <span class="diff"><b class="color-up"><i class="fa fa-caret-up"></i> 26%</b> from last week</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- End Top Stats -->
+
+
+            <!-- Start First Row -->
+            <div class="row">
+
+                <!-- Start Files -->
+                <div class="col-md-12 col-lg-12">
+                <div class="panel panel-widget" style="height:450px;">
+                    <div class="panel-title">
+                    My Files <span class="label label-danger">29</span>
+                    <ul class="panel-tools">
+                        <li><a class="icon"><i class="fa fa-refresh"></i></a></li>
+                        <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                    </ul>
+                    </div>
+                    <div class="panel-body table-responsive">
+
+                    <table class="table table-dic table-hover ">
+                        <tbody>
+                        <tr>
+                            <td><i class="fa fa-folder-o"></i>Projects</td>
+                            <td>Folder</td>
+                            <td class="text-r">27/2/2015 12:34 AM</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-file-archive-o"></i>Backup</td>
+                            <td>Zip</td>
+                            <td class="text-r">27/2/2015 12:34 AM</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-file-code-o"></i>Kode Theme</td>
+                            <td>Html</td>
+                            <td class="text-r">27/2/2015 12:34 AM</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-file-pdf-o"></i>Documents</td>
+                            <td>Pdf</td>
+                            <td class="text-r">27/2/2015 12:34 AM</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-folder-o"></i>Themes</td>
+                            <td>Folder</td>
+                            <td class="text-r">27/2/2015 12:34 AM</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-folder-o"></i>Uploaded Files</td>
+                            <td>Folder</td>
+                            <td class="text-r">27/2/2015 12:34 AM</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-folder-o"></i>Personal Files</td>
+                            <td>Folder</td>
+                            <td class="text-r">27/2/2015 12:34 AM</td>
+                        </tr>
+                        </tbody>
+                    </table>          
+
+                    </div>
+                </div>
+                </div>
+                <!-- End Files -->
+
+            </div>  
+            <!-- End First Row -->
+
+        </div>
+        <!-- END CONTAINER -->
+
+        <%- include('layouts/footer') %> 
+        
+    </div>
+    <!-- End Content -->
+
+
+<%- include('layouts/javascript') %> 
+
+</body>
+    
+</html>

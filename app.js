@@ -25,6 +25,7 @@ var user = require('./src/routes/user/user');
 var blog = require('./src/routes/user/blog');
 var seed = require('./src/database/seed/seed.route');
 var api = require('./src/routes/api');
+var userCms = require('./src/routes/user-cms');
 
 var app = express();
 
@@ -110,6 +111,9 @@ app.use('/writer', writer);
 app.use('/user', user);
 app.use('/blog', blog);
 app.use('/auth', auth);
+
+//User CMS
+app.use('/user-cms', userCms);
 
 //Test
 app.use('/api/db', seed);
