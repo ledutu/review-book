@@ -64,24 +64,22 @@
                         </div>
                 
                             <div class="panel-body">
-                                <form>
+                                <form action="#" method="GET">
                                     <div class="row">
                                         <div class="col-md-12 col-lg-6">
                                             <div class="form-group">
-                                                <label for="input1" class="form-label">Name</label>
-                                                <input type="text" class="form-control" id="input1">
+                                                <label for="input1" class="form-label">Tên sách</label>
+                                                <input type="text" placeholder="Tên sách" name="book_name" class="form-control" id="input1" value="<%- params.book_name %>">
                                             </div>            
                                         </div>
                                         
                                         <div class="col-md-12 col-lg-6">
                                             <div class="form-group">
-                                                <label class="form-label">Multiple selects</label>
-                                                <select class="form-control selectpicker" multiple data-live-search="true">
-                                                    <option>Themeforest</option>
-                                                    <option>Codecanyon</option>
-                                                    <option>Photodune</option>
-                                                    <option>Graphicriver</option>
-                                                    <option>Activeden</option>
+                                                <label class="form-label">Thể loại</label>
+                                                <select class="form-control selectpicker" name="category" multiple data-live-search="true">
+                                                    <% bookCategories.forEach(category => { %>
+                                                        <option value="<%- category._id %>" <%- params.category && params.category.includes(category._id.toString()) && 'selected' %> ><%- category.name %></option>
+                                                    <% }) %>                                                    
                                                 </select>
                                             </div>
                                         </div>
@@ -95,7 +93,7 @@
                                                     <div class="controls">
                                                         <div class="input-prepend input-group">
                                                             <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                            <input type="text" id="date-picker" class="form-control" value="20/5/2021"/> 
+                                                            <input type="text" id="date-picker" name="date_from" class="form-control" placeholder="dd/mm/yyyy" value="<%- params.date_from %>"/> 
                                                         </div>
                                                     </div>
                                                 </div>
@@ -109,7 +107,7 @@
                                                     <div class="controls">
                                                         <div class="input-prepend input-group">
                                                             <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                            <input type="text" id="date-picker-2" class="form-control" value="20/5/2021"/> 
+                                                            <input type="text" id="date-picker-2" name="date_to" class="form-control" placeholder="dd/mm/yyyy" value="<%- params.date_to %>"/> 
                                                         </div>
                                                     </div>
                                                 </div>
@@ -118,7 +116,7 @@
                                     </div>
                                 
                                     <div class="button-container mt-20">
-                                        <a href="#" class="btn">Hủy</a>
+                                        <a href="/user-cms/book-review" class="btn">Hủy</a>
                                         <button type="submit" class="btn btn-default">Tìm kiếm</button>
                                     </div>
                                 </form>
@@ -133,58 +131,57 @@
                 <div class="col-md-12">
                     <div class="panel panel-default">
             
-                    <div class="panel-title">
-                        Danh sách
-                    </div>
-            
-                    <div class="panel-body">
-            
-                        <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <td>Tên</td>
-                                    <td>Slug</td>
-                                    <td>Thể loại</td>
-                                    <td>Trạng thái</td>
-                                    <td>Chức năng</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td># <b>6962</b></td>
-                                    <td>Zets Baseball Bat</td>
-                                    <td>Jonathan Doe</td>
-                                    <td>12/10/2015</td>
-                                    <td>
-                                        <a href="" class="view-icon margin-r-10"><i class="fa fa-eye"></i></a>
-                                        <a href="" class="hide-icon margin-r-10"><i class="fa fa-ban"></i></a>
-                                        <a onclick="confirmBeforeDelete('id')" class="delete-icon margin-r-10"><i class="fa fa-times"></i></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <nav class="text-right">
-                            <ul class="pagination">
-                              <li>
-                                <a href="#" aria-label="Previous">
-                                  <span aria-hidden="true">&laquo;</span>
-                                </a>
-                              </li>
-                              <li class="disabled"><a href="#">1</a></li>
-                              <li class="active"><a href="#">2</a></li>
-                              <li><a href="#">3</a></li>
-                              <li><a href="#">4</a></li>
-                              <li><a href="#">5</a></li>
-                              <li>
-                                <a href="#" aria-label="Next">
-                                  <span aria-hidden="true">&raquo;</span>
-                                </a>
-                              </li>
-                            </ul>
-                        </nav>
+                        <div class="panel-title">
+                            Danh sách <span class="label label-default"><%- totalBooks %></span>
                         </div>
-                    </div>
+                
+                        <div class="panel-body">
+                
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <td>Tên</td>
+                                            <td>Slug</td>
+                                            <td>Thể loại</td>
+                                            <td>Trạng thái</td>
+                                            <td>Ngày đăng</td>
+                                            <td>Chức năng</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% bookPage.data.forEach(book => { %>
+                                            <tr>
+                                                <td><%- book.book_name %></td>
+                                                <td><%- book.slug %></td>
+                                                <td style="width: 150px">
+                                                    <% book.category.forEach(cate => { %>
+                                                        <span class="label <%- cate.tag_color %>"><%- cate.short_name %></span>
+                                                    <% }) %>
+                                                </td>
+                                                <td>
+                                                    <span class="label <%- book.isConfirm? 'label-success': 'label-warning' %>"><%- book.isConfirm? 'Đã duyệt': 'Chờ duyệt' %></span>
+                                                    <% if (book.hide) { %>
+                                                        <span class="label label-danger">Đã ẩn</span>
+                                                    <% } %>
+                                                </td>
+                                                <td class="datetime <%- book._id %>" style="width: 125px;"><%- book.createdAt %></td>
+                                                <td>
+                                                    <a href="/user-cms/book-review/create?id=<%- book._id %>" class="view-icon margin-r-5"><i class="fa fa-eye"></i></a>
+                                                    <a onclick="confirmBeforeHide('<%- book._id %>', '<%- book.hide %>')" class="hide-icon margin-r-5"><i class="fa fa-ban"></i></a>
+                                                    <a onclick="confirmBeforeDelete('<%- book._id %>')" class="delete-icon margin-r-5"><i class="fa fa-times"></i></a>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                                
+                                <%- include('layouts/pagination', {
+                                    data: bookPage,
+                                    pageLink: '/user-cms/book-review'+link,
+                                }) %> 
+                            </div>
+                        </div>
             
                     </div>
                 </div>
@@ -198,12 +195,68 @@
 <%- include('layouts/javascript') %> 
 
 <script>
+    
+    $(document).ready(function() {
+        moment.locale('vi');
+    
+        let books = '<%- bookPage.data.map(item => item._id) %>';
+
+        books.split(',').forEach(book => {
+            let time = $('.datetime.'+book).html();
+            $('.datetime.'+book).text(moment(new Date(time)).format('lll'));        
+        })
+    })
+    
+    async function confirmBeforeHide(id, status) {
+        cuteAlert({
+            type: "question",
+            title: status === 'true'?"Bỏ ẩn":"Ẩn",
+            message: status === 'true'?"Bạn có muốn bỏ ẩn bài này?": "Bạn có muốn ẩn bài này không?",
+            confirmText: "Đồng ý",
+            cancelText: "Hủy"
+        }).then(async e => {
+            if(e) {
+                fetch('/user-cms/book-review', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // 'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({ id })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(!data.error) {
+                            cuteToast({
+                                type: "success", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                             });
+                             document.location.reload(true);
+                        } else {
+                            cuteToast({
+                                type: "error", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        cuteToast({
+                            type: "error", // or 'info', 'error', 'warning'
+                            message: data.message,
+                            timer: 5000
+                        });
+                    });
+            }
+        })
+    }
 
     async function confirmBeforeDelete(id) {
         cuteAlert({
             type: "question",
             title: "Xóa",
-            message: "Bạn có muốn xóa bình luận này không?",
+            message: "Bạn có muốn bài này không?",
             confirmText: "Đồng ý",
             cancelText: "Hủy"
         }).then(async e => {
@@ -218,10 +271,27 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data)
+                        if(!data.error) {
+                            cuteToast({
+                                type: "success", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                             });
+                             document.location.reload(true);
+                        } else {
+                            cuteToast({
+                                type: "error", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                            });
+                        }
                     })
                     .catch(err => {
-                        console.log(err);      
+                        cuteToast({
+                            type: "error", // or 'info', 'error', 'warning'
+                            message: data.message,
+                            timer: 5000
+                        });   
                     });
             }
         })

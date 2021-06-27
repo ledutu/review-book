@@ -39,6 +39,20 @@ var storageBookReview = multer.diskStorage({
     },
 })
 
+//Store blog image
+var storageBlog = multer.diskStorage({
+    destination: function (req, file, cb) {
+        var path = './src/public/statics/uploads/users/'+req.user._id+'/blogs';
+        if(!fs.existsSync(path)) {
+            fs.mkdirSync(path, { recursive: true })      
+        }
+        cb(null, path)
+    },
+    filename: function (req, file, cb) {
+        cb(null, req.user._id + '-' + Date.now() + '-' + faker.helpers.slugify(file.originalname).toLowerCase());
+    },
+})
+
 var uploadAvatar = multer({
     storage: storageAvatar,
     fileFilter: multerFilter,
@@ -54,9 +68,17 @@ var uploadBookReview = multer({
     },
 });
 
+var uploadBlog = multer({
+    storage: storageBlog,
+    fileFilter: multerFilter,
+    limits: {
+        fileSize: 5000000,
+    },
+});
 
 uploadAvatar = uploadAvatar.single('avatar');
 uploadBookReview = uploadBookReview.any();
+uploadBlog = uploadBlog.any();
 
 //Create middleware upload avatar
 const uploadAvatarMiddleware = (request, response, next) => {
@@ -120,6 +142,37 @@ const uploadBookReviewMiddleware = (request, response, next) => {
     });
 }
 
+
+//Create upload image blog editor (API)
+const uploadBlogMiddleware = (request, response, next) => {
+    uploadBlog(request, response, err => {
+        if (err instanceof multer.MulterError) { // A Multer error occurred when uploading.
+            if (err.code === "LIMIT_UNEXPECTED_FILE") { // Too many images exceeding the allowed limit
+                return response.status(500).json({
+                    status: 'error',
+                    message: 'Chỉ được phép đăng ảnh',
+                })
+            }
+            
+            if(err.code === "LIMIT_FILE_SIZE") {
+                return response.status(500).json({
+                    status: 'error',
+                    message: 'File không được lớn hơn 5 MB',
+                })
+            }
+        } else if (err) {
+            return response.status(500).json({
+                status: 'error',
+                message: 'Có lỗi xảy ra, vui lòng thử lại sau',
+            })
+        }
+
+        // Everything is ok.
+        next();
+    });
+}
+
+
 //Create middleware upload book review
 const uploadBookReviewImageTitleMiddleware = (request, response, next) => {
     uploadBookReview(request, response, err => {
@@ -156,4 +209,5 @@ module.exports = {
     uploadAvatarMiddleware,
     uploadBookReviewMiddleware,
     uploadBookReviewImageTitleMiddleware,
+    uploadBlogMiddleware,
 }

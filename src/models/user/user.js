@@ -20,7 +20,7 @@ const userSchema = new Schema({
         introduction: { type: String, default: '' },
     },
     favorite_writer: [this],
-    favorite_book: [{ type: Schema.Types.ObjectId, ref: 'books' }],
+    // favorite_book: [{ type: Schema.Types.ObjectId, ref: 'books' }],
     total_book: { type: Number, default: 0 },
     total_blog: { type: Number, default: 0 },
     role: { type: Number, default: 0 },

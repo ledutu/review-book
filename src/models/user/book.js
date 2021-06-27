@@ -18,7 +18,7 @@ const bookSchema = new Schema({
     vote: { type: Number, default: 0 },
     isConfirm: { type: Boolean, default: false },
     hide: { type: Boolean, default: false },
-}, { timestamps: { currentTime: () => Date.now() } });
+}, { timestamps: true });
 
 const Book = mongoose.model('books', bookSchema);
 

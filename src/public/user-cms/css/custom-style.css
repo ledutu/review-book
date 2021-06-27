@@ -44,3 +44,16 @@
 a:hover {
     cursor: pointer;
 }
+
+span.blue {
+    background-color: #1692bb;
+}
+span.yell {
+    background-color: #f5b50a;
+}
+span.green {
+    background-color: #a6bb16;
+}
+span.orange {
+    background-color: #ec5a1a;
+}

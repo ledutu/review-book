@@ -26,6 +26,7 @@ var blog = require('./src/routes/user/blog');
 var seed = require('./src/database/seed/seed.route');
 var api = require('./src/routes/api');
 var userCms = require('./src/routes/user-cms');
+var fileRoute = require('./src/routes/file.route.js');
 
 var app = express();
 
@@ -114,6 +115,7 @@ app.use('/auth', auth);
 
 //User CMS
 app.use('/user-cms', userCms);
+app.use('/file', fileRoute);
 
 //Test
 app.use('/api/db', seed);
@@ -121,7 +123,7 @@ app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    res.render('user/error');
+    res.render('404');
     // next(createError(404));
 });
 

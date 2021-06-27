@@ -147,7 +147,7 @@ async function addToBookFavourite(request, response) {
             user.favorite_book = [...user.favorite_book, id];
         }
 
-        user.save();
+        await user.save();
 
         request.session.message = {
             status: 'success',

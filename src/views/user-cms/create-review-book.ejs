@@ -36,7 +36,7 @@
         <div class="page-header">
             <h1 class="title">Tạo bài review</h1>
             <ol class="breadcrumb">
-                <li><a href="/user-cms">Trang chủ</a></li>
+                <li><a href="/user-cms/dashboard">Trang chủ</a></li>
                 <li class="active">Tạo bài review</li>
             </ol>
 
@@ -64,22 +64,27 @@
                         </div>
                 
                         <div class="panel-body">
-                            <form action="/user-cms/book-review/create" method="post" enctype="multipart/form-data" id="writeReviewForm">
+                            <form 
+                                action="<%- id? '/user-cms/book-review/update' : '/user-cms/book-review/create' %>" 
+                                method="post" 
+                                enctype="multipart/form-data" id="writeReviewForm"
+                            >
+                                <input type="hidden" name="id" value="<%- id %>">
                                 <div class="form-group">
                                     <label for="input1" class="form-label">Tên sách muốn review</label>
-                                    <input type="text" class="form-control" id="book_name" name="book_name" required>
+                                    <input type="text" class="form-control" id="book_name" name="book_name" value="<%- book.book_name %>" required>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Thể loại</label>
                                     <select class="form-control selectpicker" name="category" multiple data-live-search="true">
                                         <% bookCategories.forEach(category => { %>
-                                            <option value="<%- category._id %>"><%- category.name %></option>
+                                            <option value="<%- category._id %>" <%- book.category && book.category.includes(category._id.toString()) && 'selected' %> ><%- category.name %></option>
                                         <% }) %>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="slug"  class="form-label">Slug</label>
-                                    <input type="text" placeholder="ban-nen-ghi-lai-bai-review-theo-dinh-dang-nhu-the-nay" class="form-control" name="slug" id="slug">
+                                    <input type="text" placeholder="ban-nen-ghi-lai-bai-review-theo-dinh-dang-nhu-the-nay" class="form-control" name="slug" id="slug" value="<%- book.slug %>">
                                 </div>
                                 
                                 <p><i>Lưu ý: Để hình ảnh của bạn trong đẹp hơn, vui lòng đăng những ảnh theo kích thước dưới đây</i></p>
@@ -92,13 +97,17 @@
                                             <button class="file-upload-btn" type="button" onclick="$('.file-upload-input-1').trigger( 'click' )">Thêm ảnh</button>
                                           
                                             <div class="image-upload-wrap-1 imageUploadWrap">
-                                              <input class="file-upload-input-1 fileUploadInput" type='file' onchange="readURL(this, '1');" accept="image/*" name="titleImage" required/>
+                                              <input class="file-upload-input-1 fileUploadInput" type='file' onchange="readURL(this, '1');" accept="image/*" name="titleImage"/>
                                               <div class="drag-text">
-                                                <h4>Kéo ảnh hoặc chọn thêm ảnh vào đây (340 x 521)</h4>
+                                                <% if (book.image) { %>
+                                                    <img class="fileUploadImage" src="<%- book.image && book.image.title %>" alt="your image" />
+                                                <% } else { %>
+                                                    <h4>Kéo ảnh hoặc chọn thêm ảnh vào đây (340 x 521)</h4>
+                                                <% } %>
                                               </div>
                                             </div>
                                             <div class="file-upload-content-1 fileUploadContent">
-                                              <img class="file-upload-image-1 fileUploadImage" src="#" alt="your image" />
+                                              <img class="file-upload-image-1 fileUploadImage" src="<%- book.image && book.image.title %>" alt="your image" />
                                               <div class="image-title-wrap">
                                                 <button type="button" onclick="removeUpload('1')" class="remove-image">Xóa <span class="image-title-1 imageTitle">Uploaded Image</span></button>
                                               </div>
@@ -112,13 +121,17 @@
                                             <button class="file-upload-btn" type="button" onclick="$('.file-upload-input-2').trigger( 'click' )">Thêm ảnh</button>
                                           
                                             <div class="image-upload-wrap-2 imageUploadWrap">
-                                              <input class="file-upload-input-2 fileUploadInput" type='file' onchange="readURL(this, '2');" accept="image/*" name="bannerImage" required/>
+                                              <input class="file-upload-input-2 fileUploadInput" type='file' onchange="readURL(this, '2');" accept="image/*" name="bannerImage"/>
                                               <div class="drag-text">
-                                                <h4>Kéo ảnh hoặc chọn thêm ảnh vào đây (285 x 437)</h4>
+                                                <% if (book.image) { %>
+                                                    <img class="fileUploadImage" src="<%- book.image && book.image.banner %>" alt="your image" />
+                                                <% } else { %>
+                                                    <h4>Kéo ảnh hoặc chọn thêm ảnh vào đây (285 x 437)</h4>
+                                                <% } %>
                                               </div>
                                             </div>
                                             <div class="file-upload-content-2 fileUploadContent">
-                                              <img class="file-upload-image-2 fileUploadImage" src="#" alt="your image" />
+                                              <img class="file-upload-image-2 fileUploadImage" src="<%- book.image && book.image.banner %>" alt="your image" />
                                               <div class="image-title-wrap">
                                                 <button type="button" onclick="removeUpload('2')" class="remove-image">Xóa <span class="image-title-2 imageTitle">Uploaded Image</span></button>
                                               </div>
@@ -132,13 +145,17 @@
                                             <button class="file-upload-btn" type="button" onclick="$('.file-upload-input-3').trigger( 'click' )">Thêm ảnh</button>
                                           
                                             <div class="image-upload-wrap-3 imageUploadWrap">
-                                              <input class="file-upload-input-3 fileUploadInput" type='file' onchange="readURL(this, '3');" accept="image/*" name="smallImage" required/>
+                                              <input class="file-upload-input-3 fileUploadInput" type='file' onchange="readURL(this, '3');" accept="image/*" name="smallImage"/>
                                               <div class="drag-text">
-                                                <h4>Kéo ảnh hoặc chọn thêm ảnh vào đây (185 x 284)</h4>
+                                                <% if (book.image) { %>
+                                                    <img class="fileUploadImage" src="<%- book.image && book.image.small %>" alt="your image" />
+                                                <% } else { %>
+                                                    <h4>Kéo ảnh hoặc chọn thêm ảnh vào đây (185 x 284)</h4>
+                                                <% } %>
                                               </div>
                                             </div>
                                             <div class="file-upload-content-3 fileUploadContent">
-                                              <img class="file-upload-image-3 fileUploadImage" src="#" alt="your image" />
+                                              <img class="file-upload-image-3 fileUploadImage" src="<%- book.image && book.image.small %>" alt="your image" />
                                               <div class="image-title-wrap">
                                                 <button type="button" onclick="removeUpload('3')" class="remove-image">Xóa <span class="image-title-3 imageTitle">Uploaded Image</span></button>
                                               </div>
@@ -154,10 +171,12 @@
                                         name="review" 
                                         id="editor" 
                                         placeholder="Nhập bài review của bạn vào đây"
-                                    ></textarea>
+                                    >
+                                        <%- book.review %>
+                                    </textarea>
                                 </div>
                                 
-                                <button id="submitButton" type="submit" class="btn btn-default">Đăng bài</button>
+                                <button id="submitButton" type="submit" class="btn btn-default"><%- id? 'Cập nhật': 'Đăng bài' %></button>
                             </form>
             
                         </div>
@@ -175,13 +194,6 @@
 <script src="/user-cms/js/image-upload.js"></script>
 <script type="application/javascript" src= "/tinymce/tinymce.min.js"></script>
 <script>
-    
-    cuteToast({
-                        type: "success", // or 'info', 'error', 'warning'
-                        message: "Đăng nhập thành công.",
-                        timer: 5000
-                    });
-    
     tinymce.init({
         selector: 'textarea#editor',
         height: 500,

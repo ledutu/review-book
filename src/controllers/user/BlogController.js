@@ -31,7 +31,7 @@ async function index(request, response) {
         }
 
         const blogResult = await blogs
-            .sort({ vote: -1 })
+            .sort({ vote: -1, createdAt: -1 })
             .populate('blogger', ['profile'])
             .skip((page * limit) - limit)
             .limit(limit);

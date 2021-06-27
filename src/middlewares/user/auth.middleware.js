@@ -1,4 +1,5 @@
 var auth = require('../../config/auth');
+const HTTP = require('../../constant/http-status');
 
 function isAuthenticate(request, response, next) {
     if (request.user) {
@@ -23,7 +24,20 @@ function isLogin(request, response, next) {
     return next();
 }
 
+function isLoginApi(request, response, next) {
+    if(!request.user) {
+        return response.status(HTTP.UN_AUTHORIZED).json({
+            status: HTTP.UN_AUTHORIZED,
+            error: true,
+            message: 'Bạn chưa đăng nhập',
+        });
+    }    
+    
+    next();
+}
+
 module.exports = {
     isAuthenticate,
     isLogin,
+    isLoginApi,
 }

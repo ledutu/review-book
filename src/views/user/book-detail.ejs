@@ -56,10 +56,7 @@
                                 </div>
                                 <h1><a><%- book.book_name %> </a></h1>
                                 <div class="social-btn">
-                                    <a href="/book/add-to-favourite/<%- book._id %>" class="parent-btn <%- !user && 'loginLink' %>">
-                                        <i class="<%- (user && user.favorite_book.includes(book._id))? 'ion-ios-heart': 'ion-ios-heart-outline' %>"></i> 
-                                        <%- (user && user.favorite_book.includes(book._id))? 'Đã thích' : 'Thêm vào yêu thích' %>
-                                    </a>
+                                    
                                     <div class="hover-bnt">
                                         <a href="#" class="parent-btn"><i class="ion-android-share-alt"></i>Chia sẽ</a>
                                         <div class="hvr-item">

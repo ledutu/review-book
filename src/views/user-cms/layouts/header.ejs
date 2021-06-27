@@ -13,43 +13,30 @@
 
     <!-- Start Searchbox -->
     <form class="searchform">
-      <input type="text" class="searchbox" id="searchbox" placeholder="Search">
+      <input type="text" class="searchbox" id="searchbox" placeholder="Tìm kiếm">
       <span class="searchbutton"><i class="fa fa-search"></i></span>
     </form>
     <!-- End Searchbox -->
 
     <!-- Start Top Menu -->
-    <ul class="topmenu">
+    <!-- <ul class="topmenu">
       <li><a href="#">Files</a></li>
-      <li><a href="#">Authors</a></li>
-      <li class="dropdown">
-        <a href="#" data-toggle="dropdown" class="dropdown-toggle">My Files <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Videos</a></li>
-          <li><a href="#">Pictures</a></li>
-          <li><a href="#">Blog Posts</a></li>
-        </ul>
-      </li>
-    </ul>
+    </ul> -->
     <!-- End Top Menu -->
 
     <!-- Start Top Right -->
     <ul class="top-right">
 
     <li class="dropdown link">
-      <a href="#" data-toggle="dropdown" class="dropdown-toggle hdbutton">Create New <span class="caret"></span></a>
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle hdbutton">Tạo mới <span class="caret"></span></a>
         <ul class="dropdown-menu dropdown-menu-list">
-          <li><a href="#"><i class="fa falist fa-paper-plane-o"></i>Review Sách</a></li>
+          <li><a href="/user-cms/book-review/create"><i class="fa falist fa-paper-plane-o"></i>Review Sách</a></li>
           <li><a href="#"><i class="fa falist fa-font"></i>Blog</a></li>
         </ul>
     </li>
 
-    <li class="link">
-      <a href="#" class="notifications">6</a>
-    </li>
-
     <li class="dropdown link">
-      <a data-toggle="dropdown" class="dropdown-toggle profilebox"><img src="/user-cms/img/profileimg.png" alt="img"><b>Jonathan Doe</b></a>
+      <a data-toggle="dropdown" class="dropdown-toggle profilebox"><img src="<%- user.profile.image || '/user-cms/img/profileimg.png'%>" alt="img"><b><%- user.profile.full_name || user.email %> </b></a>
     </li>
 
     </ul>

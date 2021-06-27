@@ -74,10 +74,10 @@
                                 <p>Chi tiết tài khoản</p>
                                 <ul>
                                     <li><a href="/user/profile/<%- userProfile.profile.username %>-<%- userProfile._id %>">Thông tin</a></li>
-                                    <li><a href="/user/book-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết yêu thích</a></li>
                                     <li><a href="/user/writer-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Người viết yêu thích</a></li>
                                     <li class="active"><a>Bài viết của bạn</a></li>
                                     <li><a href="/user/my-blog/<%- userProfile.profile.username %>-<%- userProfile._id %>">Blog của bạn</a></li>
+                                    <li><a href="/user-cms/dashboard">Quản lý bài viết</a></li>
                                 </ul>
                             </div>
                             <% if (isAuth) { %>
@@ -91,12 +91,7 @@
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-12 col-xs-12">
-                        <% if (isAuth){ %>
-                            <div class=""  style="text-align: right;">
-                                <a href="/user/write-review" class="redbtn">Đăng Bài Review</a>
-                            </div>
-                        <% } %>
-                        <div class="topbar-filter user <%- isAuth? 'mt-30': '' %>">
+                        <div class="topbar-filter user">
                             <p style="padding: 5px 0px;">Đã tìm thấy <span><%- myBookPage.data.length %> cuốn sách</span></p>
                         </div>
                         <div class="flex-wrap-movielist grid-fav">
