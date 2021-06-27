@@ -2,6 +2,7 @@ var express = require('express');
 const { BlogTag } = require('../../models/user/blog_tag');
 const { Blog } = require('../../models/user/blog');
 const { BlogComment } = require('../../models/user/blog_comment');
+const { Reaction } = require('../../models/user/reaction');
 const moment = require('moment');
 
 async function index(request, response) {
@@ -30,11 +31,11 @@ async function index(request, response) {
         }
 
         const blogResult = await blogs
-            .sort({ vote: -1 })
+            .sort({ vote: -1, createdAt: -1 })
             .populate('blogger', ['profile'])
             .skip((page * limit) - limit)
             .limit(limit);
-            
+
         const blogPage = {
             data: blogResult,
             total_page: Math.ceil(totalBlog / limit),
@@ -88,13 +89,15 @@ async function getBlogDetail(request, response) {
         if (!page) page = 1;
         if (!limit) limit = 5;
 
+        user = request.user;
+
         blog = await Blog.findById(id)
             .populate(['tag', 'blogger']);
 
         blog._doc.createdAt = moment(blog.createdAt).format('L');
 
         totalComment = await BlogComment.find({ blog: blog._id }).countDocuments();
-        comments = await BlogComment.find({ blog: blog._id })
+        comments = await BlogComment.find({ blog: blog._id }, {}, { sort: { createdAt: -1 } })
             .populate('user', ['profile'])
             .skip((page * limit) - limit)
             .limit(limit);
@@ -106,14 +109,23 @@ async function getBlogDetail(request, response) {
             page,
             limit,
         };
-        
+
         blogTag = await BlogTag.find({});
+
+        blogReaction = await Reaction.findOne({
+            type: 'blog',
+            user: user && user._id,
+            type_id: id,
+        });
+
+        if (!blogReaction) blogReaction = {};
 
         response.render('user/blog-detail', {
             blog,
             allComment,
             blogTag,
             totalComment,
+            blogReaction,
         });
     } catch (error) {
         console.error(error);

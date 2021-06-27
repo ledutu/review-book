@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en" class="no-js">
+<head>
+	<!-- Basic need -->
+	<title><%- userProfile.profile.full_name %> </title>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<link rel="profile" href="#">
+
+	<!-- Mobile specific meta -->
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone-no">
+    
+    <%- include('layouts/head') %>
+    <link rel="stylesheet" href="/user/css/user.css">
+
+</head>
+<body>
+    <!--preloading-->
+    <%- include('layouts/loading') %>
+    <!--end of preloading-->
+
+    <!--login form popup-->
+    <%- include('layouts/login-form') %>
+    <!--end of login form popup-->
+
+    <!--signup form popup-->
+    <%- include('layouts/sign-up-form') %>
+    <!--end of signup form popup-->
+
+    <!-- BEGIN | Header -->
+    <%- include('layouts/header') %>
+    <!-- END | Header -->
+    
+    <%- include('layouts/notification') %> 
+    
+    <div class="content">
+        <div class="hero user-hero">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="hero-ct">
+                            <h1 class="full-name-style"><%- userProfile.profile.full_name %></h1>
+                            <ul class="breadcumb">
+                                <li class="active"><a href="/">Trang chủ</a></li>
+                                <li> <span class="ion-ios-arrow-right"></span>Bài viết</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-single">
+            <div class="container">
+                <div class="row ipad-width2">
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        <div class="user-information">
+                            <div class="user-img">
+                                <a href="#"><img src="<%- userProfile.profile.image %> " alt="" width="120" height="120"><br></a>
+                                <% if (isAuth){ %>
+                                    <a id="uploadAvatarButton" class="redbtn">Đổi ảnh đại diện</a>
+                                <% } %>
+                            </div>
+                            <div class="user-fav">
+                                <p>Chi tiết tài khoản</p>
+                                <ul>
+                                    <li><a href="/user/profile/<%- userProfile.profile.username %>-<%- userProfile._id %>">Thông tin</a></li>
+                                    <li><a href="/user/book-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết yêu thích</a></li>
+                                    <li><a href="/user/writer-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Người viết yêu thích</a></li>
+                                    <li class="active"><a>Bài viết của bạn</a></li>
+                                    <li><a href="/user/my-blog/<%- userProfile.profile.username %>-<%- userProfile._id %>">Blog của bạn</a></li>
+                                </ul>
+                            </div>
+                            <% if (isAuth) { %>
+                                <div class="user-fav">
+                                    <p>Khác</p>
+                                    <ul>
+                                        <li><a href="/user/logout">Đăng xuất</a></li>
+                                    </ul>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-sm-12 col-xs-12">
+                        <div class="form-style-1">
+                            <form action="#" method="post" class="user" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-12 form-it">
+                                        <label>Tên sách muốn review</label>
+                                        <input type="text" name="book_name" required placeholder="Tên đầy đủ" value="" <%- !isAuth && 'disabled' %> >
+                                    </div>
+                                    
+                                    <div class="col-md-12 form-it">
+                                        <label>Thể loại</label>
+                                        <div class="group-ip" style="color: white;">
+                                            <select
+                                                name="category" multiple="" required class="ui fluid dropdown" <%- !isAuth && 'disabled' %>>
+                                                <option value="">Chọn thể loại</option>
+                                                <% bookCategories.forEach(category => { %>
+                                                    <option value="<%- category._id %>"><%- category.name %></option>
+                                                <% }) %>
+                                            </select>
+                                        </div>	
+                                    </div>
+                                    
+                                    <div class="col-md-12 form-it">
+                                        <label>Slug</label>
+                                        <input type="text" name="slug" required placeholder="ban-nen-ghi-lai-bai-review-theo-dinh-dang-nhu-the-nay" value="" <%- !isAuth && 'disabled' %>>
+                                    </div>
+                                </div>
+                                <label style="margin-top: 10px;"><i style="color:#dd003f;">Lưu ý: Để hình ảnh của bạn trong đẹp hơn, vui lòng đăng những ảnh theo kích thước dưới đây</i></label>
+                                <div class="row">
+                                    <div class="col-md-4 form-it">
+                                        <label>Ảnh</label>
+                                        <div class="file-upload">
+                                            <button class="file-upload-btn" type="button" onclick="$('.file-upload-input-1').trigger( 'click' )">Thêm ảnh</button>
+                                          
+                                            <div class="image-upload-wrap-1 imageUploadWrap">
+                                              <input class="file-upload-input-1 fileUploadInput" type='file' onchange="readURL(this, '1');" accept="image/*" name="titleImage" required/>
+                                              <div class="drag-text">
+                                                <h4>Kéo ảnh hoặc chọn thêm ảnh vào đây (340 x 521)</h4>
+                                              </div>
+                                            </div>
+                                            <div class="file-upload-content-1 fileUploadContent">
+                                              <img class="file-upload-image-1 fileUploadImage" src="#" alt="your image" />
+                                              <div class="image-title-wrap">
+                                                <button type="button" onclick="removeUpload('1')" class="remove-image">Xóa <span class="image-title-1 imageTitle">Uploaded Image</span></button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4 form-it">
+                                        <label>Ảnh</label>
+                                        <div class="file-upload">
+                                            <button class="file-upload-btn" type="button" onclick="$('.file-upload-input-2').trigger( 'click' )">Thêm ảnh</button>
+                                          
+                                            <div class="image-upload-wrap-2 imageUploadWrap">
+                                              <input class="file-upload-input-2 fileUploadInput" type='file' onchange="readURL(this, '2');" accept="image/*" name="bannerImage" required/>
+                                              <div class="drag-text">
+                                                <h4>Kéo ảnh hoặc chọn thêm ảnh vào đây (285 x 437)</h4>
+                                              </div>
+                                            </div>
+                                            <div class="file-upload-content-2 fileUploadContent">
+                                              <img class="file-upload-image-2 fileUploadImage" src="#" alt="your image" />
+                                              <div class="image-title-wrap">
+                                                <button type="button" onclick="removeUpload('2')" class="remove-image">Xóa <span class="image-title-2 imageTitle">Uploaded Image</span></button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4 form-it">
+                                        <label>Ảnh</label>
+                                        <div class="file-upload">
+                                            <button class="file-upload-btn" type="button" onclick="$('.file-upload-input-3').trigger( 'click' )">Thêm ảnh</button>
+                                          
+                                            <div class="image-upload-wrap-3 imageUploadWrap">
+                                              <input class="file-upload-input-3 fileUploadInput" type='file' onchange="readURL(this, '3');" accept="image/*" name="smallImage" required/>
+                                              <div class="drag-text">
+                                                <h4>Kéo ảnh hoặc chọn thêm ảnh vào đây (185 x 284)</h4>
+                                              </div>
+                                            </div>
+                                            <div class="file-upload-content-3 fileUploadContent">
+                                              <img class="file-upload-image-3 fileUploadImage" src="#" alt="your image" />
+                                              <div class="image-title-wrap">
+                                                <button type="button" onclick="removeUpload('3')" class="remove-image">Xóa <span class="image-title-3 imageTitle">Uploaded Image</span></button>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-12 form-it">
+                                        <label>Review</label>
+                                        <textarea 
+                                            name="review" 
+                                            id="editor" 
+                                            placeholder="Nhập bài review của bạn vào đây"
+                                        ></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="row" style="text-align: center;">
+                                    <div class="col-md-2">
+                                        <a href="/user/my-review/<%- userProfile.profile.username %>-<%- userProfile._id %>" class="cancel-btn">
+                                            <div class="cancel-btn-container">
+                                                Hủy
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="submit" type="submit" value="Xác nhận">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end of latest new v1 section-->
+
+    <!-- footer section-->
+    <%- include('layouts/footer') %>
+    <!-- end of footer section-->
+
+    <%- include('layouts/javascript') %>
+    
+    <script src="/user/js/image-upload.js"></script>
+       <!-- Script element sourcing TinyMCE -->
+    <script type="application/javascript" src= "/tinymce/tinymce.min.js"></script>
+    
+    <!-- <script src="/javascripts/my-tinymce-config.js"></script> -->
+    <script>
+        tinymce.init({
+            selector: 'textarea#editor',
+            height: 500,
+            menubar: true,
+            plugins: [
+                'advlist autolink lists link image imagetools charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+            imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
+            toolbar: 'undo redo | formatselect | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+            images_upload_handler: imageUploadHandler,
+        });
+        
+        async function imageUploadHandler (blobInfo, success, failure, progress) {
+            let data = new FormData();
+            data.append('file', blobInfo.blob());
+            
+            try {
+                const res = await axios.post('/user/upload-image', data, {
+                    enctype: 'multipart/form-data',
+                });     
+                
+                success(res.data.location);
+                
+            } catch (error) {
+                failure(error.response.data.message)
+            }
+        };
+    </script>
+</body>
+</html>

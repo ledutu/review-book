@@ -7262,7 +7262,7 @@ p.ceb-single {
   font-size: 40px;
 }
 .sliderv3 {
-  padding-top: 283px;
+  padding-top: 275px;
   padding-bottom: 0;
 }
 @media (max-width: 991px) {
@@ -7953,7 +7953,7 @@ header .top-search input::-webkit-input-placeholder {
   color: #abb7c4;
 }
 header .top-search input {
-  background: url('../images/uploads/topsearch.png') no-repeat right 20px center;
+  background: url('../../icons/search.svg') no-repeat right 20px center;
 }
 header #nav-icon1 {
   width: 15px;

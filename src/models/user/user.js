@@ -14,13 +14,13 @@ const userSchema = new Schema({
         username: { type: String, default: '' },
         full_name: { type: String, default: '' },
         address: { type: String, default: '' },
-        image: { type: String, default: '' },
+        image: { type: String, default: '/user/images/no-image.jpg' },
         gender: { type: String, enum: ['men', 'women', 'third'], default: 'men' },
         birthday: { type: Date, default: Date.now() },
         introduction: { type: String, default: '' },
     },
     favorite_writer: [this],
-    favorite_book: [{ type: Schema.Types.ObjectId, ref: 'books' }],
+    // favorite_book: [{ type: Schema.Types.ObjectId, ref: 'books' }],
     total_book: { type: Number, default: 0 },
     total_blog: { type: Number, default: 0 },
     role: { type: Number, default: 0 },
@@ -38,6 +38,20 @@ userSchema.statics.authenticate = async function (email, password, callbackResul
         } else if (!user) {
             var err = new Error();
             err.message = 'Không tìm thấy user';
+            err.status = 401;
+            return callbackErr(err);
+        }
+        
+        if(user.google_id) {
+            var err = new Error();
+            err.message = 'Account này đăng nhập bằng google.';
+            err.status = 401;
+            return callbackErr(err);
+        }
+        
+        if(user.facebook_id) {
+            var err = new Error();
+            err.message = 'Account này đăng nhập bằng facebook.';
             err.status = 401;
             return callbackErr(err);
         }

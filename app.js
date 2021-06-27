@@ -10,17 +10,23 @@ const session = require('express-session');
 var passport = require('passport');
 var faker = require('faker');
 var methodOverride = require('method-override')
+var { isMessage } = require('./src/middlewares/user/notification.middleware');
+var bcrypt = require('bcrypt');
 
 //Admin
 var homeAdmin = require('./src/routes/admin/home')
 
 //User
 var homeUser = require('./src/routes/user/home');
+var auth = require('./src/routes/user/auth');
 var book = require('./src/routes/user/book');
 var writer = require('./src/routes/user/writer');
 var user = require('./src/routes/user/user');
 var blog = require('./src/routes/user/blog');
 var seed = require('./src/database/seed/seed.route');
+var api = require('./src/routes/api');
+var userCms = require('./src/routes/user-cms');
+var fileRoute = require('./src/routes/file.route.js');
 
 var app = express();
 
@@ -28,6 +34,8 @@ require('dotenv').config()
 
 // view engine setup
 app.set('views', path.join(__dirname, '/src/views'));
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+app.use('/axios', express.static(path.join(__dirname, 'node_modules', 'axios')));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
@@ -95,6 +103,7 @@ db.on('connected', () => {
 
 app.use('/admin', homeAdmin);
 
+app.use(isMessage);
 
 //Route User
 app.use('/', homeUser);
@@ -102,15 +111,21 @@ app.use('/book', book);
 app.use('/writer', writer);
 app.use('/user', user);
 app.use('/blog', blog);
+app.use('/auth', auth);
+
+//User CMS
+app.use('/user-cms', userCms);
+app.use('/file', fileRoute);
 
 //Test
 app.use('/api/db', seed);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-//     res.render('user/error');
-//     // next(createError(404));
-// });
+app.use(function (req, res, next) {
+    res.render('404');
+    // next(createError(404));
+});
 
 // error handler
 app.use(function (err, req, res, next) {

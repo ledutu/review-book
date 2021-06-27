@@ -5,20 +5,23 @@
 <script src="/user/js/custom-jquery.js"></script>
 <script src="/javascripts/moment.js"></script>
 <script src="/javascripts/moment-with-locale.js"></script>
+<script src="/javascripts/sweetalert.min.js"></script>
+<script src="/javascripts/cute-alert.js"></script>
+<script src="/axios/dist/axios.min.js"></script>
 
 <script>
     $(document).ready(function() {
         moment.locale('vi');
         var time = $('.datetime').html();
         $('.datetime').text(moment(new Date(time)).format('lll'));
-        
+                
         //Login function
         $('#loginForm').submit(function(e){
             e.preventDefault();
             let email = $('#email').val();
             let password = $('#password').val();
 
-            fetch('/user/login', {
+            fetch('/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -31,14 +34,359 @@
                 if(data.status === 200) {
                     // console.log(data);
                     document.location.reload(true);
+                    cuteToast({
+                        type: "success", // or 'info', 'error', 'warning'
+                        message: "Đăng nhập thành công.",
+                        timer: 5000
+                    });
                 } else {
                     $('.err-message').text(data.message);
+                    cuteToast({
+                        type: "error", // or 'info', 'error', 'warning'
+                        message: data.message,
+                        timer: 5000
+                    });
                 }
             })
             .catch(err => {
-                console.log('error nhe')
+                console.error(err)
+            });
+        });
+        
+        //Sign-up function 
+        $('#signUpForm').submit(function(e){
+            e.preventDefault();
+            let full_name = $('#full_name-2').val();
+            let email = $('#email-2').val();
+            let password = $('#password-2').val();
+            let passwordConfirm = $('#repassword-2').val();
+            
+            fetch('/auth/sign-up', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'Accept': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    email, 
+                    password,
+                    full_name,
+                    passwordConfirm,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(!data.error) {
+                    document.location.reload(true);
+                    cuteToast({
+                        type: "success", // or 'info', 'error', 'warning'
+                        message: data.message,
+                        timer: 5000
+                    });
+                } else {
+                    $('.err-message').text(data.message);
+                    cuteToast({
+                        type: "error", // or 'info', 'error', 'warning'
+                        message: data.message,
+                        timer: 5000
+                    });
+                }
+            })
+            .catch(err => {
                 console.error(err)
             });
         })
+        
+        //Comment review book
+        $('#bookCommentForm').submit(function(e) {
+            e.preventDefault();
+            let comment = $('#bookCommentInput').val();
+            let bookId = $('#bookId').val();
+            
+            fetch('/api/user/comment-review', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'Accept': 'application/json',
+                },
+                body: JSON.stringify({ comment, id: bookId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === 200) {
+                    cuteToast({
+                        type: "success", // or 'info', 'error', 'warning'
+                        message: data.message,
+                        timer: 5000
+                    });
+                    
+                    $('.comment-container-display')
+                    .prepend(`<div class="mv-user-review-item mv-user-review-item-custom" id="`+data.data.comment._id+`">
+                                <div class="user-infor comment-info-container">
+                                    <img src="`+data.data.user.profile.image+`" alt="" width="40px" height="40px">
+                                    <div class="comment-info">
+                                        <h4 style="color: #ffffff;">`+data.data.user.profile.full_name+`</h4>
+                                        <p class="time datetime">`+data.data.comment.createdAt+`</p>
+                                    </div>
+                                    <div class="dropdown option-menu">
+                                        <!-- <button class="dropdown-toggle" type="button" data-toggle="dropdown"> -->
+                                        <i class="dropdown-toggle ion-android-menu" type="button" data-toggle="dropdown">
+                                        </i>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Chỉnh sửa</a></li>
+                                            <li><a onclick="deleteCommentReview('`+data.data.comment._id+`')">Xóa</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p>`+data.data.comment.content+`</p>
+                            </div>`
+                    )
+                    
+                    $('#bookCommentInput').val('');
+                    
+                } else {
+                    cuteToast({
+                        type: "error", // or 'info', 'error', 'warning'
+                        message: data.message,
+                        timer: 5000
+                    });
+                }
+            })
+            .catch(err => {
+                console.error(err)
+                cuteToast({
+                    type: "error", // or 'info', 'error', 'warning'
+                    message: data.message,
+                    timer: 5000
+                });
+            });
+            
+        });
+        
+        //Comment blog
+        $('#blogCommentForm').submit(function(e){
+            e.preventDefault();
+            
+            let comment = $('#blogCommentInput').val();
+            let blogId = $('#blogId').val();
+            
+            fetch('/api/user/comment-blog', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'Accept': 'application/json',
+                },
+                body: JSON.stringify({ comment, id: blogId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === 200) {
+                    cuteToast({
+                        type: "success", // or 'info', 'error', 'warning'
+                        message: data.message,
+                        timer: 5000
+                    });
+                    
+                    $('.comment-container-display')
+                    .prepend(`<div class="mv-user-review-item mv-user-review-item-custom" id="`+data.data.comment._id+`">
+                                <div class="user-infor comment-info-container">
+                                    <img src="`+data.data.user.profile.image+`" alt="" width="40px" height="40px">
+                                    <div class="comment-info">
+                                        <h4 style="color: #ffffff;">`+data.data.user.profile.full_name+`</h4>
+                                        <p class="time datetime">`+data.data.comment.createdAt+`</p>
+                                    </div>
+                                    <div class="dropdown option-menu">
+                                        <!-- <button class="dropdown-toggle" type="button" data-toggle="dropdown"> -->
+                                        <i class="dropdown-toggle ion-android-menu" type="button" data-toggle="dropdown">
+                                        </i>
+                                        
+                                        <ul class="dropdown-menu">
+                                            <li><a data-toggle="modal" data-target="#exampleModal">Chỉnh sửa</a></li>
+                                            <li><a onclick="deleteCommentBlog('`+data.data.comment._id+`')">Xóa</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p class="comment-content">`+data.data.comment.content+`</p>
+                            </div>`
+                    )
+                    
+                    $('#blogCommentInput').val('');
+                    
+                } else {
+                    cuteToast({
+                        type: "error", // or 'info', 'error', 'warning'
+                        message: data.message,
+                        timer: 5000
+                    });
+                }
+            })
+            .catch(err => {
+                console.error(err)
+                cuteToast({
+                    type: "error", // or 'info', 'error', 'warning'
+                    message: data.message,
+                    timer: 5000
+                });
+            });
+        });
+        
+        $('#uploadAvatarButton').click(function() {
+            $('#avatarFileInput').click();
+        })
+        
+        $('#avatarFileInput').change(function(){
+            $('#formUpdateAvatar').submit();
+        })
+        
     });
+    
+    function deleteCommentReview(id) {
+        cuteAlert({
+            type: "question",
+            title: "Xóa",
+            message: "Bạn có muốn xóa bình luận này không?",
+            confirmText: "Đồng ý",
+            cancelText: "Hủy"
+        }).then((e)=>{
+            if(e) {
+                fetch('/api/user/delete-comment-review/'+id)
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.status === 200) {
+                            $('#'+id).remove();
+                            cuteToast({
+                                type: "success", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                            });
+                        } else {
+                            cuteToast({
+                                type: "error", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                            })        
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err)
+                        cuteToast({
+                            type: "error", // or 'info', 'error', 'warning'
+                            message: 'Có lỗi xuất hiện, vui lòng thử lại sau',
+                            timer: 5000
+                        })        
+                });
+            }
+        })
+    }
+    
+    //Rate book review
+    function handleRateReview(id, rate) {
+        
+        var isLogin = $("input[name='rate']:checked").hasClass('loginLink');
+        
+        if(!isLogin) {
+            fetch('/api/user/rate-review?id='+id+'&rate='+rate)
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.status === 200) {
+                            $('#'+id).remove();
+                            cuteToast({
+                                type: "success", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                            });
+                        } else {
+                            cuteToast({
+                                type: "error", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                            })
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err)
+                        cuteToast({
+                            type: "error", // or 'info', 'error', 'warning'
+                            message: 'Có lỗi xuất hiện, vui lòng thử lại sau',
+                            timer: 5000
+                    })        
+            });
+        }
+    }
+    
+    //Rate blog
+    function handleRateBlog(id, rate) {
+        
+        var isLogin = $("input[name='rate']:checked").hasClass('loginLink');
+        
+        if(!isLogin) {
+            fetch('/api/user/rate-blog?id='+id+'&rate='+rate)
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.status === 200) {
+                            $('#'+id).remove();
+                            cuteToast({
+                                type: "success", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                            });
+                        } else {
+                            cuteToast({
+                                type: "error", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                            })
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err)
+                        cuteToast({
+                            type: "error", // or 'info', 'error', 'warning'
+                            message: 'Có lỗi xuất hiện, vui lòng thử lại sau',
+                            timer: 5000
+                    })        
+            });
+        }
+    }
+    
+    //Delete comment blog
+    function deleteCommentBlog(id) {
+        cuteAlert({
+            type: "question",
+            title: "Xóa",
+            message: "Bạn có muốn xóa bình luận này không?",
+            confirmText: "Đồng ý",
+            cancelText: "Hủy"
+        }).then((e)=>{
+            if(e) {
+                fetch('/api/user/delete-comment-blog/'+id)
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.status === 200) {
+                            $('#'+id).remove();
+                            cuteToast({
+                                type: "success", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                            });
+                        } else {
+                            cuteToast({
+                                type: "error", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                            })        
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err)
+                        cuteToast({
+                            type: "error", // or 'info', 'error', 'warning'
+                            message: 'Có lỗi xuất hiện, vui lòng thử lại sau',
+                            timer: 5000
+                        })        
+                });
+            }
+        })
+    }
+    
 </script>

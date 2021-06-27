@@ -7,14 +7,14 @@
         	<div class="row">
         		 <label for="email">
                     <%- __('auth.email') %>
-                    <input type="email" name="email" id="email" placeholder="<%- __('auth.email') %> " required/>
+                    <input type="email" name="email" id="email" placeholder="<%- __('auth.email') %> " value="a@gmail.com" required/>
                 </label>
         	</div>
            
             <div class="row">
             	<label for="password">
                     <%- __('auth.password') %>
-                    <input type="password" name="password" id="password" placeholder="<%- __('auth.password') %>" required/>
+                    <input type="password" name="password" id="password" placeholder="<%- __('auth.password') %>" value="123456" required/>
                 </label>
             </div>
             <div class="row">
@@ -35,8 +35,8 @@
         <div class="row">
         	<p><%- __('auth.or-via-social') %></p>
             <div class="social-btn-2">
-            	<a class="fb" href="#"><i class="ion-social-facebook"></i>Facebook</a>
-            	<a class="tw" href="#"><i class="ion-social-googleplus"></i>Google</a>
+            	<a class="fb" href="/auth/facebook"><i class="ion-social-facebook"></i>Facebook</a>
+            	<a class="tw" href="/auth/google"><i class="ion-social-googleplus"></i>Google</a>
             </div>
         </div>
     </div>

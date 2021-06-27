@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Kode is a Premium Bootstrap Admin Template, It's responsive, clean coded and mobile friendly">
+<meta name="keywords" content="bootstrap, admin, dashboard, flat admin template, responsive," />
+<title>Trang chủ</title>
+
+<!-- ========== Css Files ========== -->
+<%- include('layouts/head') %> 
+
+
+</head>
+<body>
+    <!-- Start Page Loading -->
+    <%- include('layouts/loading') %> 
+    <!-- End Page Loading -->
+
+    <!-- START TOP -->
+    <%- include('layouts/header') %> 
+    <!-- END TOP -->
+
+    <!-- START SIDEBAR -->
+    <%- include('layouts/sidebar') %> 
+    <!-- END SIDEBAR -->
+    
+    <%- include('layouts/notification') %> 
+
+    <!-- START CONTENT -->
+    <div class="content">
+
+        <!-- Start Page Header -->
+        <div class="page-header">
+            <h1 class="title">Danh sách bài blog</h1>
+
+            <!-- Start Page Header Right Div -->
+            <div class="right">
+                <div class="btn-group" role="group" aria-label="...">
+                    <a href="/user-cms/blog/create" class="btn btn-light">Tạo bài mới</a>
+                    <a href="/user-cms/blog" class="btn btn-light"><i class="fa fa-refresh"></i></a>
+                    <a href="#" class="btn btn-light"><i class="fa fa-search"></i></a>
+                </div>
+            </div>
+            <!-- End Page Header Right Div -->
+
+        </div>
+        <!-- End Page Header -->
+
+        <div class="container-flush">
+            
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="panel panel-default">
+                
+                        <div class="panel-title">
+                            Tìm kiếm
+                            <ul class="panel-tools">
+                            <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+                            <li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
+                            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                            </ul>
+                        </div>
+                
+                        <div class="panel-body">
+                            <form action="#" method="GET">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-6">
+                                        <div class="form-group">
+                                            <label for="input1" class="form-label">Tên Blog</label>
+                                            <input type="text" placeholder="Tên Blog" name="blog_name" class="form-control" id="input1" value="<%- params.blog_name %>">
+                                        </div>            
+                                    </div>
+                                    
+                                    <div class="col-md-12 col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Tag</label>
+                                            <select class="form-control selectpicker" name="tag" multiple data-live-search="true">
+                                                <% blogTags.forEach(tag => { %>
+                                                    <option value="<%- tag._id %>" <%- params.tag && params.tag.includes(tag._id.toString()) && 'selected' %> ><%- tag.name %></option>
+                                                <% }) %>                                                    
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-6">
+                                        <fieldset>
+                                            <div class="control-group">
+                                                <label for="input1" class="form-label">Từ ngày</label>
+                                                <div class="controls">
+                                                    <div class="input-prepend input-group">
+                                                        <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        <input type="text" id="date-picker" name="date_from" class="form-control" placeholder="dd/mm/yyyy" value="<%- params.date_from %>"/> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    
+                                    <div class="col-md-12 col-lg-6">
+                                        <fieldset>
+                                            <div class="control-group">
+                                                <label for="input1" class="form-label">Từ ngày</label>
+                                                <div class="controls">
+                                                    <div class="input-prepend input-group">
+                                                        <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        <input type="text" id="date-picker-2" name="date_to" class="form-control" placeholder="dd/mm/yyyy" value="<%- params.date_to %>"/> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            
+                                <div class="button-container mt-20">
+                                    <a href="/user-cms/blog" class="btn">Hủy</a>
+                                    <button type="submit" class="btn btn-default">Tìm kiếm</button>
+                                </div>
+                            </form>
+            
+                        </div>
+                
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Start Panel -->
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+            
+                        <div class="panel-title">
+                            Danh sách <span class="label label-default"><%- totalBlog %></span>
+                        </div>
+                
+                        <div class="panel-body">
+                
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <td>Tên</td>
+                                            <td>Slug</td>
+                                            <td>Tag</td>
+                                            <td>Trạng thái</td>
+                                            <td>Ngày đăng</td>
+                                            <td>Chức năng</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% blogPage.data.forEach(blog => { %>
+                                            <tr>
+                                                <td><%- blog.title %></td>
+                                                <td><%- blog.slug %></td>
+                                                <td style="width: 150px">
+                                                    <% blog.tag.forEach(tg => { %>
+                                                        <span class="label <%- tg.tag_color %>"><%- tg.name %></span>
+                                                    <% }) %>
+                                                </td>
+                                                <td>
+                                                    <span class="label <%- blog.isConfirm? 'label-success': 'label-warning' %>"><%- blog.isConfirm? 'Đã duyệt': 'Chờ duyệt' %></span>
+                                                    <% if (blog.hide) { %>
+                                                        <span class="label label-danger">Đã ẩn</span>
+                                                    <% } %>
+                                                </td>
+                                                <td class="datetime <%- blog._id %>" style="width: 125px;"><%- blog.createdAt %></td>
+                                                <td>
+                                                    <a href="/user-cms/blog/create?id=<%- blog._id %>" class="view-icon margin-r-5"><i class="fa fa-eye"></i></a>
+                                                    <a onclick="confirmBeforeHide('<%- blog._id %>', '<%- blog.hide %>')" class="hide-icon margin-r-5"><i class="fa fa-ban"></i></a>
+                                                    <a onclick="confirmBeforeDelete('<%- blog._id %>')" class="delete-icon margin-r-5"><i class="fa fa-times"></i></a>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                                
+                                <%- include('layouts/pagination', {
+                                    data: blogPage,
+                                    pageLink: '/user-cms/blog'+link,
+                                }) %> 
+                            </div>
+                        </div>
+            
+                    </div>
+                </div>
+                <!-- End Panel -->
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
+
+
+<%- include('layouts/javascript') %> 
+
+<script>
+    
+    $(document).ready(function() {
+        moment.locale('vi');
+    
+        let blogs = '<%- blogPage.data.map(item => item._id) %>';
+
+        blogs.split(',').forEach(blog => {
+            let time = $('.datetime.'+blog).html();
+            $('.datetime.'+blog).text(moment(new Date(time)).format('lll'));        
+        })
+    })
+    
+    async function confirmBeforeHide(id, status) {
+        cuteAlert({
+            type: "question",
+            title: status === 'true'?"Bỏ ẩn":"Ẩn",
+            message: status === 'true'?"Bạn có muốn bỏ ẩn bài này?": "Bạn có muốn ẩn bài này không?",
+            confirmText: "Đồng ý",
+            cancelText: "Hủy"
+        }).then(async e => {
+            if(e) {
+                fetch('/user-cms/blog', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // 'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({ id })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(!data.error) {
+                            cuteToast({
+                                type: "success", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                             });
+                             document.location.reload(true);
+                        } else {
+                            cuteToast({
+                                type: "error", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        cuteToast({
+                            type: "error", // or 'info', 'error', 'warning'
+                            message: data.message,
+                            timer: 5000
+                        });
+                    });
+            }
+        })
+    }
+
+    async function confirmBeforeDelete(id) {
+        cuteAlert({
+            type: "question",
+            title: "Xóa",
+            message: "Bạn có muốn bài này không?",
+            confirmText: "Đồng ý",
+            cancelText: "Hủy"
+        }).then(async e => {
+            if(e) {
+                fetch('/user-cms/blog', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // 'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({ id })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(!data.error) {
+                            cuteToast({
+                                type: "success", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                             });
+                             document.location.reload(true);
+                        } else {
+                            cuteToast({
+                                type: "error", // or 'info', 'error', 'warning'
+                                message: data.message,
+                                timer: 5000
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        cuteToast({
+                            type: "error", // or 'info', 'error', 'warning'
+                            message: data.message,
+                            timer: 5000
+                        });   
+                    });
+            }
+        })
+    }
+</script>
+
+</body>
+    
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Kode is a Premium Bootstrap Admin Template, It's responsive, clean coded and mobile friendly">
+<meta name="keywords" content="bootstrap, admin, dashboard, flat admin template, responsive," />
+<title>Trang chủ</title>
+
+<!-- ========== Css Files ========== -->
+<%- include('layouts/head') %> 
+<link rel="stylesheet" href="/user-cms/css/image-upload.css">
+
+
+</head>
+<body>
+    <!-- Start Page Loading -->
+    <%- include('layouts/loading') %> 
+    <!-- End Page Loading -->
+
+    <!-- START TOP -->
+    <%- include('layouts/header') %> 
+    <!-- END TOP -->
+
+    <!-- START SIDEBAR -->
+    <%- include('layouts/sidebar') %> 
+    <!-- END SIDEBAR -->
+    
+    <%- include('layouts/notification') %> 
+
+    <!-- START CONTENT -->
+    <div class="content">
+
+        <!-- Start Page Header -->
+        <div class="page-header">
+            <h1 class="title">Tạo Blog</h1>
+            <ol class="breadcrumb">
+                <li><a href="/user-cms/dashboard">Trang chủ</a></li>
+                <li class="active">Tạo Blog</li>
+            </ol>
+
+            <!-- Start Page Header Right Div -->
+            <div class="right">
+                <div class="btn-group" role="group" aria-label="...">
+                    <a href="/user-cms/blog" class="btn">Quay lại</a>
+                </div>
+            </div>
+            <!-- End Page Header Right Div -->
+
+        </div>
+        <!-- End Page Header -->
+
+        <div class="container-flush">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+
+                        <div class="panel-title">
+                            Thông tin blog
+                            <ul class="panel-tools">
+                                <li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
+                            </ul>
+                        </div>
+                
+                        <div class="panel-body">
+                            <form 
+                                action="<%- id? '/user-cms/blog/update' : '/user-cms/blog/create' %>" 
+                                method="post" 
+                            >
+                                <input type="hidden" name="id" value="<%- id %>">
+                                <div class="form-group">
+                                    <label for="input1" class="form-label">Tiêu đề blog</label>
+                                    <input type="text" placeholder="Tiêu đề blog" class="form-control" id="blog_name" name="blog_name" value="<%- blog.title %>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Thể loại</label>
+                                    <select class="form-control selectpicker" name="tag" multiple data-live-search="true">
+                                        <% blogTags.forEach(tag => { %>
+                                            <option value="<%- tag._id %>" <%- blog.tag && blog.tag.includes(tag._id.toString()) && 'selected' %> ><%- tag.name %></option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="slug"  class="form-label">Slug</label>
+                                    <input type="text" placeholder="ban-nen-ghi-lai-bai-review-theo-dinh-dang-nhu-the-nay" class="form-control" name="slug" id="slug" value="<%- blog.slug %>">
+                                </div>
+                                
+                                <div class="form-group margin-t-20">
+                                    <label class="form-label">Nội dung</label>
+                                    <textarea 
+                                        class="form-control"
+                                        name="content" 
+                                        id="editor" 
+                                        placeholder="Nhập bài review của bạn vào đây"
+                                    >
+                                        <%- blog.content %> 
+                                    </textarea>
+                                </div>
+                                
+                                <button id="submitButton" type="submit" class="btn btn-default"><%- id? 'Cập nhật': 'Đăng bài' %></button>
+                            </form>
+            
+                        </div>
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
+
+
+<%- include('layouts/javascript') %> 
+
+<script src="/user-cms/js/image-upload.js"></script>
+<script type="application/javascript" src= "/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea#editor',
+        height: 500,
+        menubar: true,
+        plugins: [
+            'advlist autolink lists link image imagetools charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+        ],
+        imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
+        toolbar: 'undo redo | formatselect | ' +
+        'bold italic backcolor | alignleft aligncenter ' +
+        'alignright alignjustify | bullist numlist outdent indent | ' +
+        'removeformat | help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+        images_upload_handler: imageUploadHandler,
+    });
+    
+    async function imageUploadHandler (blobInfo, success, failure, progress) {
+        let data = new FormData();
+        data.append('file', blobInfo.blob());
+        
+        try {
+            const res = await axios.post('/file/upload-blog-image', data, {
+                enctype: 'multipart/form-data',
+            });     
+            
+            success(res.data.location);
+            
+        } catch (error) {
+            failure(error.response.data.message)
+        }
+    };
+</script>
+
+</body>
+    
+</html>
