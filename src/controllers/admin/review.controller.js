@@ -77,7 +77,18 @@ async function update(req, res) {
 		res.send(error);
 	}
 }
-
+async function detail(req, res) {
+	try {
+		const reviews = await Book.findById(req.params.id)
+								.populate('reviewer',['profile'])
+								.populate('category', ['name', 'short_name'])
+		bookCategory = await BookCategory.find({})
+        res.render('admin/review-detail',{reviews,bookCategory});
+	} catch (error) {
+		console.log(error);
+		res.send(error);
+	}
+}
 module.exports = {
-	show,update
+	show,update,detail
 };

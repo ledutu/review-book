@@ -59,7 +59,18 @@ async function update(req, res) {
 	}
 }
 
+async function getBlogTags(req,res) {
+	try {
+		res.render('admin/blog-tag');
+
+	} catch (error) {
+		
+	}
+}
+
 
 module.exports = {
-	show,update
+	show,
+	update,
+	getBlogTags
 };

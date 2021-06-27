@@ -25,6 +25,8 @@ Main Css
 /* Theme Style */
 @import url('style.css');
 
+@import url('custom-style.css');
+
 /* Responsive Style */
 @import url('responsive.css');
 

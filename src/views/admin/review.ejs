@@ -94,6 +94,7 @@
                   <td>Category</td>
                   <td>Date</td>
                   <td>Status</td>
+                  <td>Action</td>
                 </tr>
               </thead>
               <tbody>    
@@ -112,6 +113,11 @@
                       <button href="" data-id="<%- review._id %>" data-toggle="modal" data-target="#inActive-review-modal" class=" btn-change-status <%- review.hide ? 'btn btn-danger' : 'btn btn-success' %>">
                         <%- review.hide ? 'InActive' : 'Active' %>
                       </button> 
+                    </td>
+                    <td>
+                      <a href="/admin/review/<%- review._id %>">                      
+                        <i class="fa fa-info-circle admin-table__icon-detail"><span class="hover-detail">Detail</span></i>    
+                      </a>
                     </td>
                   </tr> 
                 <% }) %>

@@ -1,0 +1,197 @@
+
+.admin-table__icon-edit {
+    font-size: 1.6rem;
+    color: #cacaca;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: color 0.4s ease;
+  }
+  .admin-table__icon-edit:hover {
+    color: #003cc5;
+  }
+  .admin-table__icon-detail {
+    position: relative;
+    display: inline-block;
+    font-size: 2rem;
+    color: #cacaca;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: color 0.4s ease;
+  }
+  .admin-table__icon-detail .hover-detail {
+    visibility: hidden;
+    width: auto;
+    background-color: rgb(202, 202, 203);
+    color: #000;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px;
+    padding: 5px 5px;
+    position: absolute;
+    margin-top: 10px;
+    z-index: 1;
+    font-size: small;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  
+  
+  .admin-table__icon-detail:hover{
+    color: #003cc5;
+  }
+  .admin-table__icon-detail:hover .hover-detail{
+    visibility: visible;
+  }
+  .admin-table__icon-delete {
+    font-size: 1.6rem;
+    color: red;
+    cursor: pointer;
+    transition: color 0.4s ease;
+  }
+  
+  .topbar-filter {
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+  @media (max-width: 767px) {
+    .topbar-filter {
+      display: flex;
+      flex-direction: column;
+      padding: 15px 0;
+    }
+  }
+  .topbar-filter p {
+    padding-right: 200px;
+    margin-bottom: 0;
+  }
+  @media (max-width: 991px) {
+    .topbar-filter p {
+      padding-right: 0;
+    }
+  }
+  .topbar-filter p span {
+    color: #4280bf;
+  }
+  .topbar-filter label,
+  .topbar-filter select {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    color: #000000;
+    font-weight: 300;
+    text-transform: none;
+  }
+  .topbar-filter select {
+    width: 120px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-top: none;
+    border-bottom: none;
+    color: #399bff;
+    font-weight: 400;
+  }
+  @media (max-width: 767px) {
+    .topbar-filter select {
+      border: 1px solid #ddd;
+    }
+  }
+  .topbar-filter option {
+    background-color: #ffffff;
+  }
+  .topbar-filter .list,
+  .topbar-filter .grid {
+    font-size: 16px;
+    color: #000000;
+    margin-left: -15px;
+  }
+  .topbar-filter .list i,
+  .topbar-filter .grid i {
+    width: 40px;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+  }
+  .topbar-filter .list {
+    border-right: 1px solid #ddd;
+  }
+  @media (max-width: 767px) {
+    .topbar-filter .list {
+      border: none;
+    }
+  }
+  .topbar-filter .active,
+  .topbar-filter i:hover {
+    color: #dcf836;
+  }
+  .topbar-filter .pagination2 {
+    padding-left: 100px;
+  }
+  @media (max-width: 767px) {
+    .topbar-filter .pagination2 {
+      padding-left: 0;
+      margin-top: 15px;
+    }
+  }
+  .topbar-filter .pagination2 span {
+    margin-right: 15px;
+  }
+  .topbar-filter .pagination2 span,
+  .topbar-filter .pagination2 a {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    color: #000000;
+    font-weight: 300;
+    text-transform: none;
+  }
+  .topbar-filter .pagination2 a {
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #399bff;
+    font-weight: bolder;
+  }
+  .topbar-filter .pagination2 a.active,
+  .topbar-filter .pagination2 a:hover {
+    color: #777;
+    font-weight: bolder;
+  }
+  .topbar-filter.fw p {
+    padding-right: 600px;
+  }
+  @media (max-width: 991px) {
+    .topbar-filter.fw p {
+      padding-right: 170px;
+    }
+  }
+  @media (max-width: 767px) {
+    .topbar-filter.fw p {
+      padding-right: 0;
+    }
+  }
+  .topbar-filter.user p {
+    padding-right: 300px;
+  }
+  #panel-search{
+    display: none;
+  }
+  .flex-search{
+    display: flex; 
+    justify-content: space-between;
+  }
+  .flex-left-search{
+    flex: 1;margin-right: 10px;
+  }
+  .flex-right-search{
+    flex: 1;
+  }
