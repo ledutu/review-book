@@ -101,10 +101,8 @@ db.on('connected', () => {
 
 //Route Admin
 
-app.use('/admin', homeAdmin);
-
 app.use(isMessage);
-
+app.use('/admin', homeAdmin);
 //Route User
 app.use('/', homeUser);
 app.use('/book', book);

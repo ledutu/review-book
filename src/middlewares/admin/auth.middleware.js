@@ -1,12 +1,11 @@
-var auth = require('../../config/auth');
-
 function isAdmin(req, res, next) {
     if (req.user) {
         if(req.user.role === 1){
             req.app.locals.admin = req.user;
+            console.log('admin');
             next();
         }
-        
+        console.log('no admin');
         req.session.message = {
             status: 'error',
             content: 'Tài khoản không phải admin',
@@ -14,7 +13,7 @@ function isAdmin(req, res, next) {
         req.app.locals.admin = undefined;
         res.redirect('/admin/login');
     }
-    
+    console.log('no admin');
     req.session.message = {
         status: 'error',
         content: 'Bạn chưa đăng nhập',

@@ -17,7 +17,6 @@ async function getLoginPage(req, res) {
 
 function postLogin(req, res, next) {
     auth.authenticate('local', (err, user, info) => {
-        console.log(user);
         if (err) {
             req.session.message = {
                 status: 'error',
