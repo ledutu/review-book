@@ -12,9 +12,10 @@ var swal = require('sweetalert');
 
 async function index(request, response) {
     try {
-        // message = 'Your version is old. You have to update new version to access application again'
-        
-        books = Book.find({})
+        books = Book.find({
+            isConfirm: true,
+            hide: false,
+        })
             .select(['image', '_id', 'book_name', 'slug', 'vote'])
             .populate('category', ['_id', 'short_name', 'tag_color']);
 
@@ -43,7 +44,7 @@ async function index(request, response) {
         mostContributor = await User.find({}, {}, { sort: { total_book: -1 } })
             .select(['profile', 'total_book'])
             .limit(4);
-            
+
         response.render('user/home', {
             popularBooks,
             popularCategories,

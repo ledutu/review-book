@@ -131,9 +131,17 @@ async function getUserMyReview(request, response) {
 
         userProfile = await User.findById(id);
 
-        totalMyBook = await Book.find({ reviewer: userProfile._id }).countDocuments();
+        totalMyBook = await Book.find({ 
+            reviewer: userProfile._id,
+            isConfirm: true,
+            hide: false,
+        }).countDocuments();
 
-        myBook = await Book.find({ reviewer: userProfile._id }, {}, { sort: { createdAt: -1 } })
+        myBook = await Book.find({ 
+            reviewer: userProfile._id,
+            isConfirm: true,
+            hide: false,
+        }, {}, { sort: { createdAt: -1 } })
             .skip((page * limit) - limit)
             .limit(limit);
 
@@ -173,9 +181,17 @@ async function getUserMyBlog(request, response) {
 
         userProfile = await User.findById(id);
 
-        totalMyBlog = await Blog.find({ blogger: userProfile._id }).countDocuments();
+        totalMyBlog = await Blog.find({ 
+            blogger: userProfile._id,
+            isConfirm: true,
+            hide: false,
+        }).countDocuments();
 
-        myBlog = await Blog.find({ blogger: userProfile._id }, {}, { sort: { vote: -1, createdAt: -1 } })
+        myBlog = await Blog.find({ 
+            blogger: userProfile._id,
+            isConfirm: true,
+            hide: false,
+        }, {}, { sort: { vote: -1, createdAt: -1 } })
             .populate('blogger', ['profile'])
             .skip((page * limit) - limit)
             .limit(limit);

@@ -14,12 +14,26 @@ async function index(request, response) {
         if (!page) page = 1;
         if (!limit) limit = 10;
 
-        blogs = Blog.find({});
-        let totalBlog = await Blog.find({}).countDocuments();
+        blogs = Blog.find({
+            isConfirm: true,
+            hide: false,
+        });
+        let totalBlog = await Blog.find({
+            isConfirm: true,
+            hide: false,
+        }).countDocuments();
 
         if (id) {
-            blogs = Blog.find({ tag: { '$in': id } })
-            totalBlog = await Blog.find({ tag: { '$in': id } }).countDocuments();
+            blogs = Blog.find({
+                tag: { '$in': id },
+                isConfirm: true,
+                hide: false,
+            })
+            totalBlog = await Blog.find({
+                tag: { '$in': id },
+                isConfirm: true,
+                hide: false,
+            }).countDocuments();
         }
 
         if (title) {
@@ -60,8 +74,11 @@ async function index(request, response) {
             }
         }
 
-        blogTag = await BlogTag.find({});
-        currentBlogTag = await BlogTag.find({ _id: { '$in': id } });
+        blogTag = await BlogTag.find({ block: false });
+        currentBlogTag = await BlogTag.find({
+            _id: { '$in': id },
+            block: false,
+        });
         response.render('user/blog-list', {
             totalBlog,
             blogPage,
@@ -91,10 +108,15 @@ async function getBlogDetail(request, response) {
 
         user = request.user;
 
-        blog = await Blog.findById(id)
-            .populate(['tag', 'blogger']);
+        blog = await Blog.findOne({
+            _id: id,
+            isConfirm: true,
+            hide: false,
+        }).populate(['tag', 'blogger']);
 
-        blog._doc.createdAt = moment(blog.createdAt).format('L');
+        if (!blog) {
+            response.render('404');
+        }
 
         totalComment = await BlogComment.find({ blog: blog._id }).countDocuments();
         comments = await BlogComment.find({ blog: blog._id }, {}, { sort: { createdAt: -1 } })
@@ -110,7 +132,7 @@ async function getBlogDetail(request, response) {
             limit,
         };
 
-        blogTag = await BlogTag.find({});
+        blogTag = await BlogTag.find({ block: false });
 
         blogReaction = await Reaction.findOne({
             type: 'blog',
@@ -129,7 +151,7 @@ async function getBlogDetail(request, response) {
         });
     } catch (error) {
         console.error(error);
-        response.render('user/error');
+        response.render('500');
     }
 }
 

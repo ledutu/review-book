@@ -16,19 +16,35 @@ async function index(request, response) {
         if (!page) page = 1;
         if (!limit) limit = 20;
 
-        books = Book.find({});
-        let totalBooks = await Book.find({}).countDocuments();
+        books = Book.find({
+            isConfirm: true,
+            hide: false,
+        });
+        let totalBooks = await Book.find({
+            isConfirm: true,
+            hide: false,
+        }).countDocuments();
 
         if (id) {
-            books = Book.find({ category: { '$in': id } })
-            totalBooks = await Book.find({ category: { '$in': id } }).countDocuments();
+            books = Book.find({ 
+                category: { '$in': id },
+                isConfirm: true,
+                hide: false,
+            })
+            totalBooks = await Book.find({ 
+                category: { '$in': id },
+                isConfirm: true,
+                hide: false,
+            }).countDocuments();
         }
 
         if (book_name) {
             books = books.where('book_name').equals({ $regex: new RegExp(book_name, 'i') });
             totalBooks = await Book.find({
                 book_name: { $regex: new RegExp(book_name, 'i') },
-                category: id ? { '$in': id } : { $ne: null }
+                category: id ? { '$in': id } : { $ne: null },
+                isConfirm: true,
+                hide: false,
             }).countDocuments();
         }
 
@@ -63,8 +79,11 @@ async function index(request, response) {
 
         }
 
-        bookCategory = await BookCategory.find({});
-        currentCategory = await BookCategory.find({ _id: { '$in': id } });
+        bookCategory = await BookCategory.find({hide: false});
+        currentCategory = await BookCategory.find({ 
+            _id: { '$in': id },
+            hide: false,
+        });
 
         response.render('user/book-list', {
             totalBooks,
@@ -77,7 +96,7 @@ async function index(request, response) {
 
     } catch (error) {
         console.log(error);
-        response.render('user/error');
+        response.render('500');
     }
 }
 
@@ -96,8 +115,11 @@ async function getBookDetail(request, response) {
 
         user = request.user;
 
-        book = await Book.findById(id)
-            .populate(['category', 'reviewer', 'book_information']);
+        book = await Book.findOne({
+            _id: id,
+            isConfirm: true,
+            hide: false,
+        }).populate(['category', 'reviewer', 'book_information']);
 
         totalComment = await BookComment.find({ book: book._id }).countDocuments();
         comments = await BookComment.find({ book: book._id }, {}, { sort: { createdAt: -1 } })
@@ -105,7 +127,11 @@ async function getBookDetail(request, response) {
             .skip((page * limit) - limit)
             .limit(limit);
 
-        relatedBook = await Book.find({ category: book.category }, {}, { sort: { vote: -1, createdAt: -1 } })
+        relatedBook = await Book.find({ 
+            category: book.category,
+            isConfirm: true,
+            hide: false,
+        }, {}, { sort: { vote: -1, createdAt: -1 } })
             .populate('reviewer', ['profile'])
             .limit(6);
 
@@ -131,7 +157,7 @@ async function getBookDetail(request, response) {
         });
     } catch (error) {
         console.log(error);
-        response.render('user/error');
+        response.render('500');
     }
 }
 
@@ -157,7 +183,7 @@ async function addToBookFavourite(request, response) {
         return response.redirect('back');
     } catch (error) {
         console.log(error);
-        return response.render('user/error');
+        return response.render('500');
     }
 }
 
@@ -167,7 +193,7 @@ async function rateBookReview(request, response) {
         user = request.user;
     } catch (error) {
         console.log(error);
-        return response.render('user/error');
+        return response.render('500');
     }
 }
 
