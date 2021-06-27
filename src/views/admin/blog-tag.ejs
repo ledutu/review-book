@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="">
+    <meta name="description" content="">
+    <meta name="keywords" content="" />
+  
+  
+    <!-- ========== Css Files ========== --> 
+    <%- include('layouts/head') %>
+
+  </head>
+  <body>
+  <!-- Start Page Loading -->
+  <%- include('layouts/loading') %>
+  <!-- End Page Loading -->
+  <!-- START HEADER -->
+  <%- include('layouts/header') %>
+  <!-- END HEADER -->
+
+
+<!-- START SIDEBAR -->
+<%- include('layouts/sidebar') %>
+<!-- END SIDEBAR -->
+
+<!-- START CONTENT -->
+<div class="content">
+
+  <!-- Start Page Header -->
+  <div class="page-header">
+    <h1 class="title">Quản lý Blog Tags</h1>
+    
+    <!-- Start Page Header Right Div -->
+    <div class="right">
+      <a href="#" type="button" class="btn btn-success btn-lg" >Thêm</a>
+    </div>
+    <!-- End Page Header Right Div -->
+    <div class="btn-group" role="group" aria-label="...">
+      Filter by :
+      <select class="form-select form-select-lg admin-feature__select" aria-label="Default select example">
+        <option value="all">Tất cả</option>
+        <option value="saab">Saab</option>
+        <option value="opel">Opel</option>
+        <option value="audi">Audi</option>
+      </select>
+    </div>
+  </div>
+  <!-- End Page Header -->
+
+
+<!-- START CONTAINER -->
+<div class="container-padding">
+  <!-- Start Row -->
+  <div class="row">
+    <!-- Start Panel -->
+    <div class="col-md-12">
+        <div class="panel panel-default">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <!-- <td class="text-center"><i class="fa fa-trash"></i></td> -->
+                <td>ID</td>
+                <td>Name</td>
+                <td>Description</td>
+                <td>Action</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Quảng cáo thực phẩm sạch</td>
+                <td>Thực phẩm sạch asd Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus ex voluptas non soluta, alias unde magni perspiciatis quidem praesentium, minus officiis illum sit nobis ipsa eaque corporis facilis, eos fuga.</td>
+                <td>
+                  <i class="fas fa-edit admin-table__icon-edit"></i>
+                  <i class="fas fa-trash-alt admin-table__icon-delete"></i>
+                </td>
+              </tr>     
+            </tbody>
+          </table>
+        </div>
+    </div>
+    <!-- End Panel -->
+  </div>
+  <!-- End Row -->
+</div>
+<!-- END CONTAINER -->
+</div>
+<!-- End Content -->
+
+
+
+<%- include('layouts/javascript') %>
+</body>
+</html>
