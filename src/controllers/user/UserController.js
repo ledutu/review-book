@@ -1,6 +1,7 @@
 var express = require('express');
 const { User } = require('../../models/user/user.js');
 const { Book } = require('../../models/user/book.js');
+const { Blog } = require('../../models/user/blog.js');
 const { BookCategory } = require('../../models/user/book_category');
 var bcrypt = require('bcrypt');
 var moment = require('moment');
@@ -28,7 +29,7 @@ async function getUserProfile(request, response) {
         });
     } catch (error) {
         console.log(error);
-        response.render('user/error');
+        response.render('500');
     }
 }
 
@@ -70,7 +71,7 @@ async function getUserBookFavorite(request, response) {
         });
     } catch (error) {
         console.log(error);
-        response.render('user/error');
+        response.render('500');
     }
 }
 
@@ -113,7 +114,7 @@ async function getUserWriterFavorite(request, response) {
         });
     } catch (error) {
         console.log(error);
-        response.render('user/error');
+        response.render('500');
     }
 }
 
@@ -155,7 +156,50 @@ async function getUserMyReview(request, response) {
         });
     } catch (error) {
         console.log(error);
-        response.render('user/error');
+        response.render('500');
+    }
+}
+
+async function getUserMyBlog(request, response) {
+    try {
+        const { id } = request.params;
+        let { page, limit } = request.query;
+
+        page = parseInt(page);
+        limit = parseInt(limit);
+
+        if (!page) page = 1;
+        if (!limit) limit = 10;
+
+        userProfile = await User.findById(id);
+
+        totalMyBlog = await Blog.find({ blogger: userProfile._id }).countDocuments();
+
+        myBlog = await Blog.find({ blogger: userProfile._id }, {}, { sort: { vote: -1, createdAt: -1 } })
+            .populate('blogger', ['profile'])
+            .skip((page * limit) - limit)
+            .limit(limit);
+
+        myBlogPage = {
+            data: myBlog,
+            total_page: Math.ceil(totalMyBlog / limit),
+            page,
+            limit,
+        };
+
+        isAuth = false;
+        if (typeof request.user !== 'undefined' && request.user._id.equals(userProfile._id)) {
+            isAuth = true;
+        }
+
+        response.render('user/user-my-blog', {
+            userProfile,
+            myBlogPage,
+            isAuth
+        });
+    } catch (error) {
+        console.log(error);
+        response.render('500');
     }
 }
 
@@ -343,7 +387,7 @@ async function postWriteReview(request, response) {
             category,
             slug,
         });
-        
+
         await bookReview.save();
 
         request.session.message = {
@@ -351,7 +395,7 @@ async function postWriteReview(request, response) {
             content: 'Đăng bài thành công!',
         }
 
-        return response.redirect('/user/my-review/'+user.profile.username+'-'+user._id);
+        return response.redirect('/user/my-review/' + user.profile.username + '-' + user._id);
 
     } catch (error) {
         request.session.message = {
@@ -384,4 +428,5 @@ module.exports = {
     getWriteReview,
     postWriteReview,
     uploadImage,
+    getUserMyBlog,
 }

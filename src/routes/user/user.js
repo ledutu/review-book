@@ -15,6 +15,7 @@ router.get('/profile/*-:id', UserController.getUserProfile);
 router.get('/book-favorite/*-:id', UserController.getUserBookFavorite);
 router.get('/writer-favorite/*-:id', UserController.getUserWriterFavorite);
 router.get('/my-review/*-:id', UserController.getUserMyReview);
+router.get('/my-blog/*-:id', UserController.getUserMyBlog);
 router.get('/write-review', UserController.getWriteReview);
 
 router.post('/update-information', UserController.updateInformation);

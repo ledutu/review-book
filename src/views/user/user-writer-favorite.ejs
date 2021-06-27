@@ -73,9 +73,11 @@
                                 <ul>
                                     <li><a href="/user/profile/<%- userProfile.profile.username %>-<%- userProfile._id %>">Thông tin</a></li>
                                     <li class="active"><a>Người viết yêu thích</a></li>
-                                    <li><a href="/user/my-review/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết của bạn</a></li>
-                                    <li><a href="/user/my-blog/<%- userProfile.profile.username %>-<%- userProfile._id %>">Blog của bạn</a></li>
-                                    <li><a href="/user-cms/dashboard">Quản lý bài viết</a></li>
+                                    <li><a href="/user/my-review/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết</a></li>
+                                    <li><a href="/user/my-blog/<%- userProfile.profile.username %>-<%- userProfile._id %>">Blog</a></li>
+                                    <% if (isAuth){ %>
+                                        <li><a href="/user-cms/dashboard">Quản lý bài viết</a></li>
+                                    <% } %>
                                 </ul>
                             </div>
                             <% if (isAuth){ %>
