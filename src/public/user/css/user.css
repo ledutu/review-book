@@ -132,3 +132,18 @@
     border: 0;
     transition: all 0.2s ease;
 }
+
+/* blog */
+.custom-blog-card {
+    padding-left: 20px !important;
+}
+
+i.ion-android-star {
+    color: #f5b50a;
+    font-size: 22px;
+}
+
+.rate-number {
+    font-weight: 400;
+    font-size: 18px;
+}

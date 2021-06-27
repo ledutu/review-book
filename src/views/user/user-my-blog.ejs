@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en" class="no-js">
+<head>
+	<!-- Basic need -->
+	<title><%- userProfile.profile.full_name %> </title>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<link rel="profile" href="#">
+
+	<!-- Mobile specific meta -->
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone-no">
+    
+    <%- include('layouts/head') %>
+    <link rel="stylesheet" href="/user/css/user.css">
+
+</head>
+<body>
+    <!--preloading-->
+    <%- include('layouts/loading') %>
+    <!--end of preloading-->
+
+    <!--login form popup-->
+    <%- include('layouts/login-form') %>
+    <!--end of login form popup-->
+
+    <!--signup form popup-->
+    <%- include('layouts/sign-up-form') %>
+    <!--end of signup form popup-->
+
+    <!-- BEGIN | Header -->
+    <%- include('layouts/header') %>
+    <!-- END | Header -->
+    
+    <%- include('layouts/notification') %> 
+    
+    <div class="content">
+        <div class="hero user-hero">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="hero-ct">
+                            <h1 class="full-name-style"><%- userProfile.profile.full_name %></h1>
+                            <ul class="breadcumb">
+                                <li class="active"><a href="/">Trang chủ</a></li>
+                                <li> <span class="ion-ios-arrow-right"></span>Sách yêu thích</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-single">
+            <div class="container">
+                <div class="row ipad-width2">
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        <div class="user-information">
+                            <div class="user-img">
+                                <a href="#"><img src="<%- userProfile.profile.image %> " alt="" width="120" height="120"><br></a>
+                                <% if (isAuth){ %>
+                                    <a id="uploadAvatarButton" class="redbtn">Đổi ảnh đại diện</a>
+                                <% } %>
+                            </div>
+                            <div class="user-fav">
+                                <p>Chi tiết tài khoản</p>
+                                <ul>
+                                    <li><a href="/user/profile/<%- userProfile.profile.username %>-<%- userProfile._id %>">Thông tin</a></li>
+                                    <li><a href="/user/writer-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Người viết yêu thích</a></li>
+                                    <li><a href="/user/my-review/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết</a></li>
+                                    <li class="active"><a>Blog</a></li>
+                                    <% if (isAuth){ %>
+                                        <li><a href="/user-cms/dashboard">Quản lý bài viết</a></li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                            <% if (isAuth) { %>
+                                <div class="user-fav">
+                                    <p>Khác</p>
+                                    <ul>
+                                        <li><a href="/user/logout">Đăng xuất</a></li>
+                                    </ul>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-sm-12 col-xs-12">
+                        <div class="topbar-filter user">
+                            <p style="padding: 5px 0px;">Đã tìm thấy <span><%- myBlogPage.data.length %> cuốn sách</span></p>
+                        </div>
+                        <div class="row">
+                            <% myBlogPage.data.forEach(blog => { %>
+                            <div class="col-md-12 col-lg-6">
+                                <div class="blog-item-style-1 blog-item-style-3">
+                                    <!-- <img src="/user/images/uploads/bloglist-it1.jpg" alt=""> -->
+                                    <div class="blog-it-infor custom-blog-card">
+                                        <h3><a href="/blog/<%- blog.slug %>-<%- blog._id %>"><%- blog.title %></a></h3>
+                                        <p>Người đăng: <a href="/user/profile/<%- blog.blogger.profile.username %>-<%- blog.blogger._id %>"><%- blog.blogger.profile.full_name %> </a></p>
+                                        <p><i class="ion-android-star"></i><span class="rate-number"><%- blog.vote %></span> / 5</p>
+                                        <span class="time datetime"><%- blog.createdAt %> </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>		
+                        </div>
+                            
+                        <%- include('layouts/pagination.ejs', {
+                            limitTitle: 'Sách',
+                            data: myBlogPage,
+                            pageLink: '/user/my-blog/'+userProfile.profile.username+'-'+userProfile._id,
+                            title: 'Sách mỗi trang'
+                        }) %> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end of latest new v1 section-->
+
+    <!-- footer section-->
+    <%- include('layouts/footer') %>
+    <!-- end of footer section-->
+
+    <%- include('layouts/javascript') %>
+</body>
+</html>

@@ -46,6 +46,7 @@
     overflow: hidden;
     white-space: nowrap;
     color: white;
+    text-align: left;
 }
 
 .header-dropdown {

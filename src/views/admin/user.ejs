@@ -107,6 +107,7 @@
                     <td>
                       <!-- <a href="/admin/user/<%- user._id %>"><i class=" admin-table__icon-edit"> Reset Password</i></a> -->
                       <a href="#"><i class=" admin-table__icon-edit"> Reset Password</i></a>
+                      <!-- <a onclick="confirmBeforeBlock('id')" href="#"><i class="fa fa-ban"></i></a> -->
                     </td>
                   </tr> 
                 <% }) %>
@@ -161,7 +162,36 @@ jQuery Library
 ================================================ -->
 
 <%- include('layouts/javascript') %>
+<script>
 
+  async function confirmBeforeBlock(id) {
+      cuteAlert({
+          type: "question",
+          title: "Block",
+          message: "Bạn có muốn inActive người dùng này không?",
+          confirmText: "Đồng ý",
+          cancelText: "Hủy"
+      }).then(async e => {
+          if(e) {
+              fetch(`/admin/user/${id}`, {
+                  method: 'PUT',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      // 'Accept': 'application/json',
+                  },
+                  body: JSON.stringify({ id })
+              })
+                  .then(response => response.json())
+                  .then(data => {
+                      console.log(data)
+                  })
+                  .catch(err => {
+                      console.log(err);      
+                  });
+          }
+      })
+  }
+</script>
 
 </body>
 </html>
