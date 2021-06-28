@@ -3,7 +3,7 @@ function isAdmin(req, res, next) {
         if(req.user.role === 1){
             req.app.locals.admin = req.user;
             console.log('admin');
-            next();
+            return next();
         }
         console.log('no admin');
         req.session.message = {
@@ -11,7 +11,7 @@ function isAdmin(req, res, next) {
             content: 'Tài khoản không phải admin',
         }
         req.app.locals.admin = undefined;
-        res.redirect('/admin/login');
+        return res.redirect('/admin/login');
     }
     console.log('no admin');
     req.session.message = {
@@ -19,7 +19,7 @@ function isAdmin(req, res, next) {
         content: 'Bạn chưa đăng nhập',
     }
     req.app.locals.admin = undefined;
-    res.redirect('/admin/login');
+    return res.redirect('/admin/login');
 }
 module.exports = {
     isAdmin
