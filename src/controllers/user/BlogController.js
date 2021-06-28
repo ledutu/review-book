@@ -2,6 +2,7 @@ var express = require('express');
 const { BlogTag } = require('../../models/user/blog_tag');
 const { Blog } = require('../../models/user/blog');
 const { BlogComment } = require('../../models/user/blog_comment');
+const { Reaction } = require('../../models/user/reaction');
 const moment = require('moment');
 
 async function index(request, response) {
@@ -13,12 +14,26 @@ async function index(request, response) {
         if (!page) page = 1;
         if (!limit) limit = 10;
 
-        blogs = Blog.find({});
-        let totalBlog = await Blog.find({}).countDocuments();
+        blogs = Blog.find({
+            isConfirm: true,
+            hide: false,
+        });
+        let totalBlog = await Blog.find({
+            isConfirm: true,
+            hide: false,
+        }).countDocuments();
 
         if (id) {
-            blogs = Blog.find({ tag: { '$in': id } })
-            totalBlog = await Blog.find({ tag: { '$in': id } }).countDocuments();
+            blogs = Blog.find({
+                tag: { '$in': id },
+                isConfirm: true,
+                hide: false,
+            })
+            totalBlog = await Blog.find({
+                tag: { '$in': id },
+                isConfirm: true,
+                hide: false,
+            }).countDocuments();
         }
 
         if (title) {
@@ -30,11 +45,11 @@ async function index(request, response) {
         }
 
         const blogResult = await blogs
-            .sort({ vote: -1 })
+            .sort({ vote: -1, createdAt: -1 })
             .populate('blogger', ['profile'])
             .skip((page * limit) - limit)
             .limit(limit);
-            
+
         const blogPage = {
             data: blogResult,
             total_page: Math.ceil(totalBlog / limit),
@@ -59,8 +74,11 @@ async function index(request, response) {
             }
         }
 
-        blogTag = await BlogTag.find({});
-        currentBlogTag = await BlogTag.find({ _id: { '$in': id } });
+        blogTag = await BlogTag.find({ block: false });
+        currentBlogTag = await BlogTag.find({
+            _id: { '$in': id },
+            block: false,
+        });
         response.render('user/blog-list', {
             totalBlog,
             blogPage,
@@ -88,13 +106,20 @@ async function getBlogDetail(request, response) {
         if (!page) page = 1;
         if (!limit) limit = 5;
 
-        blog = await Blog.findById(id)
-            .populate(['tag', 'blogger']);
+        user = request.user;
 
-        blog._doc.createdAt = moment(blog.createdAt).format('L');
+        blog = await Blog.findOne({
+            _id: id,
+            isConfirm: true,
+            hide: false,
+        }).populate(['tag', 'blogger']);
+
+        if (!blog) {
+            response.render('404');
+        }
 
         totalComment = await BlogComment.find({ blog: blog._id }).countDocuments();
-        comments = await BlogComment.find({ blog: blog._id })
+        comments = await BlogComment.find({ blog: blog._id }, {}, { sort: { createdAt: -1 } })
             .populate('user', ['profile'])
             .skip((page * limit) - limit)
             .limit(limit);
@@ -106,18 +131,27 @@ async function getBlogDetail(request, response) {
             page,
             limit,
         };
-        
-        blogTag = await BlogTag.find({});
+
+        blogTag = await BlogTag.find({ block: false });
+
+        blogReaction = await Reaction.findOne({
+            type: 'blog',
+            user: user && user._id,
+            type_id: id,
+        });
+
+        if (!blogReaction) blogReaction = {};
 
         response.render('user/blog-detail', {
             blog,
             allComment,
             blogTag,
             totalComment,
+            blogReaction,
         });
     } catch (error) {
         console.error(error);
-        response.render('user/error');
+        response.render('500');
     }
 }
 

@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="">
-    <meta name="description" content="">
-    <meta name="keywords" content="" />
-  
-  
-    <!-- ========== Css Files ========== --> 
-    <%- include('layouts/head') %>
 
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="">
+  <meta name="description" content="">
+  <meta name="keywords" content="" />
+
+
+  <!-- ========== Css Files ========== -->
+  <%- include('layouts/head') %>
+
+</head>
+
+<body>
   <!-- Start Page Loading -->
   <%- include('layouts/loading') %>
   <!-- End Page Loading -->
@@ -20,104 +22,105 @@
   <!-- END HEADER -->
 
 
-<!-- START SIDEBAR -->
-<%- include('layouts/sidebar') %>
-<!-- END SIDEBAR -->
+  <!-- START SIDEBAR -->
+  <%- include('layouts/sidebar') %>
+  <!-- END SIDEBAR -->
 
-<!-- START CONTENT -->
-<div class="content">
+  <!-- START CONTENT -->
+  <div class="content">
 
-<!-- START CONTAINER -->
-<div class="container-padding">
-  <!-- Start Row -->
-  <div class="row">
-    <!-- Start Panel -->
-    <div class="col-md-12">
-      <div class="panel panel-default">
+    <!-- START CONTAINER -->
+    <div class="container-padding">
+      <!-- Start Row -->
+      <div class="row">
+        <!-- Start Panel -->
+        <div class="col-md-12">
+          <div class="panel panel-default">
 
-        <div class="panel-title">
-          Người dùng
-        </div>
+            <div class="panel-title">
+              Người dùng
+            </div>
 
-        <div class="panel-body">
+            <div class="panel-body">
 
-          <div class="table-responsive">
-            <table class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <td>Email</td>
-                  <td>Username</td>
-                  <td>Display name</td>
-                  <td>Status</td>
-                  <td>Action</td>
-                </tr>
-              </thead>
-              <tbody>    
-                <% allUserPage.data.forEach(user =>{  %>
-                  <tr>
-                    <td><%- user.email %></td>
-                    <td><%- user.profile.username %></td>
-                    <td><%- user.profile.full_name %></td>
-                    <td>
-                      <a href="/admin/user/<%- user._id %>"><i class=" admin-table__icon-edit"> Reset Password</i></a>
-                      
-                      <a href="" data-id="<%- user._id %>" data-toggle="modal" data-target="#delete-user-modal">
-                        <i class="fas fa-trash-alt admin-table__icon-delete"></i>
-                      </a>
-                    </td>
-                  </tr> 
-                <% }) %>
-              </tbody>
-            </table>
-          </div> 
-        </div>
-        
-<%- include('layouts/pagination.ejs', {
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <td>Email</td>
+                      <td>Username</td>
+                      <td>Display name</td>
+                      <td>Status</td>
+                      <td>Action</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% allUserPage.data.forEach(user =>{  %>
+                    <tr>
+                      <td><%- user.email %></td>
+                      <td><%- user.profile.username %></td>
+                      <td><%- user.profile.full_name %></td>
+                      <td>
+                        <a href="/admin/user/<%- user._id %>"><i class=" admin-table__icon-edit"> Reset Password</i></a>
+
+                        <a href="" data-id="<%- user._id %>" data-toggle="modal" data-target="#delete-user-modal">
+                          <i class="fas fa-trash-alt admin-table__icon-delete"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    <% }) %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <%- include('layouts/pagination.ejs', {
         limitTitle: 'Người dùng',
         data: allUserPage,
         pageLink: '/admin/user',
         title: 'Người dùng mỗi trang'
-    }) %> 
-      </div>
-      
-    </div>
-    <!-- End Panel -->
-    <div class="modal fade" id="delete-user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Xóa User</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Bạn có chắc chắn muốn xóa?
-                </div>
-                <div class="modal-footer">
-                    <button id="btn-delete-user" type="button" class="btn btn-danger">Xóa</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
-                </div>
-            </div>
+    }) %>
+          </div>
+
         </div>
+        <!-- End Panel -->
+        <div class="modal fade" id="delete-user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xóa User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Bạn có chắc chắn muốn xóa?
+              </div>
+              <div class="modal-footer">
+                <button id="btn-delete-user" type="button" class="btn btn-danger">Xóa</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Row -->
     </div>
+    <!-- END CONTAINER -->
   </div>
-  <!-- End Row -->
-</div>
-<!-- END CONTAINER -->
-</div>
-<!-- End Content -->
- <form name="delete-user-form" method="POST"></form>
+  <!-- End Content -->
+  <form name="delete-user-form" method="POST"></form>
 
 
 
 
-<!-- ================================================
+  <!-- ================================================
 jQuery Library
 ================================================ -->
-<%- include('layouts/javascript') %>
+  <%- include('layouts/javascript') %>
 
 
 </body>
+
 </html>

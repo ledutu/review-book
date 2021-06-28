@@ -9,7 +9,7 @@
 <html lang="en" class="no-js">
 <head>
 	<!-- Basic need -->
-	<title>Open Pediatrics</title>
+	<title><%- userProfile.profile.full_name %></title>
 	<meta charset="UTF-8">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
@@ -41,6 +41,8 @@
     <%- include('layouts/header') %>
     <!-- END | Header -->
     
+    <%- include('layouts/notification') %> 
+    
     <div class="content">
         <div class="hero user-hero">
             <div class="container">
@@ -64,24 +66,30 @@
                         <div class="user-information">
                             <div class="user-img">
                                 <a href="#"><img src="<%- userProfile.profile.image %> " alt="" width="120" height="120"><br></a>
-                                <% if (isAuth){ %>
-                                    <a href="#" class="redbtn">Đổi ảnh đại diện</a>
-                                <% } %>
+                                <form action="/user/update-avatar" method="post" id="formUpdateAvatar" enctype="multipart/form-data">
+                                    <input type="file" id="avatarFileInput" name="avatar" style="display: none;" accept="image/*">
+                                    <% if (isAuth){ %>
+                                        <a id="uploadAvatarButton" class="redbtn">Đổi ảnh đại diện</a>
+                                    <% } %>
+                                </form>
                             </div>
                             <div class="user-fav">
                                 <p>Chi tiết tài khoản</p>
                                 <ul>
                                     <li class="active"><a>Thông tin</a></li>
-                                    <li><a href="/user/book-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết yêu thích</a></li>
                                     <li><a href="/user/writer-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Người viết yêu thích</a></li>
-                                    <li><a href="/user/my-review/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết của bạn</a></li>
+                                    <li><a href="/user/my-review/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết</a></li>
+                                    <li><a href="/user/my-blog/<%- userProfile.profile.username %>-<%- userProfile._id %>">Blog</a></li>
+                                    <% if (isAuth){ %>
+                                        <li><a href="/user-cms/dashboard">Quản lý bài viết</a></li>
+                                    <% } %>
                                 </ul>
                             </div>
                             <% if (isAuth){ %>
                                 <div class="user-fav">
                                     <p>Khác</p>
                                     <ul>
-                                        <li><a href="/user/logout">Đăng xuât</a></li>
+                                        <li><a href="/auth/logout">Đăng xuât</a></li>
                                     </ul>
                                 </div> 
                             <% } %>
@@ -90,26 +98,52 @@
                     <div class="col-md-9 col-sm-12 col-xs-12">
                         
                         <div class="form-style-1 user-pro" action="">
-                            <form action="" class="user">
+                            <form action="/user/update-information" class="user" method="POST">
                                 <h4>01. Thông tin chi tiết</h4>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>Biệt danh</label>
-                                        <input type="text" placeholder="Biệt danh" value="<%- userProfile.profile.username %>" <%- !isAuth && 'disabled' %>>
+                                        <input type="text" name="username" placeholder="Biệt danh" value="<%- userProfile.profile.username %>" <%- !isAuth && 'disabled' %>>
                                     </div>
                                     <div class="col-md-6 form-it">
                                         <label>Địa chỉ email</label>
-                                        <input type="email" placeholder="Địa chỉ email" value="<%- userProfile.email %> " <%- !isAuth && 'disabled' %>>
+                                        <input type="email" name="email" placeholder="Địa chỉ email" value="<%- userProfile.email %> " <%- !isAuth && 'disabled' %> <%- (!userProfile.google_id && !userProfile.facebook_id) && 'readonly' %>>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>Tên đầy đủ</label>
-                                        <input type="text" placeholder="Tên đầy đủ" value="<%- userProfile.profile.full_name %>" <%- !isAuth && 'disabled' %>>
+                                        <input type="text" name="full_name" placeholder="Tên đầy đủ" value="<%- userProfile.profile.full_name %>" <%- !isAuth && 'disabled' %>>
                                     </div>
                                     <div class="col-md-6 form-it">
                                         <label>Địa chỉ</label>
-                                        <input type="text" placeholder="Địa chỉ" value="<%- userProfile.profile.address %>" <%- !isAuth && 'disabled' %>>
+                                        <input type="text" name="address" placeholder="Địa chỉ" value="<%- userProfile.profile.address %>" <%- !isAuth && 'disabled' %>>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 form-it">
+                                        <label>Giới tính</label>
+                                        <div class="group-ip" style="color: white;">
+                                            <select
+                                                name="gender" class="ui fluid dropdown" <%- !isAuth && 'disabled' %>>
+                                                <option value="">Chọn thể loại</option>
+                                                <option value="men" <%- (userProfile.profile.gender === 'men') && 'selected' %>>Nam</option>
+                                                <option value="women" <%- (userProfile.profile.gender === 'women') && 'selected' %>>Nữ</option>
+                                                <option value="third" <%- (userProfile.profile.gender === 'third') && 'selected' %>>Không muốn nói</option>
+                                            </select>
+                                        </div>	
+                                    </div>
+                                    <div class="col-md-6 form-it">
+                                        <label>Ngày sinh (Month/Day/Year)</label>
+                                        <input type="date" name="birthday" value="<%- userProfile.profile.birthday %>" <%- !isAuth && 'disabled' %>>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-12 form-it">
+                                        <label>Giới thiệu</label>
+                                        <textarea class="textarea" name="introduction" <%- !isAuth && 'disabled' %>><%- userProfile.profile.introduction.trim() %></textarea>
                                     </div>
                                 </div>
                                 
@@ -121,24 +155,24 @@
                                     </div>	
                                 <% } %>
                             </form>
-                            <form action="" class="password">
+                            <form action="/user/update-password" class="password" method="POST">
                                 <h4>02. Đổi mật khẩu</h4>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>Mật khẩu cũ</label>
-                                        <input type="text" placeholder="**********" <%- !isAuth && 'disabled' %>>
+                                        <input type="password" name="password" placeholder="**********" <%- !isAuth && 'disabled' %>>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>Mật khẩu mới</label>
-                                        <input type="text" placeholder="***************" <%- !isAuth && 'disabled' %>>
+                                        <input type="password" name="newPassword" placeholder="***************" <%- !isAuth && 'disabled' %>>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>Xác nhận mật khẩu mới</label>
-                                        <input type="text" placeholder="*************** " <%- !isAuth && 'disabled' %>>
+                                        <input type="password" name="newPasswordConfirm" placeholder="*************** " <%- !isAuth && 'disabled' %>>
                                     </div>
                                 </div>
                                 <% if (isAuth) { %>

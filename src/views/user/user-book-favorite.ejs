@@ -9,7 +9,7 @@
 <html lang="en" class="no-js">
 <head>
 	<!-- Basic need -->
-	<title>Open Pediatrics</title>
+	<title><%- userProfile.profile.full_name %></title>
 	<meta charset="UTF-8">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
@@ -41,6 +41,8 @@
     <%- include('layouts/header') %>
     <!-- END | Header -->
     
+    <%- include('layouts/notification') %> 
+    
     <div class="content">
         <div class="hero user-hero">
             <div class="container">
@@ -50,7 +52,7 @@
                             <h1 class="full-name-style"><%- userProfile.profile.full_name %></h1>
                             <ul class="breadcumb">
                                 <li class="active"><a href="/">Trang chủ</a></li>
-                                <li> <span class="ion-ios-arrow-right"></span>Sách yêu thích</li>
+                                <li> <span class="ion-ios-arrow-right"></span>Bài viết yêu thích</li>
                             </ul>
                         </div>
                     </div>
@@ -64,7 +66,9 @@
                         <div class="user-information">
                             <div class="user-img">
                                 <a href="#"><img src="<%- userProfile.profile.image %> " alt="" width="120" height="120"><br></a>
-                                <a href="#" class="redbtn">Đổi ảnh đại diện</a>
+                                <% if (isAuth) { %>
+                                    <a id="uploadAvatarButton" class="redbtn">Đổi ảnh đại diện</a>
+                                <% } %>
                             </div>
                             <div class="user-fav">
                                 <p>Chi tiết tài khoản</p>
@@ -73,14 +77,17 @@
                                     <li class="active"><a>Bài viết yêu thích</a></li>
                                     <li><a href="/user/writer-favorite/<%- userProfile.profile.username %>-<%- userProfile._id %>">Người viết yêu thích</a></li>
                                     <li><a href="/user/my-review/<%- userProfile.profile.username %>-<%- userProfile._id %>">Bài viết của bạn</a></li>
+                                    <li><a href="/user/my-blog/<%- userProfile.profile.username %>-<%- userProfile._id %>">Blog của bạn</a></li>
                                 </ul>
                             </div>
-                            <div class="user-fav">
-                                <p>Khác</p>
-                                <ul>
-                                    <li><a href="/user/logout">Đăng xuât</a></li>
-                                </ul>
-                            </div>
+                            <% if (isAuth) { %>
+                                <div class="user-fav">
+                                    <p>Khác</p>
+                                    <ul>
+                                        <li><a href="/user/logout">Đăng xuât</a></li>
+                                    </ul>
+                                </div>
+                            <% } %>
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-12 col-xs-12">

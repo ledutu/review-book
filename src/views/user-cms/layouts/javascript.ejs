@@ -1,0 +1,173 @@
+<!-- ================================================
+jQuery Library
+================================================ -->
+<script src="/user-cms/js/jquery.min.js"></script>
+
+<!-- ================================================
+Bootstrap Core JavaScript File
+================================================ -->
+<script src="/user-cms/js/bootstrap/bootstrap.min.js"></script>
+
+<!-- ================================================
+Plugin.js - Some Specific JS codes for Plugin Settings
+================================================ -->
+<script src="/user-cms/js/plugins.js"></script>
+
+<!-- ================================================
+Bootstrap Select
+================================================ -->
+<script src="/user-cms/js/bootstrap-select/bootstrap-select.js"></script>
+
+<!-- ================================================
+Bootstrap Toggle
+================================================ -->
+<script src="/user-cms/js/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+
+<!-- ================================================
+Bootstrap WYSIHTML5
+================================================ -->
+<!-- main file -->
+<script src="/user-cms/js/bootstrap-wysihtml5/wysihtml5-0.3.0.min.js"></script>
+<!-- bootstrap file -->
+<script src="/user-cms/js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+
+<!-- ================================================
+Summernote
+================================================ -->
+<script src="/user-cms/js/summernote/summernote.min.js"></script>
+
+<!-- ================================================
+Flot Chart
+================================================ -->
+<!-- main file -->
+<script src="/user-cms/js/flot-chart/flot-chart.js"></script>
+<!-- time.js -->
+<script src="/user-cms/js/flot-chart/flot-chart-time.js"></script>
+<!-- stack.js -->
+<script src="/user-cms/js/flot-chart/flot-chart-stack.js"></script>
+<!-- pie.js -->
+<script src="/user-cms/js/flot-chart/flot-chart-pie.js"></script>
+<!-- demo codes -->
+<!-- <script src="/user-cms/js/flot-chart/flot-chart-plugin.js"></script> -->
+
+<!-- ================================================
+Chartist
+================================================ -->
+<!-- main file -->
+<script src="/user-cms/js/chartist/chartist.js"></script>
+
+<!-- demo codes -->
+<!-- <script src="/user-cms/js/chartist/chartist-plugin.js"></script> -->
+
+<!-- ================================================
+Easy Pie Chart
+================================================ -->
+<!-- main file -->
+<script src="/user-cms/js/easypiechart/easypiechart.js"></script>
+<!-- demo codes -->
+<script src="/user-cms/js/easypiechart/easypiechart-plugin.js"></script>
+
+<!-- ================================================
+Rickshaw
+================================================ -->
+<!-- d3 -->
+<script src="/user-cms/js/rickshaw/d3.v3.js"></script>
+<!-- main file -->
+<script src="/user-cms/js/rickshaw/rickshaw.js"></script>
+<!-- demo codes -->
+<!-- <script src="/user-cms/js/rickshaw/rickshaw-plugin.js"></script> -->
+
+<!-- ================================================
+Data Tables
+================================================ -->
+<!-- <script src="/user-cms/js/datatables/datatables.min.js"></script> -->
+
+<!-- ================================================
+Sweet Alert
+================================================ -->
+<script src="/user-cms/js/sweet-alert/sweet-alert.min.js"></script>
+
+<!-- ================================================
+Kode Alert
+================================================ -->
+<script src="/user-cms/js/kode-alert/main.js"></script>
+
+<!-- ================================================
+jQuery UI
+================================================ -->
+<script src="/user-cms/js/jquery-ui/jquery-ui.min.js"></script>
+
+<!-- ================================================
+Moment.js
+================================================ -->
+<script src="/user-cms/js/moment/moment.min.js"></script>
+
+<script src="/javascripts/moment-with-locale.js"></script>
+
+<!-- ================================================
+Full Calendar
+================================================ -->
+<script src="/user-cms/js/full-calendar/fullcalendar.js"></script>
+
+<!-- ================================================
+Bootstrap Date Range Picker
+================================================ -->
+<script src="/user-cms/js/date-range-picker/daterangepicker.js"></script>
+
+<!-- cute alert -->
+<script src="/javascripts/cute-alert.js"></script>
+
+<!-- ================================================
+Below codes are only for index widgets
+================================================ -->
+
+<script src="/axios/dist/axios.min.js"></script>
+
+<script src="/user-cms/js/custom-jquery.js"></script>
+
+<script>
+  $(document).ready(function() {
+    
+  });
+</script>
+
+<!-- Basic Date Range Picker -->
+<script>
+    $(document).ready(function() {
+      $('#date-range-picker').daterangepicker(null, function(start, end, label) {
+        console.log(start.toISOString(), end.toISOString(), label);
+      });
+    });
+</script>
+    
+    <!-- Basic Single Date Picker -->
+<script>
+    $(document).ready(function() {
+      $('#date-picker').daterangepicker({ 
+          singleDatePicker: true,
+          format: 'DD/MM/YYYY'
+        }, function(start, end, label) {
+        console.log(start.toISOString(), end.toISOString(), label);
+      });
+      
+      $('#date-picker-2').daterangepicker({ 
+          singleDatePicker: true,
+          format: 'DD/MM/YYYY'
+        }, function(start, end, label) {
+        console.log(start.toISOString(), end.toISOString(), label);
+      });
+    });
+</script>
+    
+    <!-- Date Range and Time Picker -->
+<script>
+    $(document).ready(function() {
+      $('#date-range-and-time-picker').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        format: 'DD/MM/YYYY h:mm A'
+      }, function(start, end, label) {
+        console.log(start.toISOString(), end.toISOString(), label);
+      });
+    });
+</script>

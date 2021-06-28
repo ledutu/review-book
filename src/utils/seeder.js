@@ -46,7 +46,7 @@ function createUserDatabaseSeed(times = 5, language) {
             password_not_hash: password,
             profile,
             favorite_writer: i > 0 ? [users[i - 1]._id] : [],
-            favorite_book: [],
+            // favorite_book: [],
         })
         users = [...users, user];
         // profiles = [...profiles, profile];
@@ -89,6 +89,7 @@ async function createBookWithoutCategoryDbSeed(times = 5, language) {
             },
             category: [category_id],
             slug: faker.helpers.slugify(book_name.toLowerCase()),
+            isConfirm: true,
         });
 
         books = [...books, book];
@@ -165,11 +166,13 @@ function createBlogTag(times = 5, language) {
     }
 
     blogTags = [];
+    const color = ['blue', 'green', 'yell', 'orange'];
 
     for (let i = 0; i < times; i++) {
         let word = faker.random.word()
         let tag = new BlogTag({
             name: word,
+            tag_color: faker.helpers.randomize(color),
         });
 
         blogTags = [...blogTags, tag];
@@ -238,6 +241,7 @@ async function createBlog(times = 5, language) {
             tag: [_blogTagId],
             blogger: _id,
             slug: faker.helpers.slugify(title.toLowerCase()),
+            isConfirm: true,
         });
 
         blogs = [...blogs, blog];

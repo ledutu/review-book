@@ -9,6 +9,7 @@ const blogSchema = new Schema({
     tag: [{ type: Schema.Types.ObjectId, ref: 'blog_tags' }],
     slug: { type: String, default: '' },
     vote: { type: Number, default: 0 },
+    isConfirm: { type: Boolean, default: false },
     hide: { type: Boolean, default: false },
 }, { timestamps: { currentTime: () => Date.now() } });
 

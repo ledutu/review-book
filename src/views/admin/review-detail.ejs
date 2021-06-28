@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="">
+    <meta name="description" content="">
+    <meta name="keywords" content="" />
+  
+  
+    <!-- ========== Css Files ========== --> 
+    <%- include('layouts/head') %>
+    
+  </head>
+  <body>
+  <!-- START HEADER -->
+  <%- include('layouts/header') %>
+  <!-- END HEADER -->
+
+
+<!-- START SIDEBAR -->
+<%- include('layouts/sidebar') %>
+<!-- END SIDEBAR -->
+<!-- START CONTENT -->
+<div class="content">
+  <div class="page-header">
+    <h1 class="title">Chi tiết bài review</h1>
+  
+    <div class="right">
+        <a href="/admin/review"><button class="btn btn-info btn-lg" >Quay lại</button></a>
+      </div>
+  </div>
+<!-- START CONTAINER -->
+<div class="container-padding">
+  <!-- Start Row -->
+  <div class="row">
+    <!-- Start Panel -->
+    <div class="col-lg-12">
+       
+        <div class="panel panel-default">
+
+          <div class="panel-title">
+            Paragraph
+            
+          </div>
+  
+              <div class="panel-body">
+  
+                <div class="col-md-6 padding-l-0">
+                  <h4>Basic</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra metus a augue pellentesque aliquet. Duis id elit dolor. Pellentesque gravida molestie egestas. Phasellus neque leo, fermentum at lobortis nec, efficitur in ante.</p>
+                    
+                    <p>Vestibulum enim diam, facilisis eu luctus vel, rhoncus in lectus. Vestibulum faucibus nec elit sed mollis. Vestibulum convallis tellus quis dictum convallis. Vivamus euismod nunc ut dolor finibus, eget gravida eros porta. Suspendisse eu lorem vel ex iaculis venenatis a ut lorem. </p>
+                    
+                    <p>Vestibulum sed vestibulum neque, sed vehicula lectus. Nam a diam sollicitudin, gravida nisi quis, ultrices dolor. Vestibulum viverra dignissim mollis. Morbi consectetur rhoncus augue nec maximus. Quisque aliquam lacinia metus, a iaculis magna fringilla et. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+  
+                <div class="col-md-6 padding-0">
+                  <h4>Headings with secondary text</h4>
+                  <p>Make a paragraph stand out by adding <code>.lead</code>.</p>
+                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra metus a augue pellentesque aliquet. Duis id elit dolor. Pellentesque gravida molestie egestas. Phasellus neque leo, fermentum at lobortis nec, efficitur in ante.Fusce pharetra metus a augue</p>
+                </div>
+  
+              </div>
+  
+        </div>
+      </div>
+    <!-- End Panel -->
+  </div>
+  <!-- End Row -->
+</div>
+<!-- END CONTAINER -->
+</div>
+<!-- End Content -->
+
+
+
+
+<%- include('layouts/javascript') %>
+
+
+</body>
+</html>

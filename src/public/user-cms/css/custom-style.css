@@ -1,0 +1,59 @@
+:root {
+    --basic-border-color: #eee;
+    --basic-white-color: #ffffff;
+    --basic-background-color: #FAFAFA;
+    --basic-root-color: #009688;
+    --basic-root-basic-btn: #E4E4E4;
+    --basic-root-warning-btn: #FF6D00;
+}
+
+.sidebar-custom {
+    border-right: 1px solid var(--basic-border-color);
+    height: 100%;
+}
+
+.content {
+    background-color: var(--basic-background-color);
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.page-header {
+    padding-left: 30px;
+    margin-right: -20px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.view-icon {
+    font-size: 16px;
+}
+
+.hide-icon {
+    font-size: 16px;
+    color: var(--basic-root-warning-btn);
+}
+
+.delete-icon {
+    font-size: 16px;
+    color: red;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+span.blue {
+    background-color: #1692bb;
+}
+span.yell {
+    background-color: #f5b50a;
+}
+span.green {
+    background-color: #a6bb16;
+}
+span.orange {
+    background-color: #ec5a1a;
+}

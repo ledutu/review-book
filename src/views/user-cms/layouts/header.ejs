@@ -1,0 +1,45 @@
+<div id="top" class="clearfix">
+
+    <!-- Start App Logo -->
+    <div class="applogo">
+      <a href="index.html" class="logo">Book</a>
+    </div>
+    <!-- End App Logo -->
+
+    <!-- Start Sidebar Show Hide Button -->
+    <a href="#" class="sidebar-open-button"><i class="fa fa-bars"></i></a>
+    <a href="#" class="sidebar-open-button-mobile"><i class="fa fa-bars"></i></a>
+    <!-- End Sidebar Show Hide Button -->
+
+    <!-- Start Searchbox -->
+    <form class="searchform">
+      <input type="text" class="searchbox" id="searchbox" placeholder="Tìm kiếm">
+      <span class="searchbutton"><i class="fa fa-search"></i></span>
+    </form>
+    <!-- End Searchbox -->
+
+    <!-- Start Top Menu -->
+    <!-- <ul class="topmenu">
+      <li><a href="#">Files</a></li>
+    </ul> -->
+    <!-- End Top Menu -->
+
+    <!-- Start Top Right -->
+    <ul class="top-right">
+
+    <li class="dropdown link">
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle hdbutton">Tạo mới <span class="caret"></span></a>
+        <ul class="dropdown-menu dropdown-menu-list">
+          <li><a href="/user-cms/book-review/create"><i class="fa falist fa-paper-plane-o"></i>Review Sách</a></li>
+          <li><a href="#"><i class="fa falist fa-font"></i>Blog</a></li>
+        </ul>
+    </li>
+
+    <li class="dropdown link">
+      <a data-toggle="dropdown" class="dropdown-toggle profilebox"><img src="<%- user.profile.image || '/user-cms/img/profileimg.png'%>" alt="img"><b><%- user.profile.full_name || user.email %> </b></a>
+    </li>
+
+    </ul>
+    <!-- End Top Right -->
+
+</div>

@@ -1,0 +1,50 @@
+<nav class="text-right">
+    <ul class="pagination">
+        <% if(data.page === 1) { %>
+            <li>
+                <a aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            
+        <% } else { %> 
+            <li>
+                <a aria-label="Previous" href="<%- pageLink+'page=1&limit='+data.limit %>">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        <% } %>
+        
+        <% var i = (Number(data.page) > 3 ? Number(data.page) - 2 : 1) %>
+        
+        <% if (i !== 1) { %>
+            <li><a href="#">...</a></li>
+        <% } %>
+        
+        <% for(; i <= (Number(data.page) + 2) && i <= data.total_page; i++) { %>
+            <% if (data.page === i) { %>
+                <li class="active"><a><%- i %></a></li>
+            <% } else { %>
+                <li><a href="<%- pageLink+'page='+i+'&limit='+data.limit %>"> <%- i %> </a></li>
+            <% } %>
+            
+            <% if (i == Number(data.page) + 2 && i < data.total_page) { %>
+                <li><a href="#">...</a></li>
+            <% } %>
+        <% } %>
+        
+        <% if (data.page === data.total_page) { %>
+            <li>
+                <a aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        <% } else { %>
+            <li>
+                <a href="<%- pageLink+'page='+data.total_page+'&limit='+data.limit %>" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        <% } %>
+    </ul>
+</nav>

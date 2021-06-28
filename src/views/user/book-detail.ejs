@@ -40,6 +40,8 @@
     <%- include('layouts/header') %>
     <!-- END | Header -->
     
+    <%- include('layouts/notification') %> 
+    
     <div class="content">
         <div class="sliderv2 movie-items slider sliderv3">
             <div class="container">
@@ -54,7 +56,7 @@
                                 </div>
                                 <h1><a><%- book.book_name %> </a></h1>
                                 <div class="social-btn">
-                                    <a href="#" class="parent-btn"><i class="ion-heart"></i> Thêm vào yêu thích</a>
+                                    
                                     <div class="hover-bnt">
                                         <a href="#" class="parent-btn"><i class="ion-android-share-alt"></i>Chia sẽ</a>
                                         <div class="hvr-item">
@@ -72,15 +74,50 @@
                                 <div class="rate-star-custom movie-rate-custom">
                                     <p>Đánh giá bài này:  </p>
                                     <div class="rate">
-                                        <input type="radio" id="star5" name="rate" value="5" />
+                                        <input 
+                                            type="radio" 
+                                            id="star5" 
+                                            name="rate" 
+                                            value="5" 
+                                            class="<%- !user && 'loginLink' %>" <%- (bookReaction.rate === 5) && 'checked' %>
+                                            onclick="handleRateReview('<%- book._id %>', '5')"
+                                        />
                                         <label for="star5" title="text">5 stars</label>
-                                        <input type="radio" id="star4" name="rate" value="4" />
+                                        <input
+                                            type="radio" 
+                                            id="star4" 
+                                            name="rate" 
+                                            value="4" 
+                                            class="<%- !user && 'loginLink' %>" <%- (bookReaction.rate === 4) && 'checked' %>
+                                            onclick="handleRateReview('<%- book._id %>', '4')"
+                                        />
                                         <label for="star4" title="text">4 stars</label>
-                                        <input type="radio" id="star3" name="rate" value="3" />
+                                        <input 
+                                            type="radio" 
+                                            id="star3" 
+                                            name="rate" 
+                                            value="3" 
+                                            class="<%- !user && 'loginLink' %>" <%- (bookReaction.rate === 3) && 'checked' %>
+                                            onclick="handleRateReview('<%- book._id %>', '3')"
+                                        />
                                         <label for="star3" title="text">3 stars</label>
-                                        <input type="radio" id="star2" name="rate" value="2" />
+                                        <input 
+                                            type="radio" 
+                                            id="star2" 
+                                            name="rate" 
+                                            value="2" 
+                                            class="<%- !user && 'loginLink' %>" <%- (bookReaction.rate === 2) && 'checked' %>
+                                            onclick="handleRateReview('<%- book._id %>', '2')"
+                                        />
                                         <label for="star2" title="text">2 stars</label>
-                                        <input type="radio" id="star1" name="rate" value="1" />
+                                        <input 
+                                            type="radio" 
+                                            id="star1" 
+                                            name="rate" 
+                                            value="1" 
+                                            class="<%- !user && 'loginLink' %>" <%- (bookReaction.rate === 1) && 'checked' %>
+                                            onclick="handleRateReview('<%- book._id %>', '1')"
+                                        />
                                         <label for="star1" title="text">1 star</label>
                                     </div>
                                 </div>
@@ -104,32 +141,53 @@
                                         <li><a href="#related-book"> Bài liên quan</a></li>                        
                                     </ul>
                                     <div class="tab-content">
-                                        <div id="overview" class="tab <%- (allComment.page === 1 && allComment.limit === 5) && 'active' %> ">
-                                            <p style="font-size: 16px;"><%- book.review %></p>
+                                        <div id="overview" class="content-review-book tab <%- (allComment.page === 1 && allComment.limit === 5) && 'active' %> ">
+                                            <%- book.review %>
                                         </div>
                                         
                                         <div id="comment" class="tab comment <%- (allComment.page !== 1 || allComment.limit !== 5) && 'active' %>">
-                                            <div class="comment-container">
-                                                <textarea 
-                                                    type="text" 
-                                                    class="comment-input"
-                                                    placeholder="Nhập bình luận của bạn vào đây"
-                                                ></textarea>
-                                                <button type="button" class="btn main-button ml-20 button-custom">Bình luận</button>
-                                            </div>
-                                            
-                                            <% allComment.data.forEach(comment => { %>
-                                                <div class="mv-user-review-item mv-user-review-item-custom">
-                                                    <div class="user-infor comment-info-container">
-                                                        <img src="<%- comment.user.profile.image %>" alt="" width="40px" height="40px">
-                                                        <div class="comment-info">
-                                                            <h4 style="color: #ffffff;"><%- comment.user.profile.full_name %></h4>
-                                                            <p class="time datetime"><%- comment.createdAt %></p>
-                                                        </div>
-                                                    </div>
-                                                    <p><%- comment.content %></p>
+                                            <form id="bookCommentForm">
+                                                <div class="comment-container">
+                                                    <input type="hidden" id="bookId" value="<%- book._id %>">
+                                                    <textarea 
+                                                        type="text" 
+                                                        class="comment-input"
+                                                        id="bookCommentInput"
+                                                        placeholder="Nhập bình luận của bạn vào đây"
+                                                        required
+                                                    ></textarea>
+                                                    <button type="submit" class="btn main-button ml-20 button-custom <%- !user && 'loginLink' %>">Bình luận</button>
                                                 </div>
-                                            <% }) %>
+                                            </form>
+                                            
+                                            <div class="comment-container-display">
+                                                <% allComment.data.forEach(comment => { %>
+                                                    <div class="mv-user-review-item mv-user-review-item-custom" id="<%- comment._id %>">
+                                                        <div class="user-infor comment-info-container">
+                                                            <img src="<%- comment.user.profile.image %>" alt="" width="40px" height="40px">
+                                                            <div class="comment-info">
+                                                                <h4 style="color: #ffffff;"><%- comment.user.profile.full_name %></h4>
+                                                                <p class="time datetime"><%- comment.createdAt %></p>
+                                                            </div>
+                                                            
+                                                            <% if (user && comment.user.equals(user._id)) { %>
+                                                                <div class="dropdown option-menu">
+                                                                    <!-- <button class="dropdown-toggle" type="button" data-toggle="dropdown"> -->
+                                                                    <i class="dropdown-toggle ion-android-menu" type="button" data-toggle="dropdown">
+                                                                    </i>
+                                                                    
+                                                                    <ul class="dropdown-menu">
+                                                                        <li><a data-toggle="modal" data-target="#exampleModal">Chỉnh sửa</a></li>
+                                                                        <li><a onclick="deleteCommentReview('<%- comment._id %>')">Xóa</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            <% } %>
+                                                            
+                                                        </div>
+                                                        <p><%- comment.content %></p>
+                                                    </div>
+                                                <% }) %>
+                                            </div>
                                             
                                             <%- include('layouts/pagination.ejs', {
                                                 limitTitle: 'Bình luận',
@@ -138,34 +196,21 @@
                                                 title: 'Bình luận mỗi trang'
                                             }) %> 
                                         </div>
-                                        <div id="related-book" class="tab related-book">
-                                            <% relatedBook.forEach(related => { %>
-                                                <div class="movie-item-style-2">
-                                                    <img src="<%- related.image.small %>" alt="" width="185px" height="284px">
-                                                    <div class="mv-item-infor">
-                                                        <h6><a href="/book/<%- related.slug %>-<%- related._id %>"><%- related.book_name %></a></h6>
-                                                        <p class="rate"><i class="ion-android-star"></i><span><%- related.vote %></span> /5</p>
-                                                        <p class="describe describe-custom"><%- related.review %></p>
-                                                        <p class="run-time datetime"> Ngày đăng: <%- related.createdAt %> </p>
-                                                        <p>Người đăng: <a href="/user/profile/<%- related.reviewer.profile.username %>-<%- related.reviewer._id %>"><%- related.reviewer.profile.full_name %></a></p>
-                                                        <p>Tác giả sách: <a href="#"></a></p>
-                                                    </div>
-                                                </div>
-                                            <% }) %>
-                                            
-                                            <!-- <div class="topbar-filter">
-                                                <label>Movies per page:</label>
-                                                <select>
-                                                    <option value="range">5 Movies</option>
-                                                    <option value="saab">10 Movies</option>
-                                                </select>
-                                                <div class="pagination2">
-                                                    <span>Page 1 of 2:</span>
-                                                    <a class="active" href="#">1</a>
-                                                    <a href="#">2</a>
-                                                    <a href="#"><i class="ion-arrow-right-b"></i></a>
-                                                </div>
-                                            </div> -->
+                                        <div id="related-book" class="tab related-book content-review-book">
+                                            <div class="flex-wrap-movielist">
+                                                <% relatedBook.forEach(related => { %>
+                                                    <div class="movie-item-style-2 movie-item-style-1">
+                                                        <img src="<%- related.image.small %> " alt="">
+                                                        <div class="hvr-inner">
+                                                            <a  href="/book/<%- related.slug %>-<%= related._id %>"> Xem thêm <i class="ion-android-arrow-dropright"></i> </a>
+                                                        </div>
+                                                        <div class="mv-item-infor">
+                                                            <h6><a href="/book/<%- related.slug %>-<%= related._id %>"><%- related.book_name %> </a></h6>
+                                                            <p class="rate"><i class="ion-android-star"></i><span><%- related.vote %></span> /5</p>
+                                                        </div>
+                                                    </div>					
+                                                <% }) %>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +244,29 @@
                 </div>
             </div>
         </div>
+        <div class="modal" tabindex="-1" role="dialog" id="exampleModal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
     </div>
+    
+    
     <!--end of latest new v1 section-->
 
     <!-- footer section-->

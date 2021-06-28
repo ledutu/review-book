@@ -8,13 +8,14 @@ const { BookComment } = require('../../models/user/book_comment');
 const { BlogComment } = require('../../models/user/blog_comment');
 const Notification = require('../../utils/notification');
 const Seeder = require('../../utils/seeder');
-
+var swal = require('sweetalert');
 
 async function index(request, response) {
     try {
-        // message = 'Your version is old. You have to update new version to access application again'
-        
-        books = Book.find({})
+        books = Book.find({
+            isConfirm: true,
+            hide: false,
+        })
             .select(['image', '_id', 'book_name', 'slug', 'vote'])
             .populate('category', ['_id', 'short_name', 'tag_color']);
 

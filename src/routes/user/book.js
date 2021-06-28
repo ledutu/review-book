@@ -11,5 +11,9 @@ router.use(isAuthenticate);
 // get book
 router.get('/category', BookController.index);
 router.get('/*-:id', BookController.getBookDetail);
+router.get('/add-to-favourite/:id', BookController.addToBookFavourite);
+router.get('/rate-book-review/:id', BookController.rateBookReview);
+// router.post('/rate-book-review/:id', BookController.rateBookReview);
+
 
 module.exports = router;
