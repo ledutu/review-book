@@ -1,172 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="">
-    <meta name="description" content="">
-    <meta name="keywords" content="" />
-  
-  
-    <!-- ========== Css Files ========== --> 
-    <%- include('layouts/head') %>
-
-  </head>
-  <body>
-  <!-- Start Page Loading -->
-  <%- include('layouts/loading') %>
-  <!-- End Page Loading -->
-  <!-- START HEADER -->
-  <%- include('layouts/header') %>
-  <!-- END HEADER -->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="">
+	<meta name="description" content="">
+	<meta name="keywords" content="" />
 
 
-<!-- START SIDEBAR -->
-<%- include('layouts/sidebar') %>
-<!-- END SIDEBAR -->
+	<!-- ========== Css Files ========== --> 
+	<%- include('layouts/head') %>
 
-<!-- START CONTENT -->
-<div class="content">
-
-<!-- START CONTAINER -->
-<div class="container-padding">
-  <!-- Start Row -->
-  <div class="row">
-    <!-- Start Panel -->
-    <div class="col-md-12">
-      <div class="panel panel-default">
-    
-        <div class="panel-title">
-          Quản lý bài review
-        </div>
-
-        <button type="button" class="btn btn-option1 btn-search">Tìm kiếm</button>
-        <button class="btn btn-light btn-refresh-review"><i class="fa fa-refresh"></i></button>
-    
-      </div>
-      <div class="panel panel-default" id="panel-search" >
-        <div class="panel-body">
-          <form class="form" action="/admin/review" method="GET">
-            <div class="panel-title">
-              Tìm kiếm bài review
-            </div>
-            <div class="flex-search">
-              <div class="form-group flex-left-search">
-                <input type="text" class="form-control" id="book_name" name="book_name" placeholder="Nhập tên sách">
-              </div>
-              <!-- <div class="form-group flex-right-search" >
-                <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Nhập tên reviewer">
-              </div> -->
-            </div>
-            <div class="flex-search">
-              <div class="form-group flex-left-search">
-                <select class="selectpicker" multiple data-live-search="true" name="category">
-                    <% bookCategory.forEach(categories =>{%>
-                      <option value="<%- categories._id %>"> <%- categories.name %></option>
-                    <% })  %>
-              </select>
-              </div>
-              <div class="form-group flex-right-search">
-                <select class="selectpicker form-control" name="hide">
-                  <option data-content="Chọn status"></option>
-                  <option data-content="<span class='label label-success'>Active</span>">false</option>
-                  <option data-content="<span class='label label-danger'>InActive</span>">true</option>
-                </select>   
-              </div>
-            </div>
-              <div class="form-group ">
-                <button type="button" class="btn btn-close-search">Đóng</button>
-                <button type="submit" class="btn btn-default">Tìm kiếm</button>              
-              </div>
-          </form>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        
-        <div class="panel-body">
-          
-          <div class="table-responsive">
-            <p>Số lượng bài review: <%- totalReview %></p>
-            <table class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <td>Book</td>
-                  <td>Reviewer</td>
-                  <td>Category</td>
-                  <td>Date</td>
-                  <td>Status</td>
-                  <td>Action</td>
-                </tr>
-              </thead>
-              <tbody>    
-
-                <% allReviewPage.data.forEach(review =>{  %>
-                  <tr>
-                    <td><%- review.book_name %></td>
-                    <td><%- review.reviewer.profile.full_name %></td>
-                    <td>
-                      <% review.category.forEach(category =>{%>
-                        <%- category.name %>
-                      <% })  %>
-                    </td>
-                    <td><%- review.createdAt %></td>
-                    <td >
-                      <button href="" data-id="<%- review._id %>" data-toggle="modal" data-target="#inActive-review-modal" class=" btn-change-status <%- review.hide ? 'btn btn-danger' : 'btn btn-success' %>">
-                        <%- review.hide ? 'InActive' : 'Active' %>
-                      </button> 
-                    </td>
-                    <td>
-                      <a href="/admin/review/<%- review._id %>">                      
-                        <i class="fa fa-info-circle admin-table__icon-detail"><span class="hover-detail">Detail</span></i>    
-                      </a>
-                    </td>
-                  </tr> 
-                <% }) %>
-              </tbody>
-            </table>
-          </div> 
-        </div>
-        
-  <%- include('layouts/pagination.ejs', {
-        limitTitle: 'Bài review',
-        data: allReviewPage,
-        pageLink: '/admin/review',
-        title: 'Chọn số bài mỗi trang'
-    }) %> 
-      </div>
-      <div class="modal fade" id="inActive-review-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel"><%- allReviewPage.data.hide ? 'Active Review' : 'InActive Review' %></h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-              <div class="modal-body" >
-                  Bạn có chắc chắn muốn <%- allReviewPage.data.hide ? 'Active Review' : 'InActive Review' %> bài review này?
-              </div>
-              <div class="modal-footer">
-                    <button id="btn-inActive-review" data-id="???" type="button" class="btn btn-success">Chấp nhận</button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy bỏ</button>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
-    </div>
- 
-  <!-- End Row -->
-</div>
-<!-- END CONTAINER -->
-</div>
-<!-- End Content -->
+</head>
+<body>
+	<!-- Start Page Loading -->
+	<%- include('layouts/loading') %>
+	<!-- End Page Loading -->
+	<!-- START HEADER -->
+	<%- include('layouts/header') %>
+	<!-- END HEADER -->
 
 
+	<!-- START SIDEBAR -->
+	<%- include('layouts/sidebar') %>
+	<!-- END SIDEBAR -->
+
+	<!-- START CONTENT -->
+	<div class="content">
+
+		<!-- Start Page Header -->
+		<div class="page-header">
+			<h1 class="title">Danh sách bài review</h1>
+
+			<!-- Start Page Header Right Div -->
+			<div class="right">
+				<div class="btn-group" role="group" aria-label="...">
+					<!-- <a href="/user-cms/book-review/create" class="btn btn-light">Tạo bài mới</a> -->
+					<a href="/admin/review" class="btn btn-light"><i class="fa fa-refresh"></i></a>
+					<a  class="btn btn-light"><i class="fa fa-search"></i></a>
+				</div>
+			</div>
+			<!-- End Page Header Right Div -->
+		</div>
+		<!-- End Page Header -->
+
+		<!-- START CONTAINER -->
+		<div class="container-flush">
+		<!-- Start Row -->
+			<div class="row">
+			<!-- Start Panel -->
+				<div class="col-md-12 col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-title">
+							Tìm kiếm
+							<ul class="panel-tools">
+								<li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+								<li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
+								<li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+							</ul>
+						</div>
+						<div class="panel-body">
+							<form class="form" action="/admin/review" method="GET">
+								<div class="row">
+									<div class="col-md-12 col-lg-6">
+										<div class="form-group">
+											<label for="input1" class="form-label">Tên sách</label>
+											<input type="text" class="form-control" id="book_name" name="book_name"
+											placeholder="Nhập tên sách" value="<%- params.book_name %>">
+										</div>
+									</div>
+									<div class="col-md-12 col-lg-6">
+										<div class="form-group">
+											<label for="input1" class="form-label">Thể loại</label>
+											<select class="form-control selectpicker" multiple data-live-search="true" name="category">
+												<% bookCategory.forEach(category =>{%>
+												<option value="<%- category._id %>" <%- params.category && params.category.includes(category._id.toString()) && 'selected' %> > <%- category.name %></option>
+												<% })  %>
+										</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+
+									<div class="col-md-12 col-lg-6">
+										<div class="form-group">
+											<label for="input1" class="form-label">Trạng thái</label>
+											<select class="selectpicker form-control" name="isConfirm">
+												<option data-content="Chọn trạng thái"></option>
+												<option data-content="<span class='label label-success'>Đã duyệt</span>">true</option>
+												<option data-content="<span class='label label-warning'>Chờ duyệt</span>">false</option>
+											</select>  
+										</div>
+									</div>
+									<div class="col-md-12 col-lg-6">
+										<div class="form-group">
+											<label for="input1" class="form-label">Trạng thái</label>
+											<select class="selectpicker form-control" name="hide">
+												<option data-content="Chọn trạng thái"></option>
+												<option data-content="<span class='label label-success'>Active</span>">false</option>
+												<option data-content="<span class='label label-danger'>InActive</span>">true</option>
+											</select>  
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 col-lg-6">
+										<fieldset>
+											<div class="control-group">
+												<label for="input1" class="form-label">Từ ngày</label>
+												<div class="controls">
+													<div class="input-prepend input-group">
+														<span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
+														<input type="text" id="date-picker" name="date_from" class="form-control" placeholder="dd/mm/yyyy" value="<%- params.date_from %>"/> 
+													</div>
+												</div>
+											</div>
+										</fieldset>
+									</div>
+									
+									<div class="col-md-12 col-lg-6">
+										<fieldset>
+											<div class="control-group">
+												<label for="input1" class="form-label">Đến</label>
+												<div class="controls">
+													<div class="input-prepend input-group">
+														<span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
+														<input type="text" id="date-picker-2" name="date_to" class="form-control" placeholder="dd/mm/yyyy" value="<%- params.date_to %>"/> 
+													</div>
+												</div>
+											</div>
+										</fieldset>
+									</div>
+								</div>
+								<div class="button-container margin-t-20">
+									<a href="/admin/review" class="btn">Hủy</a>
+									<button type="submit" class="btn btn-default">Tìm kiếm</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-title">
+						Danh sách <span class="label label-default"><%- totalReview %></span>
+					</div>
+					<div class="panel-body">
+						
+						<div class="table-responsive">
+						<table class="table table-bordered table-striped">
+							<thead>
+							<tr>
+								<td>Sách</td>
+								<td>Reviewer</td>
+								<td>Thể loại</td>
+								<td>Ngày đăng</td>
+								<td>Trạng thái</td>
+								<td>Chức năng</td>
+							</tr>
+							</thead>
+							<tbody>    
+			
+							<% allReviewPage.data.forEach(review =>{  %>
+								<tr>
+								<td><%- review.book_name %></td>
+								<td><%- review.reviewer.profile.full_name %></td>
+								<td style="width: 150px">
+									<% review.category.forEach(category =>{%>
+										<span class="label <%- category.tag_color %>"><%- category.name %></span>
+									<% })  %>
+								</td>
+								<td class="datetime <%- review._id %>"><%- review.createdAt %></td>
+								<td >
+									<span class="label <%- review.isConfirm? 'label-success': 'label-warning' %>"><%- review.isConfirm? 'Đã duyệt': 'Chờ duyệt' %></span>
+
+									<%- review.hide ? "<span class='label label-danger'>InActive</span>" : "<span class='label label-success'>Active</span>" %>
+								</td>
+								<td>
+									<a href="/admin/review/<%- review._id %>" class="detail-icon">                      
+										<i class="fa fa-eye margin-r-5"></i>    
+									</a>
+									<a onclick="confirmBeforeConfirm('<%- review._id %>', '<%- review.isConfirm %>')" class="confirm-icon" ><i class="fa fa-check-circle margin-r-5"></i></a>
+									<a onclick="confirmBeforeBlock('<%- review._id %>', '<%- review.hide %>')" class="block-icon" ><i class="fa fa-ban margin-r-5"></i></a>
+
+								</td>
+								</tr> 
+							<% }) %>
+							</tbody>
+						</table>
+						</div> 
+					</div>
+					
+				<%- include('layouts/pagination', {
+					limitTitle: 'Bài review',
+					data: allReviewPage,
+					pageLink: '/admin/review'+link,
+					title: 'Chọn số bài mỗi trang'
+				}) %> 
+					</div>
+				</div>
+			</div>
+		<!-- End Row -->
+		</div>
+		<!-- END CONTAINER -->
+	</div>
+	<!-- End Content -->
 
 
-<%- include('layouts/javascript') %>
 
+
+	<%- include('layouts/javascript') %>
+	<script>
+		$(document).ready(function() {
+			moment.locale('vi');
+		
+			let reviews = '<%- allReviewPage.data.map(item => item._id) %>';
+
+			reviews.split(',').forEach(review => {
+				let time = $('.datetime.'+review).html();
+				$('.datetime.'+review).text(moment(new Date(time)).format('lll'));       
+			})
+		})
+
+		async function confirmBeforeConfirm(id,status) {
+			cuteAlert({
+				type: "question",
+				title: status === 'true'?"Bỏ duyệt":"Duyệt",
+				message: status === 'true'?"Bạn có muốn bỏ duyệt bài viết này?": "Bạn có muốn duyệt bài viết này không?",
+				confirmText: "Đồng ý",
+				cancelText: "Hủy"
+			}).then(async e => {
+				if (e) {
+					fetch('/admin/review/confirmReview', {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+							// 'Accept': 'application/json',
+						},
+						body: JSON.stringify({ id })
+					})
+					.then(response => response.json())
+					.then(data => {
+						if(!data.error) {
+							cuteToast({
+								type: "success", // or 'info', 'error', 'warning'
+								message: data.message,
+								timer: 5000
+								});
+								document.location.reload(true);
+						} else {
+							cuteToast({
+								type: "error", // or 'info', 'error', 'warning'
+								message: data.message,
+								timer: 5000
+							});
+						}
+					})
+					.catch(err => {
+						cuteToast({
+							type: "error", // or 'info', 'error', 'warning'
+							message: data.message,
+							timer: 5000
+						});
+					});
+				}
+			})
+		}
+
+		async function confirmBeforeBlock(id,status) {
+			cuteAlert({
+				type: "question",
+				title: status === 'true'?"Bỏ ẩn":"Ẩn",
+				message: status === 'true'?"Bạn có muốn bỏ ẩn bài viết này?": "Bạn có muốn ẩn bài viết này không?",
+				confirmText: "Đồng ý",
+				cancelText: "Hủy"
+			}).then(async e => {
+				if (e) {
+					fetch('/admin/review/hideReview', {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+							// 'Accept': 'application/json',
+						},
+						body: JSON.stringify({ id })
+					})
+					.then(response => response.json())
+					.then(data => {
+						if(!data.error) {
+							cuteToast({
+								type: "success", // or 'info', 'error', 'warning'
+								message: data.message,
+								timer: 5000
+								});
+								document.location.reload(true);
+						} else {
+							cuteToast({
+								type: "error", // or 'info', 'error', 'warning'
+								message: data.message,
+								timer: 5000
+							});
+						}
+					})
+					.catch(err => {
+						cuteToast({
+							type: "error", // or 'info', 'error', 'warning'
+							message: data.message,
+							timer: 5000
+						});
+					});
+				}
+			})
+		}
+
+		
+	</script>
 
 </body>
 </html>

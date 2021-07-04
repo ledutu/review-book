@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const color = ['blue', 'green', 'yell', 'orange'];
+const color = ['blue', 'green', 'yell', 'orange','red','indigo','violet'];
 
 const bookCategorySchema = new Schema({
     name: { type: String, default: '' },
