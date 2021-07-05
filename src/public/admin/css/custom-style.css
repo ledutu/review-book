@@ -1,4 +1,11 @@
-
+:root {
+  --basic-border-color: #eee;
+  --basic-white-color: #ffffff;
+  --basic-background-color: #FAFAFA;
+  --basic-root-color: #009688;
+  --basic-root-basic-btn: #E4E4E4;
+  --basic-root-warning-btn: #FF6D00;
+}
 .admin-table__icon-edit {
     font-size: 1.6rem;
     color: #cacaca;
@@ -195,3 +202,61 @@
   .flex-right-search{
     flex: 1;
   }
+
+.page-header {
+  padding-left: 30px;
+  margin-right: -20px;
+}
+
+.block-icon{
+  color: red;
+  font-size: 16px;
+}
+.confirm-icon{
+  color:green;
+  font-size: 16px;
+}
+
+.detail-icon{
+  color: #399bff;
+  font-size: 16px;
+}
+
+.edit-icon{
+  color: #559ce4;
+  font-size: 16px;
+}
+
+.admin-icon{
+  color: #559ce4;
+  font-size: 16px;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+span.blue {
+  background-color: #1692bb;
+}
+span.yell {
+  background-color: #f5b50a;
+}
+span.green {
+  background-color: #a6bb16;
+}
+span.orange {
+  background-color: #ec5a1a;
+}
+
+span.indigo{
+  background-color: indigo;
+}
+
+span.violet{
+  background-color: violet;
+}
+
+span.red{
+  background-color: red;
+}

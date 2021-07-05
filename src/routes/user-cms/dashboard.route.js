@@ -4,5 +4,6 @@ var DashboardController = require('../../controllers/user-cms/dashboard.controll
 
 /* GET home page. */
 router.get('/', DashboardController.index);
+router.get('/logout', DashboardController.logout);
 
 module.exports = router;

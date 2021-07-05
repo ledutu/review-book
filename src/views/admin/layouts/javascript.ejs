@@ -1,4 +1,8 @@
+<!-- ================================================
+jQuery Library
+================================================ -->
 <script src="/admin/js/jquery.min.js"></script>
+
 <!-- ================================================
 Bootstrap Core JavaScript File
 ================================================ -->
@@ -10,10 +14,8 @@ Plugin.js - Some Specific JS codes for Plugin Settings
 <script src="/admin/js/plugins.js"></script>
 
 <!-- ================================================
-Data Tables
+Bootstrap Select
 ================================================ -->
-<script src="/admin/js/datatables/datatables.min.js"></script>
-
 <script src="/admin/js/bootstrap-select/bootstrap-select.js"></script>
 
 <!-- ================================================
@@ -21,23 +23,132 @@ Bootstrap Toggle
 ================================================ -->
 <script src="/admin/js/bootstrap-toggle/bootstrap-toggle.min.js"></script>
 
-<script src="/javascripts/cute-alert.js"></script>
+<!-- ================================================
+Bootstrap WYSIHTML5
+================================================ -->
+<!-- main file -->
+<script src="/admin/js/bootstrap-wysihtml5/wysihtml5-0.3.0.min.js"></script>
+<!-- bootstrap file -->
+<script src="/admin/js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+
+<!-- ================================================
+Summernote
+================================================ -->
+<script src="/admin/js/summernote/summernote.min.js"></script>
+
+<!-- ================================================
+Flot Chart
+================================================ -->
+<!-- main file -->
+<script src="/admin/js/flot-chart/flot-chart.js"></script>
+<!-- time.js -->
+<script src="/admin/js/flot-chart/flot-chart-time.js"></script>
+<!-- stack.js -->
+<script src="/admin/js/flot-chart/flot-chart-stack.js"></script>
+<!-- pie.js -->
+<script src="/admin/js/flot-chart/flot-chart-pie.js"></script>
+<!-- demo codes -->
+<!-- <script src="/admin/js/flot-chart/flot-chart-plugin.js"></script> -->
+
+<!-- ================================================
+Chartist
+================================================ -->
+<!-- main file -->
+<script src="/admin/js/chartist/chartist.js"></script>
+
+<!-- demo codes -->
+<!-- <script src="/admin/js/chartist/chartist-plugin.js"></script> -->
+
+<!-- ================================================
+Easy Pie Chart
+================================================ -->
+<!-- main file -->
+<script src="/admin/js/easypiechart/easypiechart.js"></script>
+<!-- demo codes -->
+<script src="/admin/js/easypiechart/easypiechart-plugin.js"></script>
+
+<!-- ================================================
+Rickshaw
+================================================ -->
+<!-- d3 -->
+<script src="/admin/js/rickshaw/d3.v3.js"></script>
+<!-- main file -->
+<script src="/admin/js/rickshaw/rickshaw.js"></script>
+<!-- demo codes -->
+<!-- <script src="/admin/js/rickshaw/rickshaw-plugin.js"></script> -->
+
+<!-- ================================================
+Data Tables
+================================================ -->
+<!-- <script src="/admin/js/datatables/datatables.min.js"></script> -->
+
+<!-- ================================================
+Sweet Alert
+================================================ -->
+<script src="/admin/js/sweet-alert/sweet-alert.min.js"></script>
+
+<!-- ================================================
+Kode Alert
+================================================ -->
+<script src="/admin/js/kode-alert/main.js"></script>
+
+<!-- ================================================
+jQuery UI
+================================================ -->
+<script src="/admin/js/jquery-ui/jquery-ui.min.js"></script>
 
 <!-- ================================================
 Moment.js
 ================================================ -->
 <script src="/admin/js/moment/moment.min.js"></script>
 
+<script src="/javascripts/moment-with-locale.js"></script>
+
+<!-- ================================================
+Full Calendar
+================================================ -->
+<script src="/admin/js/full-calendar/fullcalendar.js"></script>
+
 <!-- ================================================
 Bootstrap Date Range Picker
 ================================================ -->
 <script src="/admin/js/date-range-picker/daterangepicker.js"></script>
 
-<script src="/admin/js/custom-jquery.js"></script>
+<!-- cute alert -->
+<script src="/javascripts/cute-alert.js"></script>
 
+<!-- ================================================
+Below codes are only for index widgets
+================================================ -->
+
+<script src="/axios/dist/axios.min.js"></script>
+
+<script src="/admin/js/custom-jquery.js"></script>
 <script>
 	$(document).ready(function () {
-
+		$('#date-range-picker').daterangepicker(null, function(start, end, label) {
+        console.log(start.toISOString(), end.toISOString(), label);
+     	 });
+		$('#date-picker').daterangepicker({ 
+			singleDatePicker: true,
+			format: 'DD/MM/YYYY'
+			}, function(start, end, label) {
+			console.log(start.toISOString(), end.toISOString(), label);
+		});
+		
+		$('#date-picker-2').daterangepicker({ 
+			singleDatePicker: true,
+			format: 'DD/MM/YYYY'
+			}, function(start, end, label) {
+			console.log(start.toISOString(), end.toISOString(), label);
+		});
+		$('#date-range-and-time-picker').daterangepicker({
+			timePicker: true,
+			timePickerIncrement: 30,
+			format: 'DD/MM/YYYY h:mm A'
+		}, function(start, end, label) {
+			console.log(start.toISOString(), end.toISOString(), label);
+		});
         $('.btn-search').click((e) => {
 			$('#panel-search').toggle();
 		});

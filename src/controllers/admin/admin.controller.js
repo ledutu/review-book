@@ -15,9 +15,9 @@ async function show(req, res) {
 
 		link='?'
 		
-		let users = User.find({'role':'0'});
+		let users = User.find({'role':'2'});
 
-		let totalUser = User.find({'role':'0'})
+		let totalUser = User.find({'role':'2'})
 
 		if (full_name) {
 			link += 'full_name=' + full_name + '&' 
@@ -60,7 +60,7 @@ async function show(req, res) {
 			page,
 			limit,
 		};
-		res.render('admin/user', { allUserPage, totalUser, params ,link});
+		res.render('admin/administrators', { allUserPage, totalUser, params ,link});
 	} catch (error) {
 		console.log(error);
 		res.send(error);
@@ -101,7 +101,7 @@ async function confirmRole(req, res) {
 	const { id } = req.body;
 	try {
 		user = await User.findOne({_id:id})
-		user.role = 2;
+		user.role = 0;
 		// await User.hideUserOne({_id:req.params.id }, {$set:{'block':req.params.block}})
 		await user.save();
 		res.status(HTTP.OK).json({

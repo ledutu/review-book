@@ -23,7 +23,7 @@
 <!-- START CONTENT -->
 <div class="content">
   <div class="page-header">
-    <h1 class="title">Chi tiết bài review</h1>
+    <h1 class="title">Chi tiết bài blog</h1>
   
     <div class="right">
         <a href="/admin/review"><button class="btn btn-info btn-lg" >Quay lại</button></a>
@@ -42,14 +42,14 @@
               <div class="panel-body">
   
                 <div class="col-md-2 padding-0 text-c margin-t-20">
-                  <img src="<%- reviews.reviewer.profile.image %> " alt="" width="120" height="120">
-                  <h5><%- reviews.reviewer.profile.full_name %></h2>
+                  <img src="<%- blogs.blogger.profile.image %> " alt="" width="120" height="120">
+                  <h5><%- blogs.blogger.profile.full_name %></h2>
                 </div>
 
                 <div class="col-md-10 padding-l-0">
-                    <h2><%- reviews.book_name %></h2>
+                    <h2><%- blogs.title %></h2>
                     <div>
-                      <%- reviews.review %>
+                      <%- blogs.content %>
                     </div>
                 </div>
   

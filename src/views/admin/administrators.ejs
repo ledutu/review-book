@@ -31,13 +31,13 @@
 
 	<!-- Start Page Header -->
 	<div class="page-header">
-		<h1 class="title">Danh sách user</h1>
+		<h1 class="title">Danh sách quản trị viên</h1>
 
 		<!-- Start Page Header Right Div -->
 		<div class="right">
 			<div class="btn-group" role="group" aria-label="...">
 				<!-- <a href="/user-cms/book-review/create" class="btn btn-light">Tạo bài mới</a> -->
-				<a href="/admin/user" class="btn btn-light"><i class="fa fa-refresh"></i></a>
+				<a href="/admin/administrators" class="btn btn-light"><i class="fa fa-refresh"></i></a>
 				<a  class="btn btn-light"><i class="fa fa-search"></i></a>
 			</div>
 		</div>
@@ -61,7 +61,7 @@
 						</ul>
 					</div>
 					<div class="panel-body">
-						<form class="form" action="/admin/user" method="GET">
+						<form class="form" action="/admin/administrators" method="GET">
 
 							<div class="row">
 								<div class="col-md-12 col-lg-6">
@@ -107,7 +107,7 @@
 							</div>
 						
 							<div class="button-container">
-								<a href="/admin/user" class="btn">Hủy</a>
+								<a href="/admin/administrators" class="btn">Hủy</a>
 								<button type="submit" class="btn btn-default">Tìm kiếm</button>
 							</div>
 						</form>
@@ -135,7 +135,9 @@
 										<td>Tên đầy đủ</td>
 										<td>Biệt danh</td>
 										<td>Trạng thái</td>
-										<td>Chức năng</td>
+										<% if(admin.role===1){%>
+											<td>Chức năng</td>
+										<%}%>
 									</tr>
 								</thead>
 								<tbody>
@@ -154,12 +156,12 @@
 											<td>
 												<%- user.block ? "<span class='label label-danger'>InActive</span>" : "<span class='label label-success'>Active</span>" %>
 											</td>
-											<td>
-												<% if(admin.role===1){ %>
+											<% if(admin.role===1){ %>
+												<td>
 													<a onclick="confirmRole('<%- user._id %>')" class="admin-icon"><i class="fa fa-group margin-r-5"></i></a>
-												<%}%>
-												<a onclick="confirmBeforeBlock('<%- user._id %>', '<%- user.block %>')" class="block-icon"><i class="fa fa-ban"></i></a>
-											</td>
+													<a onclick="confirmBeforeBlock('<%- user._id %>', '<%- user.block %>')" class="block-icon"><i class="fa fa-ban"></i></a>
+												</td>
+											<%}%>
 										</tr>
 										<% }) %>
 								</tbody>
@@ -170,7 +172,7 @@
 					<%- include('layouts/pagination', { 
 						limitTitle: 'Người dùng' , 
 						data: allUserPage, 
-						pageLink: '/admin/user'+link, 
+						pageLink: '/admin/administrators'+link, 
 						title: 'Chọn số người dùng mỗi trang' 
 					}) %>
 				</div>
@@ -199,7 +201,7 @@ jQuery Library
 			cancelText: "Hủy"
 		}).then(async e => {
 			if (e) {
-				fetch('/admin/user/hideUser', {
+				fetch('/admin/administrators/hideUser', {
 					method: 'PUT',
 					headers: {
 						'Content-Type': 'application/json',
@@ -239,13 +241,13 @@ jQuery Library
 	async function confirmRole(id) {
 		cuteAlert({
 			type: "question",
-			title: "Cấp quyền",
-			message: "Bạn có muốn cấp quyền cho user này?",
+			title: "Hủy cấp quyền",
+			message: "Bạn có muốn hủy cấp quyền cho user này?",
 			confirmText: "Đồng ý",
 			cancelText: "Hủy"
 		}).then(async e => {
 			if (e) {
-				fetch('/admin/user/confirmRole', {
+				fetch('/admin/administrators/confirmRole', {
 					method: 'PUT',
 					headers: {
 						'Content-Type': 'application/json',
