@@ -67,7 +67,7 @@
                                 <div class="mv-details">
                                     <p><i class="ion-android-star"></i><span><%- book.vote %></span> /5</p>
                                     <ul class="mv-infor">
-                                        <li class="datetime">  Ngày đăng: <%- book.createdAt %>  </li>
+                                        <li class="datetime-create">  Ngày đăng: <%- book.createdAt %>  </li>
                                     </ul>
                                 </div>	
                                 
@@ -162,29 +162,31 @@
                                             
                                             <div class="comment-container-display">
                                                 <% allComment.data.forEach(comment => { %>
-                                                    <div class="mv-user-review-item mv-user-review-item-custom" id="<%- comment._id %>">
+                                                    <div class="mv-user-review-item mv-user-review-item-custom" id="<%- comment._id %>" data-id="<%- comment._id %>">
                                                         <div class="user-infor comment-info-container">
                                                             <img src="<%- comment.user.profile.image %>" alt="" width="40px" height="40px">
                                                             <div class="comment-info">
                                                                 <h4 style="color: #ffffff;"><%- comment.user.profile.full_name %></h4>
-                                                                <p class="time datetime"><%- comment.createdAt %></p>
+                                                                <p class="time datetime <%- comment._id %>"><%- comment.createdAt %></p>
                                                             </div>
                                                             
                                                             <% if (user && comment.user.equals(user._id)) { %>
-                                                                <div class="dropdown option-menu">
+                                                                <div class="dropdown option-menu comment-options-btn">
                                                                     <!-- <button class="dropdown-toggle" type="button" data-toggle="dropdown"> -->
                                                                     <i class="dropdown-toggle ion-android-menu" type="button" data-toggle="dropdown">
                                                                     </i>
                                                                     
                                                                     <ul class="dropdown-menu">
-                                                                        <li><a data-toggle="modal" data-target="#exampleModal">Chỉnh sửa</a></li>
+                                                                        <!-- <li><a data-toggle="modal" data-target="#exampleModal">Chỉnh sửa</a></li> -->
+                                                                        <li><a onclick="editCommentReview('<%- comment._id %>')">Chỉnh sửa</a></li>
                                                                         <li><a onclick="deleteCommentReview('<%- comment._id %>')">Xóa</a></li>
                                                                     </ul>
                                                                 </div>
                                                             <% } %>
                                                             
                                                         </div>
-                                                        <p><%- comment.content %></p>
+                                                        <p class="comment-content"><%- comment.content %></p>
+                                                        
                                                     </div>
                                                 <% }) %>
                                             </div>
@@ -274,5 +276,16 @@
     <!-- end of footer section-->
 
     <%- include('layouts/javascript') %>
+    <script>
+		$(document).ready(function() {
+			moment.locale('vi');
+			let comments = '<%- allComment.data.map(cmt => cmt._id) %>';
+
+			comments.split(',').forEach(comment => {
+				let time = $('.datetime.'+comment).html();
+				$('.datetime.'+comment).text(moment(new Date(time)).format('lll'));       
+			})
+		})
+    </script>
 </body>
 </html>

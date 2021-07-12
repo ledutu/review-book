@@ -16,7 +16,17 @@
     cursor: pointer;
     transition: 0.3s;
 }
-
+.comment-edit-cancel-btn{
+    color: white;
+    cursor: pointer;
+}
+.comment-edit-cancel-btn:hover{
+    color: red;
+}
+.comment-edit-submit-btn{
+    color: red;
+    cursor: pointer;
+}
 /* When moving the mouse over the close button */
 .closebtn:hover {
     color: black;

@@ -64,7 +64,7 @@
                     <div class="col-md-9 col-sm-12 col-xs-12">
                         <div class="blog-detail-ct">
                             <h1 class="title"><%- blog.title %> </h1>                    
-                            <span class="time datetime"><%- blog.createdAt %></span>
+                            <span class="time datetime-create"><%- blog.createdAt %></span>
                             <div class="blog-content">
                                 <%- blog.content %> 
                             </div>
@@ -155,22 +155,22 @@
                                 
                                 <div class="comment-container-display">
                                     <% allComment.data.forEach(comment => { %>
-                                        <div class="mv-user-review-item mv-user-review-item-custom" id="<%- comment._id %>">
+                                        <div class="mv-user-review-item mv-user-review-item-custom" id="<%- comment._id %>" data-id="<%- comment._id %>">
                                             <div class="user-infor comment-info-container">
                                                 <img src="<%- comment.user.profile.image %> " alt="" width="40px" height="40px">
                                                 <div class="comment-info">
                                                     <h4 style="color: #ffffff;"><%- comment.user.profile.full_name %></h4>
-                                                    <p class="time datetime"><%- comment.createdAt %></p>
+                                                    <p class="time datetime <%- comment._id%>"><%- comment.createdAt %></p>
                                                 </div>
                                                 
                                                 <% if (user && comment.user.equals(user._id)) { %>
-                                                    <div class="dropdown option-menu">
+                                                    <div class="dropdown option-menu comment-options-btn">
                                                         <!-- <button class="dropdown-toggle" type="button" data-toggle="dropdown"> -->
                                                         <i class="dropdown-toggle ion-android-menu" type="button" data-toggle="dropdown">
                                                         </i>
                                                         
                                                         <ul class="dropdown-menu">
-                                                            <li><a data-toggle="modal" data-target="#exampleModal">Chỉnh sửa</a></li>
+                                                            <li><a onclick="editCommentBlog('<%- comment._id %>')">Chỉnh sửa</a></li>
                                                             <li><a onclick="deleteCommentBlog('<%- comment._id %>')">Xóa</a></li>
                                                         </ul>
                                                     </div>
@@ -236,6 +236,17 @@
     <!-- end of footer section-->
 
     <%- include('layouts/javascript') %>
+    <script>
+		$(document).ready(function() {
+			moment.locale('vi');
+			let comments = '<%- allComment.data.map(cmt => cmt._id) %>';
+
+			comments.split(',').forEach(comment => {
+				let time = $('.datetime.'+comment).html();
+				$('.datetime.'+comment).text(moment(new Date(time)).format('lll'));       
+			})
+		})
+    </script>
 </body>
 </html>
 
